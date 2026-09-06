@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-
+ 
 /* =========================================================
    TOKENS
 ========================================================= */
@@ -30,11 +31,11 @@
     --shadow:0 18px 50px rgba(13,20,15,.28);
     --radius:14px;
 }
-
+ 
 *{box-sizing:border-box;}
-
+ 
 html{scroll-behavior:smooth;}
-
+ 
 body{
     margin:0;
     min-height:100vh;
@@ -42,33 +43,33 @@ body{
     color:var(--ink);
     font-family:'Work Sans',Arial,sans-serif;
 }
-
+ 
 h1,h2,h3,.display{
     font-family:'Fraunces',Georgia,serif;
     margin:0;
 }
-
+ 
 button,input,select{font:inherit;}
-
+ 
 button{
     border:0;
     cursor:pointer;
     background:none;
     color:inherit;
 }
-
+ 
 button:disabled{opacity:.4;cursor:not-allowed;}
-
+ 
 .app{
     width:min(1180px,100%);
     margin:0 auto;
     padding:22px;
 }
-
+ 
 /* =========================================================
    PRIMITIVOS
 ========================================================= */
-
+ 
 .stack{display:flex;flex-direction:column;gap:14px;}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
 .row.between{justify-content:space-between;}
@@ -77,21 +78,21 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 .small{font-size:12.5px;}
 .spacer{height:16px;}
 .grow{flex:1;}
-
+ 
 .eyebrow{
     font-size:11.5px;
     font-weight:700;
     color:var(--gold);
     letter-spacing:.4px;
 }
-
+ 
 .card{
     background:var(--white);
     border:1px solid var(--line);
     border-radius:var(--radius);
     box-shadow:var(--shadow);
 }
-
+ 
 .card-dark{
     background:linear-gradient(175deg,var(--pitch) 0%,var(--pitch3) 100%);
     color:var(--paper);
@@ -99,22 +100,22 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     box-shadow:var(--shadow);
     border:1px solid rgba(255,255,255,.06);
 }
-
+ 
 .card-body{padding:22px;}
 .card-body.tight{padding:16px;}
-
+ 
 .hairline{
     border:0;
     border-top:1px dashed var(--line);
     margin:16px 0;
 }
-
+ 
 .hairline.on-dark{border-top:1px dashed rgba(255,255,255,.18);}
-
+ 
 /* =========================================================
    BOTÕES — estilo "canhoto de ingresso"
 ========================================================= */
-
+ 
 .btn{
     position:relative;
     display:inline-flex;
@@ -129,24 +130,24 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     transition:transform .15s ease, box-shadow .15s ease;
     box-shadow:0 6px 0 #8f7220;
 }
-
+ 
 .btn:hover:not(:disabled){transform:translateY(-2px);}
 .btn:active:not(:disabled){transform:translateY(1px);box-shadow:0 3px 0 #8f7220;}
-
+ 
 .btn.ghost{
     background:transparent;
     color:var(--ink);
     border:1.5px solid var(--ink);
     box-shadow:none;
 }
-
+ 
 .btn.ghost.on-dark{color:var(--paper);border-color:rgba(255,255,255,.5);}
-
+ 
 .btn.brick{background:var(--brick);color:var(--white);box-shadow:0 6px 0 #6f2626;}
 .btn.brick:active:not(:disabled){box-shadow:0 3px 0 #6f2626;}
-
+ 
 .btn.small{padding:10px 16px;font-size:13px;box-shadow:0 4px 0 #8f7220;}
-
+ 
 .btn-stub::after{
     content:"";
     width:1px;
@@ -154,11 +155,11 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     background:repeating-linear-gradient(180deg,rgba(0,0,0,.35) 0 4px,transparent 4px 9px);
     margin-left:2px;
 }
-
+ 
 /* =========================================================
    HOME
 ========================================================= */
-
+ 
 .hero{
     min-height:88vh;
     display:flex;
@@ -166,7 +167,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     justify-content:center;
     padding:20px 0;
 }
-
+ 
 .hero-inner{
     width:min(760px,100%);
     text-align:center;
@@ -178,7 +179,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     box-shadow:var(--shadow);
     border:1px solid rgba(255,255,255,.06);
 }
-
+ 
 .hero .kicker{
     display:inline-block;
     padding:6px 14px;
@@ -189,19 +190,19 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     font-weight:700;
     letter-spacing:.5px;
 }
-
+ 
 .hero h1{
     font-size:clamp(42px,8vw,74px);
     line-height:.98;
     margin:22px 0 0;
     letter-spacing:-1.5px;
 }
-
+ 
 .hero h1 em{
     font-style:normal;
     color:var(--gold-light);
 }
-
+ 
 .hero p{
     max-width:520px;
     margin:20px auto 30px;
@@ -209,22 +210,22 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     line-height:1.6;
     font-size:16.5px;
 }
-
+ 
 /* =========================================================
    FORMULÁRIO DE CRIAÇÃO
 ========================================================= */
-
+ 
 .form-box{width:min(640px,100%);margin:30px auto;}
-
+ 
 .field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
-
+ 
 .field label{
     font-size:11.5px;
     font-weight:700;
     letter-spacing:.4px;
     color:var(--ink-soft);
 }
-
+ 
 .input,.select{
     width:100%;
     padding:14px 15px;
@@ -234,15 +235,15 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     color:var(--ink);
     outline:none;
 }
-
+ 
 .input:focus,.select:focus{border-color:var(--gold);}
-
+ 
 .pos-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:10px;
 }
-
+ 
 .pos{
     padding:16px 8px;
     border-radius:12px;
@@ -251,27 +252,27 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     text-align:center;
     transition:.15s;
 }
-
+ 
 .pos:hover,.pos.on{
     border-color:var(--gold);
     background:var(--paper2);
     transform:translateY(-2px);
 }
-
+ 
 .pos .sig{font-family:'Fraunces',serif;font-size:22px;font-weight:900;}
 .pos .nm{margin-top:4px;font-size:10.5px;color:var(--ink-soft);}
-
+ 
 /* =========================================================
    FICHA DO JOGADOR
 ========================================================= */
-
+ 
 .attrs-layout{
     display:grid;
     grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
     gap:16px;
     align-items:start;
 }
-
+ 
 .player-sheet{
     background:var(--white);
     border:1.5px solid var(--line);
@@ -280,7 +281,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     position:relative;
     overflow:hidden;
 }
-
+ 
 .player-sheet::before{
     content:"FICHA DE ATLETA";
     position:absolute;
@@ -293,10 +294,10 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     padding:4px 42px;
     transform:rotate(35deg);
 }
-
+ 
 .p-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;}
 .p-name{font-size:28px;font-weight:800;letter-spacing:-.5px;}
-
+ 
 .p-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;}
 .pill{
     padding:6px 11px;
@@ -307,9 +308,9 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     font-weight:600;
     color:var(--ink-soft);
 }
-
+ 
 .pill.gold{background:var(--gold);border-color:var(--gold);color:var(--pitch3);}
-
+ 
 .ovr-box{
     min-width:94px;
     padding:10px 14px;
@@ -320,34 +321,34 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 }
 .ovr-label{display:block;font-size:10px;letter-spacing:1px;color:var(--gold-light);font-weight:700;}
 .ovr-num{display:block;font-family:'Fraunces',serif;font-size:36px;font-weight:800;font-variant-numeric:tabular-nums;}
-
+ 
 .attr-list{display:grid;gap:9px;margin-top:18px;}
-
+ 
 .attr{
     padding:12px 14px;
     border:1px solid var(--line);
     border-radius:10px;
     background:var(--paper);
 }
-
+ 
 .attr-top{display:flex;justify-content:space-between;margin-bottom:6px;font-size:13.5px;}
 .attr-top b{font-weight:700;}
 .attr-top span{font-weight:800;color:var(--pitch);font-variant-numeric:tabular-nums;}
-
+ 
 .bar{width:100%;height:7px;border-radius:999px;background:var(--paper3);overflow:hidden;}
 .bar > div{height:100%;background:linear-gradient(90deg,var(--pitch),var(--gold));border-radius:inherit;}
-
+ 
 /* =========================================================
    ROLETA
 ========================================================= */
-
+ 
 .roulette-wrap{
     max-width:560px;
     margin:0 auto;
     text-align:center;
     color:var(--paper);
 }
-
+ 
 .roulette-ring{
     width:200px;height:200px;
     margin:22px auto;
@@ -356,7 +357,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 0 0 10px rgba(228,196,101,.08), 0 25px 60px rgba(0,0,0,.4);
 }
-
+ 
 .roulette-core{
     width:158px;height:158px;
     border-radius:50%;
@@ -366,9 +367,9 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     padding:10px;
     text-align:center;
 }
-
+ 
 .roulette-icon{font-size:30px;}
-
+ 
 .roulette-name{
     margin-top:8px;
     max-width:135px;
@@ -376,10 +377,10 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     font-weight:800;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-
+ 
 .spinning{animation:pulse .3s infinite alternate;}
 @keyframes pulse{from{transform:scale(1);}to{transform:scale(1.045);}}
-
+ 
 .tag-rarity{
     display:inline-block;
     margin-top:14px;
@@ -392,9 +393,9 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 .tag-comum{background:#3E5347;color:#DCE9DF;}
 .tag-raro{background:var(--gold);color:var(--pitch3);}
 .tag-lendario{background:linear-gradient(90deg,#E4C465,#C79A2E);color:#2A1F04;box-shadow:0 0 14px rgba(228,196,101,.5);}
-
+ 
 .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px;}
-
+ 
 .choice{
     padding:16px 8px;
     border-radius:12px;
@@ -406,11 +407,11 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 .choice:hover{background:rgba(228,196,101,.14);border-color:var(--gold-light);transform:translateY(-2px);}
 .choice span{display:block;font-size:11.5px;color:#BFD1C2;margin-bottom:5px;}
 .choice strong{font-size:22px;color:var(--gold-light);}
-
+ 
 /* =========================================================
    HUB / DASHBOARD
 ========================================================= */
-
+ 
 .hub-head{
     display:flex;
     justify-content:space-between;
@@ -418,18 +419,18 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     align-items:center;
     flex-wrap:wrap;
 }
-
+ 
 .club-strip{
     display:flex;align-items:center;gap:12px;
 }
-
+ 
 .badge-club{
     width:46px;height:46px;border-radius:10px;
     background:var(--gold);color:var(--pitch3);
     display:flex;align-items:center;justify-content:center;
     font-family:'Fraunces',serif;font-weight:900;font-size:17px;
 }
-
+ 
 .tabs{
     display:flex;
     gap:6px;
@@ -448,7 +449,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
     flex:none;
 }
 .tab.on{background:var(--pitch);color:var(--paper);}
-
+ 
 .stat-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -463,7 +464,7 @@ button:disabled{opacity:.4;cursor:not-allowed;}
 }
 .stat-num{font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--pitch);}
 .stat-lbl{font-size:10.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.4px;margin-top:3px;}
-
+ 
 .table-wrap{overflow-x:auto;}
 table.league{width:100%;border-collapse:collapse;font-size:13px;min-width:520px;}
 table.league th{
@@ -473,7 +474,7 @@ table.league th{
 table.league td{padding:9px 8px;border-bottom:1px solid var(--line);}
 table.league tr.me{background:rgba(199,154,46,.14);font-weight:700;}
 table.league td.center,table.league th.center{text-align:center;}
-
+ 
 .notice{
     padding:14px;border-radius:10px;
     background:var(--paper2);border:1px dashed var(--line);
@@ -481,7 +482,7 @@ table.league td.center,table.league th.center{text-align:center;}
 }
 .notice.gold{background:rgba(199,154,46,.15);border-color:var(--gold);}
 .notice.brick{background:rgba(166,61,61,.12);border-color:var(--brick);}
-
+ 
 .timeline{display:flex;flex-direction:column;gap:10px;}
 .tl-item{
     display:flex;gap:12px;align-items:flex-start;
@@ -490,12 +491,12 @@ table.league td.center,table.league th.center{text-align:center;}
 .tl-icon{font-size:18px;}
 .tl-title{font-weight:700;font-size:13.5px;}
 .tl-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;}
-
+ 
 .offer-card{
     padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--paper2);
     display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
 }
-
+ 
 .train-row{
     display:flex;justify-content:space-between;align-items:center;gap:12px;
     padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper2);
@@ -505,18 +506,18 @@ table.league td.center,table.league th.center{text-align:center;}
     width:30px;height:30px;border-radius:8px;background:var(--pitch);color:var(--paper);font-weight:800;
 }
 .stepper span{min-width:24px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums;}
-
+ 
 .chart-wrap{width:100%;overflow-x:auto;}
-
+ 
 /* =========================================================
    RESPONSIVO
 ========================================================= */
-
+ 
 @media (max-width:1000px){
     .app{padding:16px;}
     .stat-grid{grid-template-columns:repeat(2,1fr);}
 }
-
+ 
 @media (max-width:680px){
     body{overflow-x:hidden;}
     .app{padding:12px;}
@@ -532,11 +533,11 @@ table.league td.center,table.league th.center{text-align:center;}
     .offer-card{flex-direction:column;align-items:stretch;text-align:center;}
     .podium{grid-template-columns:1fr;}
 }
-
+ 
 /* =========================================================
    MORAL / TITULARIDADE / STATUS
 ========================================================= */
-
+ 
 .status-pill{
     display:inline-flex;align-items:center;gap:6px;
     padding:6px 12px;border-radius:999px;font-size:11.5px;font-weight:800;
@@ -545,16 +546,16 @@ table.league td.center,table.league th.center{text-align:center;}
 .status-rotacao{background:var(--gold);color:var(--pitch3);}
 .status-reserva{background:var(--paper3);color:var(--ink-soft);}
 .status-fora{background:var(--brick);color:var(--white);}
-
+ 
 .moral-bar{width:100%;height:10px;border-radius:999px;background:var(--paper3);overflow:hidden;}
 .moral-bar>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--brick),var(--gold),#2E6B44);}
-
+ 
 .attr-pot{font-size:10.5px;color:var(--ink-soft);font-weight:600;}
-
+ 
 /* =========================================================
    PÓDIO / PRÊMIOS
 ========================================================= */
-
+ 
 .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 .podium-slot{
     padding:14px 10px;border-radius:12px;text-align:center;
@@ -562,31 +563,31 @@ table.league td.center,table.league th.center{text-align:center;}
 }
 .podium-slot.first{background:linear-gradient(180deg,var(--gold-light),var(--gold));border-color:var(--gold);}
 .podium-slot .pos-num{font-family:'Fraunces',serif;font-size:24px;font-weight:900;}
-
+ 
 /* =========================================================
    DIVISÕES
 ========================================================= */
-
+ 
 .div-tabs{display:flex;gap:8px;margin-bottom:12px;}
 .div-tab{padding:8px 14px;border-radius:999px;background:var(--paper2);font-size:12.5px;font-weight:700;color:var(--ink-soft);}
 .div-tab.on{background:var(--pitch);color:var(--paper);}
-
+ 
 .rel-up{color:#2E6B44;font-weight:800;}
 .rel-down{color:var(--brick);font-weight:800;}
-
+ 
 </style>
 </head>
 <body>
-
+ 
 <div class="app"><div id="app"></div></div>
-
+ 
 <script>
 "use strict";
-
+ 
 /* =========================================================
    1) DADOS EDITÁVEIS
 ========================================================= */
-
+ 
 // Divisão A (elite) e Divisão B (acesso) — 20 clubes cada, nomes placeholder.
 // Troque os nomes à vontade — o resto do código só depende da quantidade (20+20).
 const DIVISAO_A_BASE = [
@@ -613,9 +614,9 @@ const DIVISAO_B_BASE = [
     { nome:"Clube B17 SC", forca:57 }, { nome:"Clube B18 FC", forca:56 },
     { nome:"Clube B19 EC", forca:56 }, { nome:"Clube B20 AC", forca:55 }
 ];
-
+ 
 const PAISES = ["Brasil","Argentina","Portugal","França","Inglaterra","Espanha","Alemanha","Itália","Holanda","Uruguai","Croácia","Bélgica"];
-
+ 
 // pesos: usados pra calcular o "poder" do jogador em campo, por estilo de posição.
 const POSICOES = [
     { sigla:"GOL", nome:"Goleiro",  atributoChave:"reflexos",   fatorGol:0.005, fatorAss:0.01, fatorDefesa:0.90, pesos:{reflexos:.50,defesa:.25,forca:.15,overall:.10} },
@@ -626,7 +627,7 @@ const POSICOES = [
     { sigla:"PON", nome:"Ponta",    atributoChave:"drible",     fatorGol:0.34,  fatorAss:0.26, fatorDefesa:0.05, pesos:{drible:.35,velocidade:.25,finalizacao:.25,visao:.15} },
     { sigla:"ATA", nome:"Atacante", atributoChave:"finalizacao",fatorGol:0.48,  fatorAss:0.16, fatorDefesa:0.02, pesos:{finalizacao:.40,velocidade:.20,drible:.20,forca:.10,overall:.10} }
 ];
-
+ 
 // Base de jogadores pra roleta de atributos — cada um oferece 10 características.
 const JOGADORES_BASE = [
     {nome:"Jorginho",overall:64,finalizacao:54,passe:67,drible:58,velocidade:61,forca:63,resistencia:69,defesa:68,cabeceio:50,reflexos:20,visao:75},
@@ -670,30 +671,30 @@ const JOGADORES_BASE = [
     {nome:"Casemiro",overall:86,finalizacao:55,passe:78,drible:65,velocidade:68,forca:88,resistencia:87,defesa:88,cabeceio:70,reflexos:18,visao:75},
     {nome:"Antoine Griezmann",overall:88,finalizacao:83,passe:83,drible:85,velocidade:80,forca:65,resistencia:83,defesa:35,cabeceio:55,reflexos:10,visao:85}
 ];
-
+ 
 const CONFIG = {
     chaveSave:"careermode_v3_save",
     idadeInicial:16,
     atributosChave:["finalizacao","passe","drible","velocidade","forca","resistencia","defesa","cabeceio","reflexos","visao"]
 };
-
+ 
 const NOMES_ATRIBUTOS = {
     finalizacao:"Finalização", passe:"Passe", drible:"Drible", velocidade:"Velocidade",
     forca:"Força", resistencia:"Resistência", defesa:"Defesa", cabeceio:"Cabeceio",
     reflexos:"Reflexos", visao:"Visão de Jogo"
 };
-
+ 
 const ATRIBUTOS_FISICOS = ["velocidade","resistencia","forca"];
 const ATRIBUTOS_TECNICOS = ["passe","drible","finalizacao","defesa","cabeceio","visao","reflexos"];
-
+ 
 // Rivais fictícios usados só nas disputas de Bola de Ouro / Chuteira de Ouro
 // (não usamos nomes reais aqui pra não "decidir" prêmios pra pessoas de verdade).
 const RIVAIS_NOMES = ["Kaio Ferreira","Matteo Rinaldi","Youssef Amara","Dario Kovač","Théo Lambert","Rasmus Lindgren","Bilal Touré","Ivo Petrescu","Nico Alvarado","Sami Virtanen","Elias Brandt","Tomás Duarte"];
-
+ 
 /* =========================================================
    2) ESTADO
 ========================================================= */
-
+ 
 let jogador = null;
 let jogadoresDisponiveis = [];
 let divisoes = { A:[], B:[] };
@@ -703,11 +704,11 @@ let tabela = [];
 let abaHub = "visao";
 let ofertaAtual = null;
 let ultimoResultado = null;
-
+ 
 /* =========================================================
    3) UTILITÁRIOS
 ========================================================= */
-
+ 
 function rndInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 function rnd(min,max){ return Math.random()*(max-min)+min; }
 function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
@@ -741,11 +742,11 @@ function toast(msg){
     setTimeout(()=>el.remove(),2400);
 }
 function app(){ return document.getElementById("app"); }
-
+ 
 /* =========================================================
    4) ESTADO INICIAL DO JOGADOR
 ========================================================= */
-
+ 
 function estadoJogadorInicial(){
     return {
         nome:"", idade:CONFIG.idadeInicial, pais:"", posicao:"",
@@ -762,10 +763,10 @@ function estadoJogadorInicial(){
         aposentado:false
     };
 }
-
+ 
 function atributoAtual(chave){ const a=jogador.atributos[chave]; return a ? a.atual : 50; }
 function atributoPotencial(chave){ const a=jogador.atributos[chave]; return a ? a.potencial : 50; }
-
+ 
 function calcularOverall(j){
     const vals = CONFIG.atributosChave.map(k=> j.atributos[k] ? j.atributos[k].atual : null).filter(v=>v!==null);
     if(!vals.length) return 0;
@@ -779,11 +780,11 @@ function rarityDe(overall){
     if(overall>=75) return {tag:"raro", label:"RARO"};
     return {tag:"comum", label:"COMUM"};
 }
-
+ 
 /* =========================================================
    5) IDADE — curva de desenvolvimento e declínio
 ========================================================= */
-
+ 
 function faixaEtaria(idade){
     if(idade<=19) return "desenvolvimento";
     if(idade<=23) return "crescimento";
@@ -813,7 +814,7 @@ function aplicarDeclinioIdade(){
     else if(faixa==="declinioMaior"){ fisico=[3,6]; tecnico=[1,2]; }
     else if(faixa==="veterano"){ fisico=[4,8]; tecnico=[2,3]; }
     else return false;
-
+ 
     ATRIBUTOS_FISICOS.forEach(k=>{
         const a = jogador.atributos[k]; if(!a) return;
         a.atual = clamp(a.atual - rndInt(fisico[0],fisico[1]), 20, a.potencial);
@@ -825,15 +826,15 @@ function aplicarDeclinioIdade(){
     jogador.overall = calcularOverall(jogador);
     return true;
 }
-
+ 
 /* =========================================================
    6) LIGA — divisões, calendário e tabela
 ========================================================= */
-
+ 
 function iniciarDivisoes(){
     divisoes = { A: DIVISAO_A_BASE.map(c=>({...c})), B: DIVISAO_B_BASE.map(c=>({...c})) };
 }
-
+ 
 // Método do círculo pra turno e returno com N times (N par).
 function gerarCalendario(nomes){
     const lista = nomes.slice();
@@ -885,11 +886,11 @@ function novaTemporadaDivisao(){
     calendario = gerarCalendario(clubes.map(c=>c.nome));
     tabela = tabelaVazia(clubes.map(c=>c.nome));
 }
-
+ 
 /* =========================================================
    7) HOME
 ========================================================= */
-
+ 
 function mostrarInicio(){
     const temSave = Boolean(localStorage.getItem(CONFIG.chaveSave));
     app().innerHTML = `
@@ -906,7 +907,7 @@ function mostrarInicio(){
         </section>
     `;
 }
-
+ 
 function novaCarreira(){
     if(jogador && jogador.nome && !jogador.aposentado){
         if(!confirm("Começar uma nova carreira vai apagar a carreira atual. Continuar?")) return;
@@ -914,9 +915,9 @@ function novaCarreira(){
     jogador = estadoJogadorInicial();
     mostrarCriacao();
 }
-
+ 
 let criacaoTemp = { nome:"", pais:PAISES[0], posicao:"" };
-
+ 
 function mostrarCriacao(){
     app().innerHTML = `
         <div class="form-box">
@@ -966,11 +967,11 @@ function confirmarCriacao(){
     jogadoresDisponiveis = embaralhar(JOGADORES_BASE);
     mostrarAtributos();
 }
-
+ 
 /* =========================================================
    8) ATRIBUTOS — roleta com potencial + sinergia de posição
 ========================================================= */
-
+ 
 function renderAtributo(chave,nome){
     const a = jogador.atributos[chave];
     const atual = a ? a.atual : null;
@@ -982,7 +983,7 @@ function renderAtributo(chave,nome){
         </div>
     `;
 }
-
+ 
 function mostrarAtributos(){
     const totalChaves = CONFIG.atributosChave.length;
     const total = contarAtributos();
@@ -1028,7 +1029,7 @@ function mostrarAtributos(){
         </div>
     `;
 }
-
+ 
 function pesoJogador(p){
     const overall = p.overall;
     let peso = overall>=90 ? 0.7 : overall>=75 ? 3 : 8;
@@ -1043,14 +1044,14 @@ function sortearPonderado(lista){
     for(let i=0;i<lista.length;i++){ r-=pesos[i]; if(r<=0) return lista[i]; }
     return lista[lista.length-1];
 }
-
+ 
 function sortearJogador(){
     if(contarAtributos()>=CONFIG.atributosChave.length) return;
     if(!jogadoresDisponiveis.length){ alert("Acabaram os jogadores disponíveis."); return; }
-
+ 
     const vencedor = sortearPonderado(jogadoresDisponiveis);
     const nomes = jogadoresDisponiveis.map(p=>p.nome);
-
+ 
     app().innerHTML = `
         <div class="card-dark"><div class="card-body roulette-wrap">
             <span class="eyebrow" style="color:var(--gold-light)">🎰 SORTEANDO JOGADOR</span>
@@ -1075,7 +1076,7 @@ function sortearJogador(){
     }
     girar();
 }
-
+ 
 function mostrarJogadorSorteado(sorteado){
     const rarity = rarityDe(sorteado.overall);
     const botoes = CONFIG.atributosChave
@@ -1086,7 +1087,7 @@ function mostrarJogadorSorteado(sorteado){
                 <strong>${sorteado[chave]}</strong>
             </button>
         `).join("");
-
+ 
     app().innerHTML = `
         <div class="card-dark"><div class="card-body roulette-wrap">
             <span class="eyebrow" style="color:var(--gold-light)">✅ JOGADOR SORTEADO</span>
@@ -1119,18 +1120,18 @@ function pegarAtributo(chave,potencial){
     jogador.overall = calcularOverall(jogador);
     mostrarAtributos();
 }
-
+ 
 /* =========================================================
    9) SORTEIO DE CLUBE + INÍCIO DA TEMPORADA
 ========================================================= */
-
+ 
 function sortearClube(){
     iniciarDivisoes();
     jogador.divisao = "B"; // toda carreira começa na divisão de acesso
     clubes = divisoes.B;
     const nomes = clubes.map(c=>c.nome);
     const vencedor = nomes[rndInt(0,nomes.length-1)];
-
+ 
     app().innerHTML = `
         <div class="card-dark"><div class="card-body roulette-wrap">
             <span class="eyebrow" style="color:var(--gold-light)">🏟️ SORTEANDO CLUBE (DIVISÃO B)</span>
@@ -1153,7 +1154,7 @@ function sortearClube(){
     }
     girar();
 }
-
+ 
 function iniciarTemporada(clube){
     jogador.clube = clube;
     jogador.maiorOverall = jogador.overall;
@@ -1162,34 +1163,34 @@ function iniciarTemporada(clube){
     salvarAutomaticamente();
     mostrarHub();
 }
-
+ 
 /* =========================================================
    10) HUB / DASHBOARD
 ========================================================= */
-
+ 
 function irAba(nome){ abaHub = nome; mostrarHub(); }
-
+ 
 function statusClasse(status){
     if(status==="Titular") return "status-titular";
     if(status==="Titular ocasional" || status==="Rotação") return "status-rotacao";
     if(status==="Reserva") return "status-reserva";
     return "status-fora";
 }
-
+ 
 function mostrarHub(){
     if(jogador.aposentado) return mostrarAposentadoria();
-
+ 
     const totalRodadas = calendario.length;
     const proxima = jogador.rodada < totalRodadas ? calendario[jogador.rodada] : null;
     const meuJogo = proxima ? proxima.find(([a,b])=>a===jogador.clube||b===jogador.clube) : null;
     const media = jogador.jogos ? (jogador.somaNotas/jogador.jogos).toFixed(2) : "—";
-
+ 
     const tabs = [
         ["visao","Visão geral"], ["elenco","Ficha técnica"], ["tabela","Tabela"],
         ["historico","Histórico"], ["treino","Treino"], ["selecao","Seleção"],
         ["financas","Finanças"], ["carreira","Compartilhar"]
     ];
-
+ 
     app().innerHTML = `
         <div class="stack">
             <div class="card"><div class="card-body">
@@ -1214,13 +1215,13 @@ function mostrarHub(){
                     ${tabs.map(([id,label])=>`<button class="tab ${abaHub===id?'on':''}" onclick="irAba('${id}')">${label}</button>`).join("")}
                 </div>
             </div></div>
-
+ 
             ${jogador.lesaoRestante>0 ? `<div class="notice brick">🩹 Lesionado — fora de ${jogador.lesaoRestante} rodada(s).</div>` : ""}
-
+ 
             <div id="hub-conteudo"></div>
         </div>
     `;
-
+ 
     const alvo = document.getElementById("hub-conteudo");
     if(abaHub==="visao") alvo.innerHTML = viewVisaoGeral(totalRodadas, meuJogo, media);
     else if(abaHub==="elenco") alvo.innerHTML = viewFichaTecnica();
@@ -1231,7 +1232,7 @@ function mostrarHub(){
     else if(abaHub==="financas") alvo.innerHTML = viewFinancas();
     else if(abaHub==="carreira") alvo.innerHTML = viewCompartilhar();
 }
-
+ 
 function viewVisaoGeral(totalRodadas, meuJogo, media){
     return `
         <div class="stat-grid">
@@ -1263,7 +1264,7 @@ function viewVisaoGeral(totalRodadas, meuJogo, media){
         ${ultimoResultado ? `<div class="spacer"></div><div class="card"><div class="card-body">${ultimoResultado}</div></div>` : ""}
     `;
 }
-
+ 
 function viewFichaTecnica(){
     const attrs = CONFIG.atributosChave.map(k=>renderAtributo(k,NOMES_ATRIBUTOS[k])).join("");
     return `
@@ -1285,7 +1286,7 @@ function viewFichaTecnica(){
         </div>
     `;
 }
-
+ 
 function viewTabela(){
     const ord = tabelaOrdenada();
     const n = ord.length;
@@ -1321,7 +1322,7 @@ function viewTabela(){
         </div></div>
     `;
 }
-
+ 
 function viewHistorico(){
     if(!jogador.historicoTemporadas.length) return `<div class="notice">Nenhuma temporada concluída ainda.</div>`;
     const w=560, h=160, pad=24;
@@ -1360,7 +1361,7 @@ function viewHistorico(){
         </div></div>
     `;
 }
-
+ 
 function viewTreino(){
     return `
         <div class="card"><div class="card-body">
@@ -1395,7 +1396,7 @@ function treinarAtributo(chave){
     salvarAutomaticamente();
     mostrarHub();
 }
-
+ 
 function viewSelecao(){
     return `
         <div class="card"><div class="card-body">
@@ -1411,7 +1412,7 @@ function viewSelecao(){
         </div></div>
     `;
 }
-
+ 
 function viewFinancas(){
     return `
         <div class="card"><div class="card-body">
@@ -1458,7 +1459,7 @@ function aceitarOferta(){
     mostrarHub();
 }
 function recusarOferta(){ ofertaAtual = null; mostrarHub(); }
-
+ 
 function viewCompartilhar(){
     const texto = `⚽ ${jogador.nome} — Career Mode\n${jogador.clube} (Div. ${jogador.divisao}) · OVR ${jogador.overall} · ${jogador.pais}\nTemporada ${jogador.temporada} · ${jogador.jogos} jogos · ${jogador.gols} gols · ${jogador.assistencias} assistências\nMaior overall: ${jogador.maiorOverall} · Prêmios: ${jogador.premios.length}`;
     return `
@@ -1476,11 +1477,11 @@ function copiarResumo(){
         navigator.clipboard.writeText(texto).then(()=>toast("Resumo copiado!")).catch(()=>alert(texto));
     } else { alert(texto); }
 }
-
+ 
 /* =========================================================
    11) TITULARIDADE / MORAL / MINUTOS
 ========================================================= */
-
+ 
 function calcularStatusEMinutos(){
     const rivalOverall = forcaClube(jogador.clube) + rndInt(-5,8);
     const moralBonus = (jogador.moral-50)/5;
@@ -1495,11 +1496,11 @@ function calcularStatusEMinutos(){
     return min===max ? 0 : rndInt(min,max);
 }
 function chanceLesao(){ return clamp(0.05 - atributoAtual("resistencia")/2200, 0.012, 0.07); }
-
+ 
 /* =========================================================
    12) SIMULAÇÃO DE PARTIDA
 ========================================================= */
-
+ 
 function poderJogador(){
     const pos = posicaoInfo(jogador.posicao);
     let poder = 0;
@@ -1509,26 +1510,26 @@ function poderJogador(){
     }
     return poder;
 }
-
+ 
 function jogarRodada(){
     if(jogador.rodada>=calendario.length) return;
-
+ 
     const jaEstavaLesionado = jogador.lesaoRestante>0;
     const jogos = calendario[jogador.rodada];
     const meuJogo = jogos.find(([a,b])=>a===jogador.clube||b===jogador.clube);
-
+ 
     jogos.forEach(([a,b])=>{
         if(meuJogo && a===meuJogo[0] && b===meuJogo[1]) return;
         const ga = poisson(0.6+(forcaClube(a)-60)/40);
         const gb = poisson(0.6+(forcaClube(b)-60)/40);
         atualizarTabela(a,b,ga,gb);
     });
-
+ 
     let resumoHTML = "";
     let minutos = 0;
-
+ 
     if(!jaEstavaLesionado && meuJogo) minutos = calcularStatusEMinutos();
-
+ 
     if(meuJogo && jaEstavaLesionado){
         const souA = meuJogo[0]===jogador.clube;
         const meuClube = souA?meuJogo[0]:meuJogo[1];
@@ -1561,7 +1562,7 @@ function jogarRodada(){
         const ageMult = multiplicadorIdade(jogador.idade);
         const formaMult = 1 + (jogador.forma||0)/100;
         const minutosMult = minutos/90;
-
+ 
         if(Math.random() < chanceLesao()){
             jogador.lesaoRestante = rndInt(1,3);
             const ga = poisson(0.6+(forcaClube(meuClube)-65)/40);
@@ -1573,29 +1574,29 @@ function jogarRodada(){
             const poder = poderJogador();
             const golsJogador = poisson(pos.fatorGol * (atributoAtual("finalizacao")/70) * (poder/70) * ageMult * formaMult * minutosMult);
             const assistJogador = poisson(pos.fatorAss * (atributoAtual("passe")/70) * (poder/70) * ageMult * formaMult * minutosMult);
-
+ 
             const reducaoDefesa = clamp(pos.fatorDefesa * (atributoAtual(pos.sigla==="GOL"?"reflexos":"defesa")/99) * ageMult * minutosMult, 0, 0.6);
             const lambdaAdvBase = 0.9+(forcaClube(adversario)-65)/40;
             const golsAdv = poisson(lambdaAdvBase*(1-reducaoDefesa));
             const golsTimeExtra = poisson(0.9+(forcaClube(meuClube)-70)/40);
             const meusGols = golsJogador + golsTimeExtra;
-
+ 
             atualizarTabela(souA?meuClube:adversario, souA?adversario:meuClube, souA?meusGols:golsAdv, souA?golsAdv:meusGols);
-
+ 
             let nota = 6.0 + golsJogador*0.7 + assistJogador*0.5 + (poder-70)/40 + rnd(-0.3,0.3);
             if(meusGols>golsAdv) nota += 0.2; else if(meusGols<golsAdv) nota -= 0.25;
             nota = clamp(nota,3,10);
-
+ 
             jogador.jogos++; jogador.gols+=golsJogador; jogador.assistencias+=assistJogador; jogador.somaNotas+=nota;
             jogador.minutosTotais += minutos;
             if(minutos>=60) jogador.titularidades++; else jogador.entradasBanco++;
             if(meusGols>golsAdv) jogador.vitorias++;
             else if(meusGols===golsAdv) jogador.empates++;
             else jogador.derrotas++;
-
+ 
             jogador.moral = clamp(jogador.moral + (nota-6.5)*4 + (golsJogador+assistJogador)*3 + (meusGols>golsAdv?3:meusGols<golsAdv?-3:0), 0, 100);
             jogador.forma = clamp((jogador.forma||0)*0.7 + (nota-6.5)*3, -10, 10);
-
+ 
             resumoHTML = `
                 <h3 style="font-size:17px;">${meuClube} ${meusGols} x ${golsAdv} ${adversario}</h3>
                 <p class="small muted">Status: <b>${jogador.status}</b> (${minutos} min) · Nota: <b>${nota.toFixed(1)}</b> · Gols: ${golsJogador} · Assistências: ${assistJogador}</p>
@@ -1604,15 +1605,15 @@ function jogarRodada(){
     } else {
         resumoHTML = `<div class="notice">Você não jogou esta rodada (fora do calendário do seu clube).</div>`;
     }
-
+ 
     jogador.rodada++;
     if(!meuJogo && jogador.lesaoRestante>0) jogador.lesaoRestante--;
-
+ 
     if(!ofertaAtual && jogador.overall>=68 && Math.random()<chanceProposta()){
         ofertaAtual = gerarPropostaTransferencia();
         jogador.eventos.push({icone:"📩",titulo:"Proposta recebida",sub:`${ofertaAtual.clube} — ${moeda(ofertaAtual.valor)}`});
     }
-
+ 
     if(!jogador.selecaoConvocado && jogador.overall>=80 && Math.random()<0.08){
         jogador.selecaoConvocado = true;
         jogador.eventos.push({icone:"🌎",titulo:"Convocado!",sub:`Chamado pela seleção de ${jogador.pais}.`});
@@ -1621,22 +1622,22 @@ function jogarRodada(){
         jogador.selecaoJogos++;
         jogador.selecaoGols += poisson(0.3*(jogador.overall/85));
     }
-
+ 
     jogador.valorMercado = Math.round(jogador.valorMercado*1.01 + jogador.overall*300);
     ultimoResultado = resumoHTML;
     salvarAutomaticamente();
     mostrarHub();
 }
-
+ 
 function simularTemporadaRapido(){
     while(jogador.rodada<calendario.length){ jogarRodada(); }
     mostrarHub();
 }
-
+ 
 /* =========================================================
    13) TRANSFERÊNCIAS REALISTAS
 ========================================================= */
-
+ 
 function tierClube(overall){
     if(overall>=88) return {min:78,max:99};
     if(overall>=78) return {min:70,max:88};
@@ -1658,23 +1659,23 @@ function gerarPropostaTransferencia(){
     const valor = Math.round(jogador.valorMercado * rnd(0.85,1.5) * multiplicador);
     return { clube: alvo.nome, valor };
 }
-
+ 
 /* =========================================================
    14) BOLA DE OURO E CHUTEIRA DE OURO (justos)
 ========================================================= */
-
+ 
 function gerarRivais(n){ return embaralhar(RIVAIS_NOMES).slice(0,n); }
-
+ 
 function calcularPremiosTemporada(mediaNota, posTabela){
     const nomesRivais = gerarRivais(6);
-
+ 
     const candidatosChuteira = nomesRivais.map(nome=>{
         const gols = rndInt(8,34), jogos = rndInt(20,38);
         return { nome, valor:gols, pontuacao: gols + (gols/jogos)*3 };
     });
     candidatosChuteira.push({ nome: jogador.nome, valor: jogador.gols, pontuacao: jogador.gols + (jogador.jogos ? (jogador.gols/jogador.jogos)*3 : 0), euMesmo:true });
     candidatosChuteira.sort((a,b)=>b.pontuacao-a.pontuacao);
-
+ 
     const candidatosBola = nomesRivais.map(nome=>{
         const gols=rndInt(8,34), assist=rndInt(2,17), media=rnd(6.4,8.9), overall=rndInt(80,97), posBonus=[0,0,8,18][rndInt(0,3)];
         return { nome, pontuacao: gols*1.3 + assist*1.0 + media*9 + posBonus + overall*0.35 };
@@ -1683,10 +1684,10 @@ function calcularPremiosTemporada(mediaNota, posTabela){
     const pontuacaoJogador = jogador.gols*1.3 + jogador.assistencias*1.0 + mediaNota*9 + posBonusJogador + jogador.overall*0.35 + (jogador.divisao==="A"?5:0);
     candidatosBola.push({ nome: jogador.nome, pontuacao: pontuacaoJogador, euMesmo:true });
     candidatosBola.sort((a,b)=>b.pontuacao-a.pontuacao);
-
+ 
     return { candidatosChuteira, candidatosBola };
 }
-
+ 
 function podiumHTML(lista,unidade){
     return `
         <div class="podium">
@@ -1700,30 +1701,30 @@ function podiumHTML(lista,unidade){
         </div>
     `;
 }
-
+ 
 /* =========================================================
    15) FIM DE TEMPORADA
 ========================================================= */
-
+ 
 function finalizarTemporada(){
     const media = jogador.jogos ? jogador.somaNotas/jogador.jogos : 0;
     const ordemFinal = tabelaOrdenada();
     const posicaoFinal = ordemFinal.findIndex(t=>t.clube===jogador.clube)+1;
-
+ 
     const patrocinio = Math.round(jogador.overall*8000 + media*4000);
     jogador.dinheiro += patrocinio;
-
+ 
     const faixa = faixaEtaria(jogador.idade);
     const pontosGanhos = 3 + (faixa==="evolucaoForte" ? 1 : 0);
     jogador.pontosTreino += pontosGanhos;
-
+ 
     const { candidatosChuteira, candidatosBola } = calcularPremiosTemporada(media, posicaoFinal);
     const premiosTemporada = [];
     if(candidatosChuteira[0].euMesmo){ premiosTemporada.push("Chuteira de Ouro"); jogador.premios.push({temporada:jogador.temporada,titulo:"Chuteira de Ouro"}); }
     if(candidatosBola[0].euMesmo){ premiosTemporada.push("Bola de Ouro"); jogador.premios.push({temporada:jogador.temporada,titulo:"Bola de Ouro"}); }
-
+ 
     const declinioAplicado = aplicarDeclinioIdade();
-
+ 
     // acesso / rebaixamento
     let textoAcesso = "";
     if(jogador.divisao==="B"){
@@ -1758,14 +1759,14 @@ function finalizarTemporada(){
             textoAcesso = `${bottom3.join(", ")} caíram pra Divisão B.`;
         }
     }
-
+ 
     jogador.historicoTemporadas.push({
         temporada:jogador.temporada, overallFinal:jogador.overall, jogos:jogador.jogos,
         gols:jogador.gols, assistencias:jogador.assistencias, media:Number(media.toFixed(2)),
         premios:premiosTemporada, posicaoFinal, divisao:jogador.divisao
     });
     jogador.eventos.push({icone:"📅",titulo:`Fim da temporada ${jogador.temporada}`,sub:`${jogador.gols} gols, nota média ${media.toFixed(2)}`});
-
+ 
     app().innerHTML = `
         <div class="card-dark"><div class="card-body center">
             <span class="eyebrow" style="color:var(--gold-light)">📋 RESUMO DA TEMPORADA ${jogador.temporada}</span>
@@ -1796,7 +1797,7 @@ function finalizarTemporada(){
         </div></div>
     `;
 }
-
+ 
 function proximaTemporada(){
     jogador.idade++;
     if(jogador.idade>=40){
@@ -1817,11 +1818,11 @@ function proximaTemporada(){
     salvarAutomaticamente();
     mostrarHub();
 }
-
+ 
 /* =========================================================
    16) APOSENTADORIA
 ========================================================= */
-
+ 
 function aposentarJogador(){
     if(!confirm("Tem certeza que quer se aposentar? Isso encerra a carreira atual.")) return;
     jogador.aposentado = true;
@@ -1848,11 +1849,11 @@ function mostrarAposentadoria(){
     `;
 }
 function apagarSaveEIniciar(){ localStorage.removeItem(CONFIG.chaveSave); jogador=null; mostrarInicio(); }
-
+ 
 /* =========================================================
    17) SALVAR / CARREGAR
 ========================================================= */
-
+ 
 function salvarAutomaticamente(){
     try{
         localStorage.setItem(CONFIG.chaveSave, JSON.stringify({ jogador, divisoes, calendario, tabela, abaHub }));
@@ -1882,13 +1883,13 @@ function carregarJogo(){
         alert("O save está corrompido ou incompatível.");
     }
 }
-
+ 
 /* =========================================================
    18) INICIALIZAÇÃO
 ========================================================= */
-
+ 
 mostrarInicio();
-
+ 
 </script>
 </body>
 </html>
