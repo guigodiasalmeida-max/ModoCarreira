@@ -1,0 +1,9389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-508B9KEX70"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-508B9KEX70');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareerMode — Simulador de Carreira</title>
+
+<style>
+
+:root{
+    --bg:#061009;
+    --bg2:#0a150e;
+    --panel:#0f1d14;
+    --panel2:#13261a;
+    --border:#263d2e;
+    --green:#19d66f;
+    --green2:#36ef89;
+    --greenDark:#0ca44f;
+    --white:#f4f7f5;
+    --muted:#93a197;
+    --gold:#f0c85e;
+    --red:#ff6d6d;
+    --blue:#6ba8ff;
+    --shadow:0 24px 70px rgba(0,0,0,.34);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    color:var(--white);
+    background:
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(25,214,111,.11),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(105,168,255,.06),
+            transparent 25%
+        ),
+        linear-gradient(
+            180deg,
+            #07100b 0%,
+            #040705 100%
+        );
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    border:0;
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none!important;
+}
+
+.app{
+    width:min(1200px,100%);
+    margin:auto;
+    padding:20px;
+}
+
+/* =========================================================
+   PAINÉIS
+========================================================= */
+
+.panel{
+    background:
+        linear-gradient(
+            180deg,
+            rgba(17,31,22,.98),
+            rgba(9,18,13,.98)
+        );
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+}
+
+.panel-header{
+    padding:24px;
+    border-bottom:1px solid var(--border);
+}
+
+.panel-body{
+    padding:24px;
+}
+
+.center{
+    text-align:center;
+}
+
+.title{
+    margin:0;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.subtitle{
+    margin:7px 0 0;
+    color:var(--muted);
+    line-height:1.55;
+}
+
+.small{
+    font-size:12px;
+}
+
+.muted{
+    color:var(--muted);
+}
+
+.spacer{
+    height:18px;
+}
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.btn{
+    padding:14px 20px;
+    margin:4px;
+    border-radius:13px;
+    background:var(--green);
+    color:#061108;
+    font-weight:900;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.btn:hover{
+    background:var(--green2);
+    transform:translateY(-2px);
+}
+
+.btn.secondary{
+    color:white;
+    background:#18251d;
+    border:1px solid var(--border);
+}
+
+.btn.secondary:hover{
+    background:#223127;
+}
+
+.btn.danger{
+    color:#ffabab;
+    background:#321717;
+    border:1px solid #593333;
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+.home{
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hero{
+    width:min(900px,100%);
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(25,214,111,.08);
+    border:1px solid rgba(25,214,111,.22);
+    color:#b9efd0;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.8px;
+}
+
+.hero h1{
+    margin:20px 0 0;
+    font-size:clamp(48px,9vw,90px);
+    line-height:.95;
+    letter-spacing:-5px;
+}
+
+.hero h1 span{
+    color:var(--green);
+}
+
+.hero p{
+    max-width:700px;
+    margin:24px auto 30px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.65;
+}
+
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
+
+.form-box{
+    width:min(600px,100%);
+    margin:50px auto;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    color:#adbbb1;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.input,
+.select{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #304637;
+    background:#09120c;
+    color:white;
+    outline:none;
+}
+
+.input:focus,
+.select:focus{
+    border-color:var(--green);
+}
+
+/* =========================================================
+   POSIÇÕES
+========================================================= */
+
+.position-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.position{
+    padding:20px 10px;
+    border-radius:15px;
+    border:1px solid var(--border);
+    color:white;
+    background:#101b14;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.position:hover,
+.position.selected{
+    transform:translateY(-2px);
+    border-color:var(--green);
+    background:#16241a;
+}
+
+.position .sigla{
+    font-size:22px;
+    font-weight:900;
+}
+
+.position .nome{
+    margin-top:7px;
+    font-size:11px;
+    color:var(--muted);
+}
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player-card{
+    padding:24px;
+    border:1px solid var(--border);
+    border-radius:19px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(25,214,111,.10),
+            transparent 30%
+        ),
+        #111d15;
+}
+
+.player-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.player-name{
+    font-size:32px;
+    font-weight:900;
+}
+
+.meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.pill{
+    padding:7px 10px;
+    border-radius:999px;
+    border:1px solid #2b4132;
+    background:#16231b;
+    color:#bfcbc2;
+    font-size:12px;
+    font-weight:800;
+}
+
+.overall{
+    min-width:100px;
+    padding:13px;
+    border-radius:16px;
+    background:rgba(25,214,111,.07);
+    border:1px solid rgba(25,214,111,.20);
+    text-align:center;
+}
+
+.overall-label{
+    display:block;
+    color:#91a098;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.overall-number{
+    display:block;
+    color:var(--green);
+    font-size:42px;
+    font-weight:900;
+    line-height:1.05;
+}
+
+/* =========================================================
+   ATRIBUTOS
+========================================================= */
+
+.attribute-list{
+    display:grid;
+    gap:10px;
+}
+
+.attribute{
+    padding:14px;
+    border:1px solid #213428;
+    border-radius:13px;
+    background:#0b140e;
+}
+
+.attribute-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.attribute-name{
+    font-weight:900;
+}
+
+.attribute-value{
+    font-size:20px;
+    font-weight:900;
+    color:var(--green);
+}
+
+.bar{
+    width:100%;
+    height:8px;
+    border-radius:999px;
+    overflow:hidden;
+    background:#1a261e;
+}
+
+.bar > div{
+    height:100%;
+    border-radius:inherit;
+    background:
+        linear-gradient(
+            90deg,
+            var(--greenDark),
+            var(--green)
+        );
+}
+
+/* =========================================================
+   ROLETA
+========================================================= */
+
+.roulette{
+    max-width:900px;
+    margin:35px auto;
+    padding:35px 20px;
+    text-align:center;
+}
+
+.roulette-circle{
+    width:230px;
+    height:230px;
+    margin:0 auto 25px;
+    border-radius:50%;
+    background:
+        conic-gradient(
+            var(--green),
+            #0c753d,
+            #35ec88,
+            #135d36,
+            var(--green)
+        );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+        0 0 0 12px rgba(25,214,111,.05),
+        0 25px 70px rgba(25,214,111,.12);
+}
+
+.roulette-inner{
+    width:182px;
+    height:182px;
+    border-radius:50%;
+    background:#09100b;
+    border:1px solid #2b4633;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.roulette-icon{
+    font-size:34px;
+}
+
+.roulette-name{
+    max-width:160px;
+    margin-top:8px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:28px;
+    font-weight:900;
+}
+
+.roulette-running{
+    animation:pulse .35s infinite alternate;
+}
+
+@keyframes pulse{
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.04);
+    }
+}
+
+.choice-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:24px;
+}
+
+.choice{
+    padding:17px 10px;
+    border-radius:14px;
+    border:1px solid #2b4132;
+    background:#111d15;
+    color:white;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.choice:hover{
+    transform:translateY(-2px);
+    background:#18271d;
+    border-color:var(--green);
+}
+
+.choice span{
+    display:block;
+    margin-bottom:6px;
+    color:#8e9b93;
+    font-size:12px;
+}
+
+.choice strong{
+    color:var(--green);
+    font-size:25px;
+}
+
+/* =========================================================
+   CLUBE
+========================================================= */
+
+.club-name{
+    margin:20px 0;
+    font-size:clamp(38px,7vw,65px);
+    font-weight:900;
+    letter-spacing:-3px;
+}
+
+/* =========================================================
+   CARREIRA
+========================================================= */
+
+.career-header{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.career-player,
+.career-season{
+    padding:22px;
+    border-radius:20px;
+    border:1px solid var(--border);
+}
+
+.career-player{
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(25,214,111,.10),
+            transparent 30%
+        ),
+        #112016;
+}
+
+.career-season{
+    background:#101912;
+}
+
+.career-player-name{
+    font-size:28px;
+    font-weight:900;
+}
+
+.season-label{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.season-number{
+    margin-top:4px;
+    font-size:42px;
+    font-weight:900;
+}
+
+/* =========================================================
+   PARTIDA
+========================================================= */
+
+.match{
+    padding:34px 20px;
+    text-align:center;
+}
+
+.match-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.teams{
+    max-width:850px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:18px;
+}
+
+.team{
+    font-size:23px;
+    font-weight:900;
+}
+
+.score{
+    font-size:50px;
+    font-weight:900;
+}
+
+/* =========================================================
+   MENUS
+========================================================= */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:15px;
+}
+
+.menu-card{
+    padding:18px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:#0e1812;
+    color:white;
+    text-align:left;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.menu-card:hover{
+    transform:translateY(-2px);
+    background:#15231a;
+    border-color:#34513d;
+}
+
+.menu-icon{
+    font-size:28px;
+    margin-bottom:13px;
+}
+
+.menu-title{
+    font-weight:900;
+}
+
+.menu-text{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.4;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.stat-card{
+    padding:20px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:#0d1710;
+    text-align:center;
+}
+
+.stat-number{
+    font-size:37px;
+    font-weight:900;
+}
+
+.stat-label{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:780px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:13px 8px;
+    border-bottom:1px solid #213127;
+    text-align:center;
+    font-size:13px;
+}
+
+th{
+    color:#7e8d83;
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.club-column{
+    text-align:left;
+}
+
+.my-club{
+    background:rgba(25,214,111,.06);
+}
+
+.my-club td{
+    color:#d3f7df;
+    font-weight:900;
+}
+
+/* =========================================================
+   RODADAS
+========================================================= */
+
+.round-card{
+    padding:18px;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:#0d1710;
+    margin-bottom:12px;
+}
+
+.round-title{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+    margin-bottom:12px;
+    font-weight:900;
+}
+
+.fixture{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:11px 4px;
+    border-bottom:1px solid #1d2c22;
+    color:#ced8d0;
+}
+
+.fixture:last-child{
+    border-bottom:0;
+}
+
+.fixture.mine{
+    color:#d9fce6;
+    font-weight:900;
+}
+
+.fixture span:last-child{
+    white-space:nowrap;
+}
+
+/* =========================================================
+   TRANSFERÊNCIAS
+========================================================= */
+
+.offer{
+    padding:20px;
+    margin-bottom:12px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:#0d1710;
+}
+
+.offer-club{
+    font-size:23px;
+    font-weight:900;
+}
+
+.offer-details{
+    margin-top:7px;
+    color:var(--muted);
+    line-height:1.6;
+    font-size:13px;
+}
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+.performance{
+    max-width:700px;
+    margin:20px auto;
+    padding:22px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:#0c160f;
+}
+
+.match-rating{
+    color:var(--green);
+    font-size:50px;
+    font-weight:900;
+}
+
+.win{
+    color:var(--green);
+}
+
+.draw{
+    color:var(--gold);
+}
+
+.loss{
+    color:var(--red);
+}
+
+.notice{
+    padding:15px;
+    border-radius:14px;
+    border:1px solid #2b4433;
+    background:#142319;
+    color:#c9d7ce;
+    line-height:1.6;
+}
+
+/* =========================================================
+   RANKINGS
+========================================================= */
+
+.leader-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.leader-list{
+    padding:18px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:#0d1710;
+}
+
+.leader-row{
+    display:grid;
+    grid-template-columns:42px 1fr auto;
+    gap:8px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid #1d2c22;
+}
+
+.leader-row:last-child{
+    border-bottom:0;
+}
+
+.chip{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:999px;
+    background:#16251b;
+    border:1px solid #294030;
+    color:#bcd0c3;
+    font-size:11px;
+}
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+.history-row{
+    display:grid;
+    grid-template-columns:100px 1fr 80px 80px 70px;
+    gap:8px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #1c2b21;
+}
+
+.history-row:last-child{
+    border-bottom:0;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    max-width:360px;
+    padding:15px 18px;
+    border-radius:14px;
+    background:#102016;
+    border:1px solid #2f4937;
+    color:#d7e8dc;
+    box-shadow:var(--shadow);
+    z-index:100;
+    animation:toastIn .2s ease-out;
+}
+
+@keyframes toastIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    display:grid;
+    place-items:center;
+    min-height:260px;
+}
+
+.spinner{
+    width:42px;
+    height:42px;
+    border:4px solid #203127;
+    border-top-color:var(--green);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   RESPONSIVO — CELULAR
+========================================================= */
+
+@media (max-width: 1000px){
+
+    .app{
+        width:100%;
+        padding:16px;
+    }
+
+    .menu-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .career-header{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR PEQUENO
+========================================================= */
+
+@media (max-width: 650px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .app{
+        width:100%;
+        padding:10px;
+    }
+
+
+    /* -------------------------
+       TÍTULOS
+    ------------------------- */
+
+    .title{
+        font-size:23px;
+        letter-spacing:-.5px;
+    }
+
+    .hero h1{
+        font-size:48px;
+        letter-spacing:-3px;
+    }
+
+    .hero p{
+        font-size:15px;
+        line-height:1.5;
+    }
+
+
+    /* -------------------------
+       PAINÉIS
+    ------------------------- */
+
+    .panel{
+        border-radius:16px;
+    }
+
+    .panel-header{
+        padding:18px;
+    }
+
+    .panel-body{
+        padding:16px;
+    }
+
+
+    /* -------------------------
+       BOTÕES
+    ------------------------- */
+
+    .btn{
+        width:100%;
+        margin:5px 0;
+        min-height:50px;
+        font-size:14px;
+    }
+
+
+    /* -------------------------
+       FORMULÁRIOS
+    ------------------------- */
+
+    .form-box{
+        width:100%;
+        margin:25px auto;
+    }
+
+    .input,
+    .select{
+        min-height:50px;
+        font-size:16px;
+    }
+
+
+    /* -------------------------
+       POSIÇÕES
+    ------------------------- */
+
+    .position-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:8px;
+    }
+
+    .position{
+        padding:17px 8px;
+        min-height:95px;
+    }
+
+    .position .sigla{
+        font-size:20px;
+    }
+
+
+    /* -------------------------
+       PLAYER
+    ------------------------- */
+
+    .player-top{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .player-name{
+        font-size:25px;
+        word-break:break-word;
+    }
+
+    .overall{
+        width:100%;
+    }
+
+    .overall-number{
+        font-size:36px;
+    }
+
+    .meta{
+        gap:6px;
+    }
+
+    .pill{
+        font-size:11px;
+    }
+
+
+    /* -------------------------
+       ATRIBUTOS
+    ------------------------- */
+
+    .attribute{
+        padding:12px;
+    }
+
+    .attribute-value{
+        font-size:18px;
+    }
+
+
+    /* -------------------------
+       ROLETA
+    ------------------------- */
+
+    .roulette{
+        margin:15px auto;
+        padding:25px 12px;
+    }
+
+    .roulette-circle{
+        width:190px;
+        height:190px;
+    }
+
+    .roulette-inner{
+        width:150px;
+        height:150px;
+    }
+
+    .roulette-name{
+        max-width:130px;
+        font-size:22px;
+    }
+
+    .choice-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:8px;
+    }
+
+    .choice{
+        min-height:85px;
+    }
+
+
+    /* -------------------------
+       CLUBE
+    ------------------------- */
+
+    .club-name{
+        font-size:40px;
+        letter-spacing:-2px;
+        word-break:break-word;
+    }
+
+
+    /* -------------------------
+       CABEÇALHO DA CARREIRA
+    ------------------------- */
+
+    .career-player,
+    .career-season{
+        padding:16px;
+    }
+
+    .career-player-name{
+        font-size:23px;
+        word-break:break-word;
+    }
+
+    .season-number{
+        font-size:34px;
+    }
+
+
+    /* -------------------------
+       PARTIDA
+    ------------------------- */
+
+    .match{
+        padding:22px 12px;
+    }
+
+    .teams{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin:22px auto;
+    }
+
+    .team{
+        width:100%;
+        font-size:20px;
+        text-align:center;
+        word-break:break-word;
+    }
+
+    .score{
+        font-size:38px;
+    }
+
+
+    /* -------------------------
+       MENU
+    ------------------------- */
+
+    .menu-grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .menu-card{
+        min-height:120px;
+        padding:14px;
+        border-radius:14px;
+    }
+
+    .menu-icon{
+        font-size:24px;
+        margin-bottom:9px;
+    }
+
+    .menu-title{
+        font-size:13px;
+    }
+
+    .menu-text{
+        font-size:11px;
+    }
+
+
+    /* -------------------------
+       ESTATÍSTICAS
+    ------------------------- */
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .stat-card{
+        padding:15px 10px;
+        border-radius:14px;
+    }
+
+    .stat-number{
+        font-size:27px;
+    }
+
+    .stat-label{
+        font-size:10px;
+    }
+
+
+    /* -------------------------
+       TABELA
+       No celular ela vira
+       uma tabela compacta
+    ------------------------- */
+
+    .table-wrap{
+        width:100%;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        border-radius:12px;
+    }
+
+    table{
+        min-width:680px;
+    }
+
+    th,
+    td{
+        padding:10px 7px;
+        font-size:12px;
+    }
+
+
+    /* -------------------------
+       RODADAS
+    ------------------------- */
+
+    .round-card{
+        padding:14px;
+        border-radius:14px;
+    }
+
+    .round-title{
+        font-size:14px;
+    }
+
+    .fixture{
+        gap:6px;
+        padding:10px 0;
+        font-size:12px;
+    }
+
+    .fixture span{
+        min-width:0;
+    }
+
+
+    /* -------------------------
+       TRANSFERÊNCIAS
+    ------------------------- */
+
+    .offer{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .offer-club{
+        font-size:20px;
+        word-break:break-word;
+    }
+
+    .offer-details{
+        font-size:12px;
+    }
+
+
+    /* -------------------------
+       RESULTADO
+    ------------------------- */
+
+    .performance{
+        width:100%;
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .match-rating{
+        font-size:42px;
+    }
+
+
+    /* -------------------------
+       RANKINGS
+    ------------------------- */
+
+    .leader-grid{
+        grid-template-columns:1fr;
+    }
+
+    .leader-list{
+        padding:14px;
+    }
+
+
+    /* -------------------------
+       HISTÓRICO
+    ------------------------- */
+
+    .history-row{
+        grid-template-columns:
+            1fr
+            1fr;
+        gap:8px;
+    }
+
+
+    /* -------------------------
+       AVISOS
+    ------------------------- */
+
+    .notice{
+        font-size:13px;
+        padding:13px;
+    }
+
+
+    /* -------------------------
+       ESPAÇAMENTO
+    ------------------------- */
+
+    .spacer{
+        height:12px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div id="app"></div>
+
+</div>
+
+<script src="jogadores.js"></script>
+
+<script>
+
+"use strict";
+
+/* =========================================================
+   CONFIGURAÇÃO
+========================================================= */
+
+const APP_VERSION = "2.0.0";
+
+const CONFIG = {
+
+    idadeInicial:16,
+
+    idadeAposentadoria:40,
+
+    temporadaInicial:2026,
+
+    rodadasPorTemporada:38,
+
+    clubesPorLiga:20,
+
+    chancesOfertasDuranteTemporada:.22,
+
+    maxOfertas:3,
+
+    salvamentoAutomatico:true,
+
+    chaveSave:"careermode_save_v2"
+
+};
+
+/* =========================================================
+   LIGAS
+========================================================= */
+
+const ligas = {
+
+    Brasil:{
+
+        nome:"Brasileirão",
+
+        clubes:[
+
+            "Flamengo",
+            "Palmeiras",
+            "São Paulo",
+            "Corinthians",
+            "Santos",
+            "Fluminense",
+            "Botafogo",
+            "Vasco",
+            "Grêmio",
+            "Internacional",
+            "Cruzeiro",
+            "Atlético-MG",
+            "Bahia",
+            "Fortaleza",
+            "Sport",
+            "Athletico-PR",
+            "Bragantino",
+            "Vitória",
+            "Ceará",
+            "Juventude"
+
+        ]
+
+    },
+
+    Inglaterra:{
+
+        nome:"Premier League",
+
+        clubes:[
+
+            "Manchester City",
+            "Liverpool",
+            "Arsenal",
+            "Manchester United",
+            "Chelsea",
+            "Tottenham",
+            "Newcastle",
+            "Aston Villa",
+            "West Ham",
+            "Everton",
+            "Brighton",
+            "Crystal Palace",
+            "Fulham",
+            "Brentford",
+            "Wolves",
+            "Bournemouth",
+            "Nottingham Forest",
+            "Leicester",
+            "Leeds",
+            "Southampton"
+
+        ]
+
+    },
+
+    Espanha:{
+
+        nome:"La Liga",
+
+        clubes:[
+
+            "Real Madrid",
+            "Barcelona",
+            "Atlético de Madrid",
+            "Sevilla",
+            "Valencia",
+            "Villarreal",
+            "Athletic Club",
+            "Real Sociedad",
+            "Real Betis",
+            "Girona",
+            "Celta de Vigo",
+            "Getafe",
+            "Osasuna",
+            "Mallorca",
+            "Rayo Vallecano",
+            "Alavés",
+            "Espanyol",
+            "Las Palmas",
+            "Valladolid",
+            "Leganés"
+
+        ]
+
+    },
+
+    Italia:{
+
+        nome:"Serie A",
+
+        clubes:[
+
+            "Inter de Milão",
+            "Milan",
+            "Juventus",
+            "Napoli",
+            "Roma",
+            "Lazio",
+            "Atalanta",
+            "Fiorentina",
+            "Bologna",
+            "Torino",
+            "Genoa",
+            "Monza",
+            "Udinese",
+            "Sassuolo",
+            "Parma",
+            "Cagliari",
+            "Empoli",
+            "Verona",
+            "Lecce",
+            "Como"
+
+        ]
+
+    },
+
+    Alemanha:{
+
+        nome:"Bundesliga",
+
+        clubes:[
+
+            "Bayern de Munique",
+            "Borussia Dortmund",
+            "Bayer Leverkusen",
+            "RB Leipzig",
+            "Stuttgart",
+            "Eintracht Frankfurt",
+            "Wolfsburg",
+            "Freiburg",
+            "Mainz",
+            "Werder Bremen",
+            "Augsburg",
+            "Union Berlin",
+            "Hoffenheim",
+            "Borussia Mönchengladbach",
+            "Heidenheim",
+            "St. Pauli",
+            "Hamburgo",
+            "Schalke 04",
+            "Hertha Berlin",
+            "Holstein Kiel"
+
+        ]
+
+    },
+
+    França:{
+
+        nome:"Ligue 1",
+
+        clubes:[
+
+            "Paris Saint-Germain",
+            "Marseille",
+            "Lyon",
+            "Monaco",
+            "Lille",
+            "Nice",
+            "Rennes",
+            "Lens",
+            "Nantes",
+            "Toulouse",
+            "Strasbourg",
+            "Brest",
+            "Montpellier",
+            "Reims",
+            "Saint-Étienne",
+            "Auxerre",
+            "Le Havre",
+            "Angers",
+            "Metz",
+            "Troyes"
+
+        ]
+
+    },
+
+    Portugal:{
+
+        nome:"Primeira Liga",
+
+        clubes:[
+
+            "Benfica",
+            "Porto",
+            "Sporting",
+            "Braga",
+            "Vitória de Guimarães",
+            "Boavista",
+            "Famalicão",
+            "Gil Vicente",
+            "Rio Ave",
+            "Estoril",
+            "Arouca",
+            "Casa Pia",
+            "Moreirense",
+            "Nacional",
+            "Marítimo",
+            "Farense",
+            "Estrela da Amadora",
+            "AVS",
+            "Tondela",
+            "Académico de Viseu"
+
+        ]
+
+    }
+
+};
+
+/* =========================================================
+   FORÇA DOS CLUBES
+========================================================= */
+
+const forcaClube = {
+
+    "Flamengo":89,
+    "Palmeiras":88,
+    "São Paulo":82,
+    "Corinthians":80,
+    "Santos":77,
+    "Fluminense":83,
+    "Botafogo":84,
+    "Vasco":76,
+    "Grêmio":81,
+    "Internacional":81,
+    "Cruzeiro":78,
+    "Atlético-MG":84,
+    "Bahia":78,
+    "Fortaleza":76,
+    "Sport":72,
+    "Athletico-PR":79,
+    "Bragantino":77,
+    "Vitória":71,
+    "Ceará":72,
+    "Juventude":69,
+
+    "Manchester City":94,
+    "Liverpool":91,
+    "Arsenal":91,
+    "Manchester United":84,
+    "Chelsea":86,
+    "Tottenham":82,
+    "Newcastle":83,
+    "Aston Villa":84,
+    "West Ham":77,
+    "Everton":75,
+    "Brighton":78,
+    "Crystal Palace":75,
+    "Fulham":74,
+    "Brentford":74,
+    "Wolves":73,
+    "Bournemouth":74,
+    "Nottingham Forest":75,
+    "Leicester":73,
+    "Leeds":71,
+    "Southampton":69,
+
+    "Real Madrid":95,
+    "Barcelona":92,
+    "Atlético de Madrid":88,
+    "Sevilla":78,
+    "Valencia":77,
+    "Villarreal":80,
+    "Athletic Club":81,
+    "Real Sociedad":81,
+    "Real Betis":78,
+    "Girona":79,
+    "Celta de Vigo":74,
+    "Getafe":72,
+    "Osasuna":73,
+    "Mallorca":72,
+    "Rayo Vallecano":71,
+    "Alavés":70,
+    "Espanyol":71,
+    "Las Palmas":69,
+    "Valladolid":68,
+    "Leganés":67,
+
+    "Inter de Milão":91,
+    "Milan":86,
+    "Juventus":86,
+    "Napoli":87,
+    "Roma":83,
+    "Lazio":81,
+    "Atalanta":85,
+    "Fiorentina":78,
+    "Bologna":79,
+    "Torino":74,
+    "Genoa":73,
+    "Monza":71,
+    "Udinese":71,
+    "Sassuolo":72,
+    "Parma":70,
+    "Cagliari":69,
+    "Empoli":69,
+    "Verona":69,
+    "Lecce":67,
+    "Como":70,
+
+    "Bayern de Munique":94,
+    "Borussia Dortmund":86,
+    "Bayer Leverkusen":91,
+    "RB Leipzig":85,
+    "Stuttgart":81,
+    "Eintracht Frankfurt":81,
+    "Wolfsburg":76,
+    "Freiburg":76,
+    "Mainz":73,
+    "Werder Bremen":74,
+    "Augsburg":71,
+    "Union Berlin":72,
+    "Hoffenheim":73,
+    "Borussia Mönchengladbach":75,
+    "Heidenheim":69,
+    "St. Pauli":67,
+    "Hamburgo":70,
+    "Schalke 04":70,
+    "Hertha Berlin":69,
+    "Holstein Kiel":66,
+
+    "Paris Saint-Germain":92,
+    "Marseille":82,
+    "Lyon":81,
+    "Monaco":84,
+    "Lille":82,
+    "Nice":79,
+    "Rennes":76,
+    "Lens":79,
+    "Nantes":72,
+    "Toulouse":70,
+    "Strasbourg":72,
+    "Brest":75,
+    "Montpellier":69,
+    "Reims":72,
+    "Saint-Étienne":71,
+    "Auxerre":68,
+    "Le Havre":67,
+    "Angers":67,
+    "Metz":67,
+    "Troyes":65,
+
+    "Benfica":88,
+    "Porto":87,
+    "Sporting":88,
+    "Braga":80,
+    "Vitória de Guimarães":75,
+    "Boavista":69,
+    "Famalicão":70,
+    "Gil Vicente":68,
+    "Rio Ave":69,
+    "Estoril":68,
+    "Arouca":67,
+    "Casa Pia":68,
+    "Moreirense":69,
+    "Nacional":66,
+    "Marítimo":65,
+    "Farense":64,
+    "Estrela da Amadora":63,
+    "AVS":62,
+    "Tondela":63,
+    "Académico de Viseu":62
+
+};
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let jogador = {};
+
+let jogadoresDisponiveis = [];
+
+let rodadas = [];
+
+let calendario = [];
+
+let tabela = [];
+
+let ofertasTransferencia = [];
+
+let ultimaRodadaResultados = [];
+
+/* =========================================================
+   UTILITÁRIOS
+========================================================= */
+
+function aleatorio(min,max){
+
+    return Math.random() *
+        (max-min) +
+        min;
+
+}
+
+function inteiro(min,max){
+
+    return Math.floor(
+        Math.random() *
+        (max-min+1)
+    ) +
+    min;
+
+}
+
+function clamp(valor,min,max){
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            valor
+        )
+    );
+
+}
+
+function arredondar(valor,digitos=0){
+
+    const fator =
+        10 ** digitos;
+
+    return Math.round(
+        valor*fator
+    ) /
+    fator;
+
+}
+
+function embaralhar(array){
+
+    const copia=[
+        ...array
+    ];
+
+    for(
+        let i=copia.length-1;
+        i>0;
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i+1)
+            );
+
+        [
+            copia[i],
+            copia[j]
+        ]=[
+            copia[j],
+            copia[i]
+        ];
+
+    }
+
+    return copia;
+
+}
+
+function obterForcaClube(clube){
+
+    return forcaClube[clube] || 70;
+
+}
+
+function moeda(valor){
+
+    if(valor>=1000000){
+
+        return "€" +
+            (valor/1000000).toFixed(1) +
+            "M";
+
+    }
+
+    return "€" +
+        Math.round(
+            valor/1000
+        ) +
+        "K";
+
+}
+
+function escaparHTML(texto){
+
+    return String(texto)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+function mostrarToast(texto){
+
+    const antigo =
+        document.querySelector(
+            ".toast"
+        );
+
+    if(antigo){
+        antigo.remove();
+    }
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+    toast.className="toast";
+
+    toast.textContent=texto;
+
+    document.body.appendChild(
+        toast
+    );
+
+    setTimeout(
+        ()=>{
+            toast.remove();
+        },
+        3200
+    );
+
+}
+
+function bigStat(valor,nome){
+
+    return `
+
+        <div class="stat-card">
+
+            <div class="stat-number">
+                ${valor}
+            </div>
+
+            <div class="stat-label">
+                ${nome}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function menuCard(
+    icone,
+    titulo,
+    descricao,
+    funcao
+){
+
+    return `
+
+        <button
+            class="menu-card"
+            onclick="${funcao}"
+        >
+
+            <div class="menu-icon">
+                ${icone}
+            </div>
+
+            <div class="menu-title">
+                ${titulo}
+            </div>
+
+            <div class="menu-text">
+                ${descricao}
+            </div>
+
+        </button>
+
+    `;
+
+}
+
+function obterLigaDoClube(clube){
+
+    for(
+        const [pais,dados]
+        of Object.entries(ligas)
+    ){
+
+        if(
+            dados.clubes.includes(
+                clube
+            )
+        ){
+
+            return {
+                pais,
+                nome:dados.nome
+            };
+
+        }
+
+    }
+
+    return null;
+
+}
+
+function obterTodosClubes(){
+
+    return Object.values(ligas)
+        .flatMap(
+            liga =>
+                liga.clubes
+        );
+
+}
+
+/* =========================================================
+   ESTADO INICIAL DO JOGADOR
+========================================================= */
+
+function estadoJogadorInicial(){
+
+    return {
+
+        nome:"",
+
+        idade:CONFIG.idadeInicial,
+
+        pais:"",
+
+        posicao:"",
+
+        finalizacao:null,
+
+        passe:null,
+
+        drible:null,
+
+        velocidade:null,
+
+        forca:null,
+
+        resistencia:null,
+
+        overall:0,
+
+        clube:"",
+
+        liga:"",
+
+        temporada:
+            CONFIG.temporadaInicial,
+
+        rodada:0,
+
+        jogos:0,
+
+        gols:0,
+
+        assistencias:0,
+
+        minutos:0,
+
+        somaNotas:0,
+
+        vitorias:0,
+
+        empates:0,
+
+        derrotas:0,
+
+        valorMercado:200000,
+
+        historico:[],
+
+        historicoTemporadas:[],
+
+        transferencias:[],
+
+        aposentado:false,
+
+        maiorOverall:0,
+
+        melhorTemporada:null
+
+    };
+
+}
+
+function calcularOverall(){
+
+    const valores=[
+
+        jogador.finalizacao,
+
+        jogador.passe,
+
+        jogador.drible,
+
+        jogador.velocidade,
+
+        jogador.forca,
+
+        jogador.resistencia
+
+    ]
+
+    .filter(
+        v =>
+            v !== null &&
+            v !== undefined
+    );
+
+    if(!valores.length){
+
+        return 0;
+
+    }
+
+    return Math.round(
+
+        valores.reduce(
+            (a,b) => a+b,
+            0
+        )
+
+        /
+
+        valores.length
+
+    );
+
+}
+
+function contarAtributos(){
+
+    return [
+
+        jogador.finalizacao,
+        jogador.passe,
+        jogador.drible,
+        jogador.velocidade,
+        jogador.forca,
+        jogador.resistencia
+
+    ]
+
+    .filter(
+        v =>
+            v !== null &&
+            v !== undefined
+    )
+
+    .length;
+
+}
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function mostrarInicio(){
+
+    const temSave =
+        Boolean(
+            localStorage.getItem(
+                CONFIG.chaveSave
+            )
+        );
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <section class="home">
+
+            <div class="hero">
+
+                <div class="badge">
+                    ⚽ SIMULADOR DE CARREIRA ${APP_VERSION}
+                </div>
+
+                <h1>
+                    CAREER<span>MODE</span>
+                </h1>
+
+                <p>
+
+                    Crie seu jogador aos 16 anos,
+                    construa uma carreira,
+                    dispute campeonatos completos,
+                    receba propostas,
+                    mude de clube e veja
+                    até onde sua história chega.
+
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="novaCarreira()"
+                >
+                    🚀 NOVA CARREIRA
+                </button>
+
+                ${
+
+                    temSave
+
+                    ?
+
+                    `
+
+                        <button
+                            class="btn secondary"
+                            onclick="carregarJogo()"
+                        >
+                            💾 CONTINUAR CARREIRA SALVA
+                        </button>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+/* =========================================================
+   NOVA CARREIRA
+========================================================= */
+
+function novaCarreira(){
+
+    if(
+        jogador.nome &&
+        !jogador.aposentado
+    ){
+
+        const confirmar =
+            confirm(
+                "Começar uma nova carreira vai apagar a carreira atual. Continuar?"
+            );
+
+        if(!confirmar){
+            return;
+        }
+
+    }
+
+    jogador =
+        estadoJogadorInicial();
+
+    jogadoresDisponiveis =
+        embaralhar(
+            jogadores
+        );
+
+    rodadas=[];
+
+    calendario=[];
+
+    tabela=[];
+
+    ofertasTransferencia=[];
+
+    ultimaRodadaResultados=[];
+
+    salvarAutomaticamente();
+
+    pedirNome();
+
+}
+
+/* =========================================================
+   NOME
+========================================================= */
+
+function pedirNome(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="form-box">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2 class="title">
+                        👤 Criar jogador
+                    </h2>
+
+                    <p class="subtitle">
+                        Você começa sua carreira aos 16 anos.
+                    </p>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-group">
+
+                        <label>
+                            Nome do jogador
+                        </label>
+
+                        <input
+                            id="nomeJogador"
+                            class="input"
+                            maxlength="25"
+                            placeholder="Ex.: João Silva"
+                            autofocus
+                        >
+
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="salvarNome()"
+                    >
+                        CONTINUAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById(
+            "nomeJogador"
+        )
+        .addEventListener(
+            "keydown",
+            e=>{
+
+                if(
+                    e.key==="Enter"
+                ){
+
+                    salvarNome();
+
+                }
+
+            }
+        );
+
+}
+
+/* =========================================================
+   SALVAR NOME
+========================================================= */
+
+function salvarNome(){
+
+    const campo =
+        document.getElementById(
+            "nomeJogador"
+        );
+
+    if(!campo){
+        return;
+    }
+
+    const nome =
+        campo.value.trim();
+
+    if(!nome){
+
+        alert(
+            "Digite um nome."
+        );
+
+        return;
+
+    }
+
+    jogador.nome=nome;
+
+    escolherPais();
+
+}
+
+/* =========================================================
+   PAÍS
+========================================================= */
+
+function escolherPais(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="form-box">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2 class="title">
+                        🌎 Escolha seu país
+                    </h2>
+
+                    <p class="subtitle">
+                        O país define onde sua primeira
+                        roleta de clube será feita.
+                    </p>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-group">
+
+                        <label>
+                            País
+                        </label>
+
+                        <select
+                            id="paisJogador"
+                            class="select"
+                        >
+
+                            <option value="">
+                                Selecione...
+                            </option>
+
+                            <option value="Brasil">
+                                🇧🇷 Brasil
+                            </option>
+
+                            <option value="Inglaterra">
+                                🏴 Inglaterra
+                            </option>
+
+                            <option value="Espanha">
+                                🇪🇸 Espanha
+                            </option>
+
+                            <option value="Italia">
+                                🇮🇹 Itália
+                            </option>
+
+                            <option value="Alemanha">
+                                🇩🇪 Alemanha
+                            </option>
+
+                            <option value="França">
+                                🇫🇷 França
+                            </option>
+
+                            <option value="Portugal">
+                                🇵🇹 Portugal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        class="btn"
+                        onclick="salvarPais()"
+                    >
+                        CONTINUAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function salvarPais(){
+
+    const pais =
+        document.getElementById(
+            "paisJogador"
+        ).value;
+
+    if(!pais){
+
+        alert(
+            "Escolha um país."
+        );
+
+        return;
+
+    }
+
+    jogador.pais=pais;
+
+    jogador.liga=
+        ligas[pais].nome;
+
+    escolherPosicao();
+
+}
+
+/* =========================================================
+   POSIÇÃO
+========================================================= */
+
+function escolherPosicao(){
+
+    const posicoes=[
+
+        [
+            "ATA",
+            "Atacante"
+        ],
+
+        [
+            "PE",
+            "Ponta esquerda"
+        ],
+
+        [
+            "PD",
+            "Ponta direita"
+        ],
+
+        [
+            "MEI",
+            "Meia"
+        ],
+
+        [
+            "VOL",
+            "Volante"
+        ],
+
+        [
+            "ZAG",
+            "Zagueiro"
+        ],
+
+        [
+            "LE",
+            "Lateral esquerdo"
+        ],
+
+        [
+            "LD",
+            "Lateral direito"
+        ]
+
+    ];
+
+    let html="";
+
+    posicoes.forEach(
+        ([sigla,nome])=>{
+
+            html+=`
+
+                <button
+                    class="position"
+                    onclick="
+                        salvarPosicao('${sigla}')
+                    "
+                >
+
+                    <div class="sigla">
+                        ${sigla}
+                    </div>
+
+                    <div class="nome">
+                        ${nome}
+                    </div>
+
+                </button>
+
+            `;
+
+        }
+    );
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:760px;
+                margin:50px auto
+            "
+        >
+
+            <div class="panel-header center">
+
+                <h2 class="title">
+                    📍 Escolha sua posição
+                </h2>
+
+                <p class="subtitle">
+                    Sua posição altera gols,
+                    assistências e notas.
+                </p>
+
+            </div>
+
+            <div class="panel-body">
+
+                <div class="position-grid">
+                    ${html}
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function salvarPosicao(posicao){
+
+    jogador.posicao=posicao;
+
+    mostrarAtributos();
+
+}
+
+/* =========================================================
+   ATRIBUTOS
+========================================================= */
+
+function renderAtributo(
+    chave,
+    nome
+){
+
+    const valor=
+        jogador[chave];
+
+    return `
+
+        <div class="attribute">
+
+            <div class="attribute-top">
+
+                <span class="attribute-name">
+                    ${nome}
+                </span>
+
+                <span class="attribute-value">
+
+                    ${
+                        valor === null
+                            ?"—"
+                            :valor
+                    }
+
+                </span>
+
+            </div>
+
+            <div class="bar">
+
+                <div
+                    style="
+                        width:
+                        ${
+                            valor === null
+                                ?0
+                                :valor
+                        }%;
+                    "
+                ></div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function mostrarAtributos(){
+
+    const atributos=[
+
+        [
+            "finalizacao",
+            "Finalização"
+        ],
+
+        [
+            "passe",
+            "Passe"
+        ],
+
+        [
+            "drible",
+            "Drible"
+        ],
+
+        [
+            "velocidade",
+            "Velocidade"
+        ],
+
+        [
+            "forca",
+            "Força"
+        ],
+
+        [
+            "resistencia",
+            "Resistência"
+        ]
+
+    ];
+
+    const total=
+        contarAtributos();
+
+    const progresso=
+        Math.round(
+            total/6*100
+        );
+
+    const html=
+        atributos
+        .map(
+            ([chave,nome])=>
+                renderAtributo(
+                    chave,
+                    nome
+                )
+        )
+        .join("");
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:
+                    minmax(0,1.4fr)
+                    minmax(280px,1fr);
+                gap:16px;
+            "
+        >
+
+            <div class="panel">
+
+                <div class="panel-body">
+
+                    <div class="player-card">
+
+                        <div class="player-top">
+
+                            <div>
+
+                                <div class="player-name">
+
+                                    ${
+                                        escaparHTML(
+                                            jogador.nome
+                                        )
+                                    }
+
+                                </div>
+
+                                <div class="meta">
+
+                                    <div class="pill">
+                                        🎂 16 anos
+                                    </div>
+
+                                    <div class="pill">
+                                        🌎 ${jogador.pais}
+                                    </div>
+
+                                    <div class="pill">
+                                        📍 ${jogador.posicao}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="overall">
+
+                                <span class="overall-label">
+                                    OVR
+                                </span>
+
+                                <span class="overall-number">
+
+                                    ${
+                                        total
+                                            ?calcularOverall()
+                                            :"—"
+                                    }
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="spacer"></div>
+
+                    <div class="bar">
+
+                        <div
+                            style="
+                                width:${progresso}%;
+                            "
+                        ></div>
+
+                    </div>
+
+                    <p class="small muted center">
+
+                        ${total}/6 atributos escolhidos
+
+                    </p>
+
+                    <div class="attribute-list">
+
+                        ${html}
+
+                    </div>
+
+                    <div class="spacer"></div>
+
+                    ${
+
+                        total<6
+
+                        ?
+
+                        `
+
+                            <div class="center">
+
+                                <button
+                                    class="btn"
+                                    onclick="sortearJogador()"
+                                >
+
+                                    🎰 SORTEAR JOGADOR
+
+                                </button>
+
+                            </div>
+
+                        `
+
+                        :
+
+                        `
+
+                            <div class="notice center">
+
+                                ✅ Todos os atributos
+                                foram escolhidos.
+
+                            </div>
+
+                            <div class="center">
+
+                                <button
+                                    class="btn"
+                                    onclick="finalizarJogador()"
+                                >
+
+                                    🚀 FINALIZAR JOGADOR
+
+                                </button>
+
+                            </div>
+
+                        `
+
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2 class="title">
+                        🎲 Regras
+                    </h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="notice">
+
+                        🎯 Cada jogador sorteado é
+                        eliminado da roleta desta criação.
+
+                    </div>
+
+                    <div class="spacer"></div>
+
+                    <div class="notice">
+
+                        🔒 O atributo escolhido fica travado.
+
+                    </div>
+
+                    <div class="spacer"></div>
+
+                    <div class="notice">
+
+                        📊 O OVR é a média dos seis atributos.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+/* =========================================================
+   ROLETA DE JOGADOR
+========================================================= */
+
+function sortearJogador(){
+
+    if(
+        contarAtributos() >= 6
+    ){
+
+        return;
+
+    }
+
+    if(
+        !jogadoresDisponiveis.length
+    ){
+
+        alert(
+            "Acabaram os jogadores disponíveis."
+        );
+
+        return;
+
+    }
+
+    const vencedor =
+        jogadoresDisponiveis[
+            inteiro(
+                0,
+                jogadoresDisponiveis.length-1
+            )
+        ];
+
+    const nomes =
+        jogadoresDisponiveis.map(
+            p => p.nome
+        );
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel roulette">
+
+            <div class="badge">
+                🎰 SORTEANDO JOGADOR
+            </div>
+
+            <div class="roulette-circle">
+
+                <div class="roulette-inner">
+
+                    <div class="roulette-icon">
+                        ⚽
+                    </div>
+
+                    <div
+                        id="roletaJogador"
+                        class="
+                            roulette-name
+                            roulette-running
+                        "
+                    >
+                        🎰
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h2 class="title">
+                Girando...
+            </h2>
+
+            <p class="subtitle">
+
+                Escolhendo sua próxima
+                fonte de atributos.
+
+            </p>
+
+        </div>
+
+    `;
+
+    const elemento =
+        document.getElementById(
+            "roletaJogador"
+        );
+
+    let indice=0;
+
+    let passos=0;
+
+    let intervalo=45;
+
+    const limite=42;
+
+    function girar(){
+
+        elemento.textContent =
+            nomes[
+                indice % nomes.length
+            ];
+
+        indice++;
+
+        passos++;
+
+        if(
+            passos < limite
+        ){
+
+            intervalo += 4;
+
+            setTimeout(
+                girar,
+                intervalo
+            );
+
+            return;
+
+        }
+
+        elemento.textContent =
+            vencedor.nome;
+
+        elemento.classList.remove(
+            "roulette-running"
+        );
+
+        jogadoresDisponiveis =
+            jogadoresDisponiveis.filter(
+                j =>
+                    j !== vencedor
+            );
+
+        setTimeout(
+            () =>
+                mostrarJogadorSorteado(
+                    vencedor
+                ),
+            700
+        );
+
+    }
+
+    girar();
+
+}
+
+
+/* =========================================================
+   JOGADOR SORTEADO
+========================================================= */
+
+function mostrarJogadorSorteado(
+    jogadorSorteado
+){
+
+    const atributos=[
+
+        [
+            "finalizacao",
+            "Finalização",
+            jogadorSorteado.finalizacao
+        ],
+
+        [
+            "passe",
+            "Passe",
+            jogadorSorteado.passe
+        ],
+
+        [
+            "drible",
+            "Drible",
+            jogadorSorteado.drible
+        ],
+
+        [
+            "velocidade",
+            "Velocidade",
+            jogadorSorteado.velocidade
+        ],
+
+        [
+            "forca",
+            "Força",
+            jogadorSorteado.forca
+        ],
+
+        [
+            "resistencia",
+            "Resistência",
+            jogadorSorteado.resistencia
+        ]
+
+    ];
+
+    const botoes =
+        atributos
+
+        .filter(
+            ([chave]) =>
+                jogador[chave] === null
+        )
+
+        .map(
+            ([chave,nome,valor]) => `
+
+                <button
+                    class="choice"
+                    onclick="
+                        pegarAtributo(
+                            '${chave}',
+                            ${valor}
+                        )
+                    "
+                >
+
+                    <span>
+                        ${nome}
+                    </span>
+
+                    <strong>
+                        ${valor}
+                    </strong>
+
+                </button>
+
+            `
+        )
+
+        .join("");
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel roulette">
+
+            <div class="badge">
+                ✅ JOGADOR SORTEADO
+            </div>
+
+            <div class="roulette-circle">
+
+                <div class="roulette-inner">
+
+                    <div class="roulette-icon">
+                        👤
+                    </div>
+
+                    <div class="roulette-name">
+
+                        ${
+                            escaparHTML(
+                                jogadorSorteado.nome
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h2 class="title">
+                Escolha um atributo
+            </h2>
+
+            <p class="subtitle">
+
+                Pegue somente UMA
+                característica desse jogador.
+
+            </p>
+
+            <div class="choice-grid">
+
+                ${botoes}
+
+            </div>
+
+            <div class="spacer"></div>
+
+            <button
+                class="btn secondary"
+                onclick="
+                    mostrarAtributos()
+                "
+            >
+
+                ← VOLTAR
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PEGAR ATRIBUTO
+========================================================= */
+
+function pegarAtributo(
+    nome,
+    valor
+){
+
+    if(
+        jogador[nome] !== null
+    ){
+
+        alert(
+            "Esse atributo já foi escolhido."
+        );
+
+        return;
+
+    }
+
+    jogador[nome]=valor;
+
+    jogador.overall =
+        calcularOverall();
+
+    mostrarAtributos();
+
+}
+
+
+/* =========================================================
+   FINALIZAR JOGADOR
+========================================================= */
+
+function finalizarJogador(){
+
+    if(
+        contarAtributos() < 6
+    ){
+
+        alert(
+            "Escolha os 6 atributos."
+        );
+
+        return;
+
+    }
+
+    jogador.overall =
+        calcularOverall();
+
+    jogador.maiorOverall =
+        jogador.overall;
+
+    sortearClube();
+
+}
+
+
+/* =========================================================
+   ROLETA DE CLUBE
+========================================================= */
+
+function sortearClube(){
+
+    const clubes =
+        ligas[
+            jogador.pais
+        ].clubes;
+
+    const vencedor =
+        clubes[
+            inteiro(
+                0,
+                clubes.length-1
+            )
+        ];
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel roulette">
+
+            <div class="badge">
+                🏟️ SORTEANDO CLUBE
+            </div>
+
+            <div class="roulette-circle">
+
+                <div class="roulette-inner">
+
+                    <div class="roulette-icon">
+                        🏟️
+                    </div>
+
+                    <div
+                        id="roletaClube"
+                        class="
+                            roulette-name
+                            roulette-running
+                        "
+                    >
+                        🎰
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h2 class="title">
+                Onde sua carreira vai começar?
+            </h2>
+
+            <p class="subtitle">
+
+                A roleta usa os clubes
+                da liga escolhida.
+
+            </p>
+
+        </div>
+
+    `;
+
+    const elemento =
+        document.getElementById(
+            "roletaClube"
+        );
+
+    let indice=0;
+
+    let passos=0;
+
+    let intervalo=45;
+
+    const limite=45;
+
+    function girar(){
+
+        elemento.textContent =
+            clubes[
+                indice % clubes.length
+            ];
+
+        indice++;
+
+        passos++;
+
+        if(
+            passos < limite
+        ){
+
+            intervalo += 4;
+
+            setTimeout(
+                girar,
+                intervalo
+            );
+
+            return;
+
+        }
+
+        elemento.textContent =
+            vencedor;
+
+        elemento.classList.remove(
+            "roulette-running"
+        );
+
+        jogador.clube =
+            vencedor;
+
+        jogador.liga =
+            ligas[
+                jogador.pais
+            ].nome;
+
+        setTimeout(
+            mostrarClubeInicial,
+            700
+        );
+
+    }
+
+    girar();
+
+}
+
+
+/* =========================================================
+   CLUBE INICIAL
+========================================================= */
+
+function mostrarClubeInicial(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:900px;
+                margin:50px auto;
+            "
+        >
+
+            <div class="panel-body center">
+
+                <div class="badge">
+                    🏟️ DESTINO DEFINIDO
+                </div>
+
+                <div
+                    style="
+                        font-size:65px;
+                    "
+                >
+                    🏟️
+                </div>
+
+                <div class="club-name">
+
+                    ${
+                        escaparHTML(
+                            jogador.clube
+                        )
+                    }
+
+                </div>
+
+                <p class="subtitle">
+
+                    ${jogador.liga}
+
+                </p>
+
+                <div class="stats-grid">
+
+                    ${bigStat(
+                        jogador.overall,
+                        "OVERALL"
+                    )}
+
+                    ${bigStat(
+                        jogador.idade,
+                        "IDADE"
+                    )}
+
+                    ${bigStat(
+                        obterForcaClube(
+                            jogador.clube
+                        ),
+                        "FORÇA DO CLUBE"
+                    )}
+
+                    ${bigStat(
+                        "€200K",
+                        "VALOR"
+                    )}
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="notice">
+
+                    ${
+                        escaparHTML(
+                            jogador.nome
+                        )
+                    }
+
+                    começa sua carreira
+                    profissional no
+
+                    <strong>
+                        ${
+                            escaparHTML(
+                                jogador.clube
+                            )
+                        }
+                    </strong>.
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn"
+                    onclick="
+                        iniciarCarreira()
+                    "
+                >
+
+                    ⚽ COMEÇAR CARREIRA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TABELA INICIAL
+========================================================= */
+
+function criarTabela(){
+
+    const pais =
+        obterPaisLigaAtual();
+
+    const clubes =
+        ligas[pais].clubes;
+
+    tabela =
+        clubes.map(
+            clube => ({
+
+                clube,
+
+                jogos:0,
+
+                vitorias:0,
+
+                empates:0,
+
+                derrotas:0,
+
+                gf:0,
+
+                ga:0,
+
+                sg:0,
+
+                pontos:0
+
+            })
+        );
+
+}
+
+
+/* =========================================================
+   OBTER TIME NA TABELA
+========================================================= */
+
+function obterTabelaClube(
+    clube
+){
+
+    return tabela.find(
+        item =>
+            item.clube === clube
+    );
+
+}
+
+
+/* =========================================================
+   ORDENAR TABELA
+========================================================= */
+
+function ordenarTabela(){
+
+    tabela.sort(
+        (a,b)=>{
+
+            if(
+                b.pontos !==
+                a.pontos
+            ){
+
+                return (
+                    b.pontos -
+                    a.pontos
+                );
+
+            }
+
+            if(
+                b.sg !==
+                a.sg
+            ){
+
+                return (
+                    b.sg -
+                    a.sg
+                );
+
+            }
+
+            if(
+                b.gf !==
+                a.gf
+            ){
+
+                return (
+                    b.gf -
+                    a.gf
+                );
+
+            }
+
+            if(
+                b.vitorias !==
+                a.vitorias
+            ){
+
+                return (
+                    b.vitorias -
+                    a.vitorias
+                );
+
+            }
+
+            return a.clube.localeCompare(
+                b.clube
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ATUALIZAR TABELA
+========================================================= */
+
+function atualizarTabela(
+    clubeA,
+    clubeB,
+    golsA,
+    golsB
+){
+
+    const a =
+        obterTabelaClube(
+            clubeA
+        );
+
+    const b =
+        obterTabelaClube(
+            clubeB
+        );
+
+    if(
+        !a ||
+        !b
+    ){
+
+        return;
+
+    }
+
+    a.jogos++;
+    b.jogos++;
+
+    a.gf += golsA;
+    a.ga += golsB;
+
+    b.gf += golsB;
+    b.ga += golsA;
+
+    a.sg =
+        a.gf -
+        a.ga;
+
+    b.sg =
+        b.gf -
+        b.ga;
+
+    if(
+        golsA >
+        golsB
+    ){
+
+        a.vitorias++;
+
+        a.pontos += 3;
+
+        b.derrotas++;
+
+    }
+
+    else if(
+        golsA <
+        golsB
+    ){
+
+        b.vitorias++;
+
+        b.pontos += 3;
+
+        a.derrotas++;
+
+    }
+
+    else{
+
+        a.empates++;
+
+        b.empates++;
+
+        a.pontos++;
+
+        b.pontos++;
+
+    }
+
+}
+
+
+/* =========================================================
+   DESCOBRIR PAÍS DO CLUBE ATUAL
+========================================================= */
+
+function obterPaisLigaAtual(){
+
+    const informacao =
+        obterLigaDoClube(
+            jogador.clube
+        );
+
+    if(
+        informacao
+    ){
+
+        return informacao.pais;
+
+    }
+
+    return jogador.pais;
+
+}
+
+
+/* =========================================================
+   GERAR CAMPEONATO
+========================================================= */
+
+function criarCalendario(){
+
+    const pais =
+        obterPaisLigaAtual();
+
+    const clubes =
+        ligas[pais].clubes;
+
+    if(
+        clubes.length !== 20
+    ){
+
+        throw new Error(
+            "A liga precisa ter 20 clubes."
+        );
+
+    }
+
+    /*
+     * Método do círculo.
+     *
+     * 20 clubes:
+     *
+     * 19 rodadas no primeiro turno.
+     * 19 rodadas no segundo turno.
+     *
+     * TOTAL:
+     *
+     * 38 rodadas.
+     */
+
+    const base =
+        embaralhar(
+            clubes
+        );
+
+    let lista =
+        [...base];
+
+    const primeiroTurno=[];
+
+
+    /* -----------------------------------------------------
+       PRIMEIRO TURNO
+    ----------------------------------------------------- */
+
+    for(
+        let rodada=0;
+        rodada<19;
+        rodada++
+    ){
+
+        const jogos=[];
+
+        for(
+            let i=0;
+            i<10;
+            i++
+        ){
+
+            const timeA =
+                lista[i];
+
+            const timeB =
+                lista[
+                    19-i
+                ];
+
+            let casa;
+            let fora;
+
+
+            /*
+             * Alternamos o mando para
+             * distribuir melhor os jogos.
+             */
+
+            if(
+                rodada % 2 === 0
+            ){
+
+                casa =
+                    timeA;
+
+                fora =
+                    timeB;
+
+            }
+
+            else{
+
+                casa =
+                    timeB;
+
+                fora =
+                    timeA;
+
+            }
+
+
+            jogos.push({
+
+                casa,
+
+                fora,
+
+                jogada:false,
+
+                golsCasa:null,
+
+                golsFora:null
+
+            });
+
+        }
+
+
+        primeiroTurno.push(
+            jogos
+        );
+
+
+        /*
+         * Rotação do método do círculo.
+         *
+         * O primeiro time fica fixo.
+         */
+
+        lista=[
+
+            lista[0],
+
+            lista[19],
+
+            ...lista.slice(
+                1,
+                19
+            )
+
+        ];
+
+    }
+
+
+    /* -----------------------------------------------------
+       SEGUNDO TURNO
+    ----------------------------------------------------- */
+
+    const segundoTurno =
+        primeiroTurno.map(
+            jogos =>
+
+                jogos.map(
+                    jogo => ({
+
+                        casa:
+                            jogo.fora,
+
+                        fora:
+                            jogo.casa,
+
+                        jogada:false,
+
+                        golsCasa:null,
+
+                        golsFora:null
+
+                    })
+                )
+
+        );
+
+
+    rodadas=[
+
+        ...primeiroTurno,
+
+        ...segundoTurno
+
+    ];
+
+
+    /* -----------------------------------------------------
+       CALENDÁRIO INDIVIDUAL
+    ----------------------------------------------------- */
+
+    calendario =
+        rodadas.map(
+            (jogos,index)=>{
+
+                const jogo =
+                    jogos.find(
+                        j =>
+                            j.casa ===
+                            jogador.clube
+                            ||
+                            j.fora ===
+                            jogador.clube
+                    );
+
+
+                if(!jogo){
+
+                    return {
+
+                        rodada:
+                            index+1,
+
+                        adversario:
+                            "ERRO",
+
+                        casa:false,
+
+                        jogada:false,
+
+                        golsNosso:null,
+
+                        golsAdversario:null
+
+                    };
+
+                }
+
+
+                const casa =
+                    jogo.casa ===
+                    jogador.clube;
+
+
+                return {
+
+                    rodada:
+                        index+1,
+
+                    adversario:
+                        casa
+                            ?jogo.fora
+                            :jogo.casa,
+
+                    casa,
+
+                    jogada:false,
+
+                    golsNosso:null,
+
+                    golsAdversario:null
+
+                };
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   INICIAR CARREIRA
+========================================================= */
+
+function iniciarCarreira(){
+
+    criarTabela();
+
+    criarCalendario();
+
+    salvarAutomaticamente();
+
+    mostrarHub();
+
+}
+
+
+/* =========================================================
+   MOTOR DE GOLS
+========================================================= */
+
+function gerarGols(
+    forcaTime,
+    forcaAdv
+){
+
+    const diferenca =
+        forcaTime -
+        forcaAdv;
+
+
+    /*
+     * Quanto maior a diferença,
+     * maior a expectativa de gols.
+     *
+     * O mando dá pequena vantagem.
+     */
+
+    let expectativa =
+        1.05 +
+        diferenca / 24 +
+        aleatorio(
+            -.70,
+            .70
+        );
+
+
+    /*
+     * Eventualmente uma partida
+     * sai do padrão.
+     */
+
+    if(
+        Math.random() < .20
+    ){
+
+        expectativa +=
+            aleatorio(
+                -.2,
+                1.8
+            );
+
+    }
+
+
+    let gols =
+        Math.round(
+            expectativa
+        );
+
+
+    gols =
+        clamp(
+            gols,
+            0,
+            7
+        );
+
+
+    return gols;
+
+}
+
+
+/* =========================================================
+   CHANCES POR POSIÇÃO
+========================================================= */
+
+function chancesPorPosicao(){
+
+    const base={
+
+        gol:.03,
+
+        assistencia:.02
+
+    };
+
+
+    switch(
+        jogador.posicao
+    ){
+
+        case "ATA":
+
+            base.gol=.40;
+
+            base.assistencia=.12;
+
+            break;
+
+
+        case "PE":
+
+        case "PD":
+
+            base.gol=.27;
+
+            base.assistencia=.22;
+
+            break;
+
+
+        case "MEI":
+
+            base.gol=.16;
+
+            base.assistencia=.30;
+
+            break;
+
+
+        case "VOL":
+
+            base.gol=.07;
+
+            base.assistencia=.14;
+
+            break;
+
+
+        case "LE":
+
+        case "LD":
+
+            base.gol=.05;
+
+            base.assistencia=.15;
+
+            break;
+
+
+        case "ZAG":
+
+            base.gol=.025;
+
+            base.assistencia=.04;
+
+            break;
+
+    }
+
+
+    const multiplicador =
+        .60 +
+        jogador.overall /
+        100;
+
+
+    base.gol *=
+        multiplicador;
+
+    base.assistencia *=
+        multiplicador;
+
+
+    return base;
+
+}
+
+
+/* =========================================================
+   GERAR PARTICIPAÇÃO EM GOLS
+========================================================= */
+
+function gerarParticipacao(
+    golsNosso
+){
+
+    const chances =
+        chancesPorPosicao();
+
+    let gols=0;
+
+    let assists=0;
+
+
+    for(
+        let i=0;
+        i<golsNosso;
+        i++
+    ){
+
+        const r =
+            Math.random();
+
+
+        if(
+            r <
+            chances.gol
+        ){
+
+            gols++;
+
+        }
+
+        else if(
+            r <
+            chances.gol +
+            chances.assistencia
+        ){
+
+            assists++;
+
+        }
+
+    }
+
+
+    gols =
+        Math.min(
+            gols,
+            golsNosso
+        );
+
+
+    assists =
+        Math.min(
+            assists,
+            Math.max(
+                0,
+                golsNosso -
+                gols
+            )
+        );
+
+
+    return {
+
+        gols,
+
+        assists
+
+    };
+
+}
+
+
+/* =========================================================
+   GERAR NOTA
+========================================================= */
+
+function gerarNota(
+    golsNosso,
+    golsRival,
+    gols,
+    assistencias
+){
+
+    let nota =
+        5.8 +
+        (
+            jogador.overall -
+            50
+        ) /
+        42;
+
+
+    nota +=
+        gols *
+        1.15;
+
+
+    nota +=
+        assistencias *
+        .78;
+
+
+    if(
+        golsNosso >
+        golsRival
+    ){
+
+        nota += .30;
+
+    }
+
+    else if(
+        golsNosso <
+        golsRival
+    ){
+
+        nota -= .20;
+
+    }
+
+
+    const jogadorDefensivo =
+        [
+
+            "ZAG",
+            "VOL",
+            "LE",
+            "LD"
+
+        ].includes(
+            jogador.posicao
+        );
+
+
+    if(
+        jogadorDefensivo &&
+        golsRival === 0
+    ){
+
+        nota += .65;
+
+    }
+
+
+    nota +=
+        aleatorio(
+            -.6,
+            .6
+        );
+
+
+    nota =
+        clamp(
+            nota,
+            4.5,
+            10
+        );
+
+
+    return arredondar(
+        nota,
+        1
+    );
+
+}
+
+
+/* =========================================================
+   SIMULAR UM JOGO
+========================================================= */
+
+function simularJogo(
+    jogo
+){
+
+    if(
+        jogo.jogada
+    ){
+
+        return null;
+
+    }
+
+
+    const forcaCasa =
+        obterForcaClube(
+            jogo.casa
+        ) +
+        3;
+
+
+    const forcaFora =
+        obterForcaClube(
+            jogo.fora
+        );
+
+
+    const golsCasa =
+        gerarGols(
+            forcaCasa,
+            forcaFora
+        );
+
+
+    const golsFora =
+        gerarGols(
+            forcaFora,
+            forcaCasa
+        );
+
+
+    jogo.golsCasa =
+        golsCasa;
+
+
+    jogo.golsFora =
+        golsFora;
+
+
+    jogo.jogada =
+        true;
+
+
+    /*
+     * PRIMEIRO:
+     *
+     * atualizamos a tabela
+     * para QUALQUER partida.
+     */
+
+    atualizarTabela(
+        jogo.casa,
+        jogo.fora,
+        golsCasa,
+        golsFora
+    );
+
+
+    /*
+     * Se não envolve o jogador,
+     * acabamos aqui.
+     */
+
+    const eMeuJogo =
+        jogo.casa === jogador.clube ||
+        jogo.fora === jogador.clube;
+
+
+    if(
+        !eMeuJogo
+    ){
+
+        return {
+
+            jogo,
+
+            meuJogo:false
+
+        };
+
+    }
+
+
+    const golsNosso =
+        jogo.casa ===
+        jogador.clube
+
+            ?
+
+        golsCasa
+
+            :
+
+        golsFora;
+
+
+    const golsRival =
+        jogo.casa ===
+        jogador.clube
+
+            ?
+
+        golsFora
+
+            :
+
+        golsCasa;
+
+
+    const participacao =
+        gerarParticipacao(
+            golsNosso
+        );
+
+
+    const nota =
+        gerarNota(
+            golsNosso,
+            golsRival,
+            participacao.gols,
+            participacao.assists
+        );
+
+
+    const minutos =
+        inteiro(
+            65,
+            90
+        );
+
+
+    /*
+     * Atualiza estatísticas individuais.
+     */
+
+    jogador.jogos++;
+
+    jogador.gols +=
+        participacao.gols;
+
+    jogador.assistencias +=
+        participacao.assists;
+
+    jogador.minutos +=
+        minutos;
+
+    jogador.somaNotas +=
+        nota;
+
+
+    if(
+        golsNosso >
+        golsRival
+    ){
+
+        jogador.vitorias++;
+
+    }
+
+    else if(
+        golsNosso <
+        golsRival
+    ){
+
+        jogador.derrotas++;
+
+    }
+
+    else{
+
+        jogador.empates++;
+
+    }
+
+
+    /*
+     * Atualiza o calendário do jogador.
+     */
+
+    const indice =
+        jogador.rodada;
+
+
+    if(
+        calendario[indice]
+    ){
+
+        calendario[indice].jogada =
+            true;
+
+        calendario[indice].golsNosso =
+            golsNosso;
+
+        calendario[indice].golsAdversario =
+            golsRival;
+
+    }
+
+
+    /*
+     * Guarda histórico individual.
+     */
+
+    jogador.historico.push({
+
+        temporada:
+            jogador.temporada,
+
+        rodada:
+            indice+1,
+
+        adversario:
+            jogo.casa ===
+            jogador.clube
+                ?jogo.fora
+                :jogo.casa,
+
+        casa:
+            jogo.casa ===
+            jogador.clube,
+
+        golsTime:
+            golsNosso,
+
+        golsAdversario:
+            golsRival,
+
+        gols:
+            participacao.gols,
+
+        assistencias:
+            participacao.assists,
+
+        nota,
+
+        minutos
+
+    });
+
+
+    return {
+
+        jogo,
+
+        meuJogo:true,
+
+        golsCasa,
+
+        golsFora,
+
+        golsJogador:
+            participacao.gols,
+
+        assistenciasJogador:
+            participacao.assists,
+
+        nota,
+
+        minutos
+
+    };
+
+}
+
+
+/* =========================================================
+   SIMULAR RODADA COMPLETA
+========================================================= */
+
+function simularRodadaCompleta(
+    mostrarTela=true
+){
+
+    const indice =
+        jogador.rodada;
+
+
+    const jogos =
+        rodadas[indice];
+
+
+    if(
+        !jogos
+    ){
+
+        mostrarFimTemporada();
+
+        return null;
+
+    }
+
+
+    const resultados=[];
+
+
+    /*
+     * AQUI ESTÁ A CORREÇÃO PRINCIPAL:
+     *
+     * percorremos TODOS os 10 jogos
+     * da rodada.
+     */
+
+    for(
+        const jogo
+        of jogos
+    ){
+
+        const resultado =
+            simularJogo(
+                jogo
+            );
+
+
+        if(
+            resultado
+        ){
+
+            resultados.push(
+                resultado
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Reorganiza tabela depois
+     * dos 10 jogos.
+     */
+
+    ordenarTabela();
+
+
+    /*
+     * Só agora avançamos
+     * para a próxima rodada.
+     */
+
+    jogador.rodada++;
+
+
+    ultimaRodadaResultados =
+        jogos.map(
+            j => ({
+
+                casa:
+                    j.casa,
+
+                fora:
+                    j.fora,
+
+                golsCasa:
+                    j.golsCasa,
+
+                golsFora:
+                    j.golsFora,
+
+                meuJogo:
+                    j.casa === jogador.clube ||
+                    j.fora === jogador.clube
+
+            })
+        );
+
+
+    /*
+     * Propostas ocasionais.
+     */
+
+    if(
+        jogador.jogos > 0 &&
+        jogador.jogos % 4 === 0 &&
+        Math.random() <
+        CONFIG.chancesOfertasDuranteTemporada
+    ){
+
+        gerarOfertas();
+
+    }
+
+
+    salvarAutomaticamente();
+
+
+    if(
+        mostrarTela
+    ){
+
+        const meuResultado =
+            resultados.find(
+                r =>
+                    r.meuJogo
+            );
+
+
+        if(
+            meuResultado
+        ){
+
+            mostrarResultadoRodada(
+                meuResultado
+            );
+
+        }
+
+        else{
+
+            mostrarHub();
+
+        }
+
+    }
+
+
+    return resultados;
+
+}
+
+
+/* =========================================================
+   BOTÃO SIMULAR PARTIDA
+========================================================= */
+
+function simularPartida(){
+
+    simularRodadaCompleta(
+        true
+    );
+
+}
+
+
+/* =========================================================
+   SIMULAR TEMPORADA INTEIRA
+========================================================= */
+
+function simularTemporada(){
+
+    if(
+        jogador.rodada >=
+        rodadas.length
+    ){
+
+        mostrarFimTemporada();
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel loading">
+
+            <div>
+
+                <div class="spinner"></div>
+
+                <p class="muted center">
+
+                    Simulando todas as partidas
+                    restantes...
+
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    setTimeout(
+        ()=>{
+
+            while(
+                jogador.rodada <
+                rodadas.length
+            ){
+
+                simularRodadaCompleta(
+                    false
+                );
+
+            }
+
+
+            mostrarFimTemporada();
+
+        },
+        80
+    );
+
+}
+
+
+/* =========================================================
+   RESULTADO DA RODADA
+========================================================= */
+
+function mostrarResultadoRodada(
+    dados
+){
+
+    const jogo =
+        dados.jogo;
+
+
+    const nossoPlacar =
+        jogo.casa ===
+        jogador.clube
+
+            ?
+
+        jogo.golsCasa
+
+            :
+
+        jogo.golsFora;
+
+
+    const rivalPlacar =
+        jogo.casa ===
+        jogador.clube
+
+            ?
+
+        jogo.golsFora
+
+            :
+
+        jogo.golsCasa;
+
+
+    let texto =
+        "EMPATE";
+
+
+    let classe =
+        "draw";
+
+
+    if(
+        nossoPlacar >
+        rivalPlacar
+    ){
+
+        texto =
+            "VITÓRIA";
+
+        classe =
+            "win";
+
+    }
+
+    else if(
+        nossoPlacar <
+        rivalPlacar
+    ){
+
+        texto =
+            "DERROTA";
+
+        classe =
+            "loss";
+
+    }
+
+
+    const outros =
+        ultimaRodadaResultados
+        .filter(
+            x =>
+                !x.meuJogo
+        );
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="match">
+
+                <div
+                    class="
+                        result-title
+                        ${classe}
+                    "
+                >
+
+                    ${texto}
+
+                </div>
+
+
+                <div class="teams">
+
+                    <div class="team">
+
+                        ${
+                            escaparHTML(
+                                jogo.casa
+                            )
+                        }
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="score">
+
+                            ${jogo.golsCasa}
+                            ×
+                            ${jogo.golsFora}
+
+                        </div>
+
+                        <div class="small muted">
+                            FINAL
+                        </div>
+
+                    </div>
+
+
+                    <div class="team">
+
+                        ${
+                            escaparHTML(
+                                jogo.fora
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <div class="performance">
+
+                    <div class="match-label">
+                        Sua atuação
+                    </div>
+
+                    <div class="match-rating">
+
+                        ${dados.nota}
+
+                    </div>
+
+
+                    <div class="stats-grid">
+
+                        ${bigStat(
+                            dados.golsJogador,
+                            "GOLS"
+                        )}
+
+                        ${bigStat(
+                            dados.assistenciasJogador,
+                            "ASSISTÊNCIAS"
+                        )}
+
+                        ${bigStat(
+                            dados.minutos+"'",
+                            "MINUTOS"
+                        )}
+
+                        ${bigStat(
+                            jogador.jogos,
+                            "JOGOS"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="notice">
+
+                    ✅ Rodada
+                    <strong>
+                        ${jogador.rodada}
+                    </strong>
+                    encerrada com
+                    <strong>
+                        10 jogos
+                    </strong>.
+
+                    <br>
+
+                    Os outros
+                    <strong>
+                        9 confrontos
+                    </strong>
+                    também foram
+                    simulados e entraram
+                    na tabela.
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div
+                    class="round-card"
+                    style="text-align:left"
+                >
+
+                    <div class="round-title">
+
+                        <span>
+                            📋 Outros resultados
+                        </span>
+
+                        <span class="chip">
+
+                            Rodada
+                            ${jogador.rodada}
+
+                        </span>
+
+                    </div>
+
+
+                    ${
+                        outros.map(
+                            x => `
+
+                                <div class="fixture">
+
+                                    <span>
+
+                                        ${
+                                            escaparHTML(
+                                                x.casa
+                                            )
+                                        }
+
+                                    </span>
+
+                                    <span>
+
+                                        ${
+                                            x.golsCasa
+                                        }
+
+                                        ×
+
+                                        ${
+                                            x.golsFora
+                                        }
+
+                                    </span>
+
+                                    <span>
+
+                                        ${
+                                            escaparHTML(
+                                                x.fora
+                                            )
+                                        }
+
+                                    </span>
+
+                                </div>
+
+                            `
+                        ).join("")
+                    }
+
+                </div>
+
+
+                <button
+                    class="btn"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    CONTINUAR
+
+                </button>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarTabela()
+                    "
+                >
+
+                    📊 VER TABELA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+/* =========================================================
+   HUB PRINCIPAL
+========================================================= */
+
+function mostrarHub(){
+
+    if(
+        jogador.aposentado
+    ){
+
+        mostrarAposentadoria();
+
+        return;
+
+    }
+
+
+    if(
+        jogador.rodada >=
+        rodadas.length
+    ){
+
+        mostrarFimTemporada();
+
+        return;
+
+    }
+
+
+    const partida =
+        calendario[
+            jogador.rodada
+        ];
+
+
+    if(
+        !partida
+    ){
+
+        criarCalendario();
+
+        mostrarHub();
+
+        return;
+
+    }
+
+
+    const rodadaAtual =
+        jogador.rodada + 1;
+
+
+    const progresso =
+        Math.round(
+            (
+                jogador.rodada /
+                rodadas.length
+            ) * 100
+        );
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="career-header">
+
+            <div class="career-player">
+
+                <div class="career-player-name">
+
+                    ${
+                        escaparHTML(
+                            jogador.nome
+                        )
+                    }
+
+                </div>
+
+
+                <div
+                    style="
+                        margin-top:5px;
+                        color:#aebbb2;
+                    "
+                >
+
+                    🏟️
+
+                    ${
+                        escaparHTML(
+                            jogador.clube
+                        )
+                    }
+
+                </div>
+
+
+                <div class="meta">
+
+                    <div class="pill">
+
+                        ⭐ OVR
+                        ${jogador.overall}
+
+                    </div>
+
+
+                    <div class="pill">
+
+                        📍
+                        ${jogador.posicao}
+
+                    </div>
+
+
+                    <div class="pill">
+
+                        🎂
+                        ${jogador.idade}
+                        anos
+
+                    </div>
+
+
+                    <div class="pill">
+
+                        💰
+                        ${moeda(
+                            jogador.valorMercado
+                        )}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="career-season">
+
+                <div class="season-label">
+
+                    Temporada
+
+                </div>
+
+
+                <div class="season-number">
+
+                    ${jogador.temporada}
+
+                </div>
+
+
+                <div class="small muted">
+
+                    Rodada
+                    ${rodadaAtual}
+                    de
+                    ${rodadas.length}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="bar">
+
+                    <div
+                        style="
+                            width:${progresso}%;
+                        "
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="match">
+
+                <div class="match-label">
+
+                    Próxima partida
+
+                </div>
+
+
+                <div class="teams">
+
+                    <div class="team">
+
+                        ${
+                            partida.casa
+                                ?escaparHTML(jogador.clube)
+                                :escaparHTML(
+                                    partida.adversario
+                                )
+                        }
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="score">
+
+                            ×
+
+                        </div>
+
+
+                        <div class="small muted">
+
+                            ${
+                                partida.casa
+                                    ?"EM CASA"
+                                    :"FORA"
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="team">
+
+                        ${
+                            partida.casa
+                                ?escaparHTML(
+                                    partida.adversario
+                                )
+                                :escaparHTML(
+                                    jogador.clube
+                                )
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn"
+                    onclick="
+                        simularPartida()
+                    "
+                >
+
+                    🎮 SIMULAR RODADA
+
+                </button>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        simularTemporada()
+                    "
+                >
+
+                    ⏩ SIMULAR TEMPORADA
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu-grid">
+
+            ${
+                menuCard(
+                    "📊",
+                    "Tabela",
+                    "Classificação atual",
+                    "mostrarTabela()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "📈",
+                    "Estatísticas",
+                    "Números da temporada",
+                    "mostrarEstatisticas()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "👤",
+                    "Meu jogador",
+                    "Atributos e perfil",
+                    "mostrarFicha()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "📅",
+                    "Calendário",
+                    "Todas as rodadas",
+                    "mostrarCalendario()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "💰",
+                    "Transferências",
+                    "Ofertas recebidas",
+                    "mostrarTransferencias()"
+                )
+            }
+
+        </div>
+
+
+        <div class="spacer"></div>
+
+
+        <div class="menu-grid">
+
+            ${
+                menuCard(
+                    "🏆",
+                    "Artilharia",
+                    "Ranking de gols",
+                    "mostrarArtilharia()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "🎯",
+                    "Assistências",
+                    "Ranking de assistências",
+                    "mostrarAssistencias()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "🧾",
+                    "Histórico",
+                    "Suas partidas",
+                    "mostrarHistorico()"
+                )
+            }
+
+
+            ${
+                menuCard(
+                    "💾",
+                    "Salvar",
+                    "Salvar carreira agora",
+                    "salvarEConfirmar()"
+                )
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+function mostrarTabela(){
+
+    ordenarTabela();
+
+
+    let linhas="";
+
+
+    tabela.forEach(
+        (time,index)=>{
+
+            const estaJogando =
+                time.jogos ===
+                jogador.rodada;
+
+
+            linhas += `
+
+                <tr
+                    class="
+                        ${
+                            time.clube ===
+                            jogador.clube
+
+                            ?
+
+                            "my-club"
+
+                            :
+
+                            ""
+                        }
+                    "
+                >
+
+                    <td>
+
+                        ${
+                            index + 1
+                        }
+
+                    </td>
+
+
+                    <td
+                        class="club-column"
+                    >
+
+                        ${
+                            escaparHTML(
+                                time.clube
+                            )
+                        }
+
+                    </td>
+
+
+                    <td>
+                        ${time.jogos}
+                    </td>
+
+
+                    <td>
+                        ${time.vitorias}
+                    </td>
+
+
+                    <td>
+                        ${time.empates}
+                    </td>
+
+
+                    <td>
+                        ${time.derrotas}
+                    </td>
+
+
+                    <td>
+                        ${time.gf}
+                    </td>
+
+
+                    <td>
+                        ${time.ga}
+                    </td>
+
+
+                    <td>
+                        ${time.sg}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ${time.pontos}
+                        </strong>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div
+                class="panel-header"
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <div>
+
+                    <h2 class="title">
+
+                        📊
+                        ${jogador.liga}
+
+                    </h2>
+
+
+                    <p class="subtitle">
+
+                        Temporada
+                        ${jogador.temporada}
+
+                        ·
+
+                        ${
+                            jogador.rodada
+                        }
+                        /
+                        ${
+                            rodadas.length
+                        }
+                        rodadas
+
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                ${
+                    jogador.rodada === 0
+
+                    ?
+
+                    `
+
+                        <div
+                            class="notice"
+                            style="
+                                margin-bottom:16px;
+                            "
+                        >
+
+                            🕐
+
+                            O campeonato ainda
+                            não começou.
+
+                            Todos os clubes estão
+                            com zero jogos.
+
+                        </div>
+
+                    `
+
+                    :
+
+                    `
+
+                        <div
+                            class="notice"
+                            style="
+                                margin-bottom:16px;
+                            "
+                        >
+
+                            ✅
+
+                            Após cada rodada,
+                            os <strong>10 jogos</strong>
+                            são processados e
+                            todos os clubes avançam
+                            juntos.
+
+                        </div>
+
+                    `
+
+                }
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th
+                                    class="club-column"
+                                >
+                                    Clube
+                                </th>
+
+                                <th>
+                                    J
+                                </th>
+
+                                <th>
+                                    V
+                                </th>
+
+                                <th>
+                                    E
+                                </th>
+
+                                <th>
+                                    D
+                                </th>
+
+                                <th>
+                                    GP
+                                </th>
+
+                                <th>
+                                    GC
+                                </th>
+
+                                <th>
+                                    SG
+                                </th>
+
+                                <th>
+                                    PTS
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            ${linhas}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+function mostrarEstatisticas(){
+
+    const media =
+        jogador.jogos
+
+            ?
+
+        (
+            jogador.somaNotas /
+            jogador.jogos
+        ).toFixed(2)
+
+            :
+
+        "0.00";
+
+
+    const golsPorJogo =
+        jogador.jogos
+
+            ?
+
+        (
+            jogador.gols /
+            jogador.jogos
+        ).toFixed(2)
+
+            :
+
+        "0.00";
+
+
+    const assistsPorJogo =
+        jogador.jogos
+
+            ?
+
+        (
+            jogador.assistencias /
+            jogador.jogos
+        ).toFixed(2)
+
+            :
+
+        "0.00";
+
+
+    const minutosPorJogo =
+        jogador.jogos
+
+            ?
+
+        Math.round(
+            jogador.minutos /
+            jogador.jogos
+        )
+
+            :
+
+        0;
+
+
+    const participacoes =
+        jogador.gols +
+        jogador.assistencias;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    📈 Estatísticas
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    Temporada
+                    ${jogador.temporada}
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="stats-grid">
+
+                    ${bigStat(
+                        jogador.jogos,
+                        "JOGOS"
+                    )}
+
+                    ${bigStat(
+                        jogador.gols,
+                        "GOLS"
+                    )}
+
+                    ${bigStat(
+                        jogador.assistencias,
+                        "ASSISTÊNCIAS"
+                    )}
+
+                    ${bigStat(
+                        media,
+                        "NOTA MÉDIA"
+                    )}
+
+                    ${bigStat(
+                        golsPorJogo,
+                        "GOLS/JOGO"
+                    )}
+
+                    ${bigStat(
+                        assistsPorJogo,
+                        "ASSIST/JOGO"
+                    )}
+
+                    ${bigStat(
+                        minutosPorJogo,
+                        "MIN/JOGO"
+                    )}
+
+                    ${bigStat(
+                        participacoes,
+                        "G+A"
+                    )}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="notice">
+
+                    📌
+
+                    Vitórias:
+                    <strong>
+                        ${jogador.vitorias}
+                    </strong>
+
+                    ·
+
+                    Empates:
+                    <strong>
+                        ${jogador.empates}
+                    </strong>
+
+                    ·
+
+                    Derrotas:
+                    <strong>
+                        ${jogador.derrotas}
+                    </strong>
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   FICHA DO JOGADOR
+========================================================= */
+
+function mostrarFicha(){
+
+    const atributos=[
+
+        [
+            "finalizacao",
+            "Finalização"
+        ],
+
+        [
+            "passe",
+            "Passe"
+        ],
+
+        [
+            "drible",
+            "Drible"
+        ],
+
+        [
+            "velocidade",
+            "Velocidade"
+        ],
+
+        [
+            "forca",
+            "Força"
+        ],
+
+        [
+            "resistencia",
+            "Resistência"
+        ]
+
+    ];
+
+
+    const html =
+        atributos
+        .map(
+            ([chave,nome]) =>
+                renderAtributo(
+                    chave,
+                    nome
+                )
+        )
+        .join("");
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    👤 Meu jogador
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    ${
+                        escaparHTML(
+                            jogador.nome
+                        )
+                    }
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="player-card">
+
+                    <div class="player-top">
+
+                        <div>
+
+                            <div class="player-name">
+
+                                ${
+                                    escaparHTML(
+                                        jogador.nome
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="meta">
+
+                                <div class="pill">
+
+                                    🎂
+                                    ${jogador.idade}
+                                    anos
+
+                                </div>
+
+
+                                <div class="pill">
+
+                                    🌎
+                                    ${jogador.pais}
+
+                                </div>
+
+
+                                <div class="pill">
+
+                                    📍
+                                    ${jogador.posicao}
+
+                                </div>
+
+
+                                <div class="pill">
+
+                                    🏟️
+                                    ${
+                                        escaparHTML(
+                                            jogador.clube
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div class="pill">
+
+                                    🏆
+                                    ${jogador.liga}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="overall">
+
+                            <span class="overall-label">
+                                OVR
+                            </span>
+
+                            <span class="overall-number">
+
+                                ${jogador.overall}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="attribute-list">
+
+                    ${html}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="notice">
+
+                    💰 Valor de mercado:
+                    <strong>
+                        ${moeda(
+                            jogador.valorMercado
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CALENDÁRIO
+========================================================= */
+
+function mostrarCalendario(){
+
+    const html =
+        rodadas
+        .map(
+            (jogos,index)=>{
+
+                const concluida =
+                    index <
+                    jogador.rodada;
+
+
+                const rodadaAtual =
+                    index ===
+                    jogador.rodada;
+
+
+                return `
+
+                    <div class="round-card">
+
+                        <div
+                            class="round-title"
+                        >
+
+                            <span>
+
+                                Rodada
+                                ${index+1}
+
+                            </span>
+
+
+                            <span class="chip">
+
+                                ${
+                                    concluida
+
+                                    ?
+
+                                    "✅ CONCLUÍDA"
+
+                                    :
+
+                                    rodadaAtual
+
+                                    ?
+
+                                    "🎮 ATUAL"
+
+                                    :
+
+                                    "⏳ PENDENTE"
+                                }
+
+                            </span>
+
+                        </div>
+
+
+                        ${
+                            jogos.map(
+                                j => `
+
+                                    <div
+                                        class="
+                                            fixture
+                                            ${
+                                                (
+                                                    j.casa ===
+                                                    jogador.clube
+                                                    ||
+                                                    j.fora ===
+                                                    jogador.clube
+                                                )
+
+                                                ?
+
+                                                "mine"
+
+                                                :
+
+                                                ""
+                                            }
+                                        "
+                                    >
+
+                                        <span>
+
+                                            ${
+                                                escaparHTML(
+                                                    j.casa
+                                                )
+                                            }
+
+                                        </span>
+
+
+                                        <span>
+
+                                            ${
+                                                j.jogada
+
+                                                ?
+
+                                                `
+                                                    ${j.golsCasa}
+                                                    ×
+                                                    ${j.golsFora}
+                                                `
+
+                                                :
+
+                                                "×"
+                                            }
+
+                                        </span>
+
+
+                                        <span>
+
+                                            ${
+                                                escaparHTML(
+                                                    j.fora
+                                                )
+                                            }
+
+                                        </span>
+
+                                    </div>
+
+                                `
+                            ).join("")
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div
+                class="panel-header"
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <div>
+
+                    <h2 class="title">
+
+                        📅 Calendário
+
+                    </h2>
+
+
+                    <p class="subtitle">
+
+                        ${
+                            escaparHTML(
+                                jogador.clube
+                            )
+                        }
+
+                        ·
+
+                        ${
+                            rodadas.length
+                        }
+                        rodadas
+
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                ${html}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+function mostrarHistorico(){
+
+    const registros =
+        [...jogador.historico]
+        .reverse();
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    🧾 Histórico
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    Todas as partidas disputadas.
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                ${
+                    registros.length
+
+                    ?
+
+                    `
+
+                        <div
+                            class="history-row"
+                            style="
+                                font-weight:900;
+                                color:#a8b7ad;
+                            "
+                        >
+
+                            <div>
+                                Temp.
+                            </div>
+
+                            <div>
+                                Adversário
+                            </div>
+
+                            <div>
+                                Resultado
+                            </div>
+
+                            <div>
+                                G+A
+                            </div>
+
+                            <div>
+                                Nota
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            registros.map(
+                                h => {
+
+                                    const venceu =
+                                        h.golsTime >
+                                        h.golsAdversario;
+
+
+                                    const empatou =
+                                        h.golsTime ===
+                                        h.golsAdversario;
+
+
+                                    return `
+
+                                        <div
+                                            class="history-row"
+                                        >
+
+                                            <div>
+
+                                                ${
+                                                    h.temporada
+                                                }
+
+                                                <br>
+
+                                                <span class="small muted">
+
+                                                    Rodada
+                                                    ${h.rodada}
+
+                                                </span>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${
+                                                    escaparHTML(
+                                                        h.adversario
+                                                    )
+                                                }
+
+                                            </div>
+
+
+                                            <div
+                                                class="
+                                                    ${
+                                                        venceu
+
+                                                        ?
+
+                                                        "win"
+
+                                                        :
+
+                                                        empatou
+
+                                                        ?
+
+                                                        "draw"
+
+                                                        :
+
+                                                        "loss"
+                                                    }
+                                                "
+                                            >
+
+                                                ${h.golsTime}
+                                                ×
+                                                ${h.golsAdversario}
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${h.gols}
+                                                +
+                                                ${h.assistencias}
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${h.nota}
+
+                                            </div>
+
+                                        </div>
+
+                                    `;
+
+                                }
+                            ).join("")
+                        }
+
+                    `
+
+                    :
+
+                    `
+
+                        <div class="notice">
+
+                            Nenhuma partida
+                            disputada ainda.
+
+                        </div>
+
+                    `
+
+                }
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ARTILHARIA
+========================================================= */
+
+function calcularArtilhariaSimulada(){
+
+    const ranking=[];
+
+
+    /*
+     * Nesta fase, os outros clubes
+     * ainda não possuem elencos reais.
+     *
+     * Então criamos uma referência
+     * estatística baseada na força do clube.
+     *
+     * O jogador do save recebe os
+     * seus gols reais.
+     */
+
+    tabela.forEach(
+        time=>{
+
+            const jogos =
+                Math.max(
+                    1,
+                    time.jogos
+                );
+
+
+            const forca =
+                obterForcaClube(
+                    time.clube
+                );
+
+
+            const estimativa =
+                Math.max(
+                    0,
+                    Math.round(
+
+                        (
+                            forca -
+                            55
+                        )
+
+                        *
+
+                        jogos /
+                        20
+
+                        +
+
+                        aleatorio(
+                            -2,
+                            4
+                        )
+
+                    )
+                );
+
+
+            ranking.push({
+
+                nome:
+                    "Artilheiro de " +
+                    time.clube,
+
+                clube:
+                    time.clube,
+
+                gols:
+                    estimativa,
+
+                meu:
+                    false
+
+            });
+
+        }
+    );
+
+
+    ranking.push({
+
+        nome:
+            jogador.nome,
+
+        clube:
+            jogador.clube,
+
+        gols:
+            jogador.gols,
+
+        meu:
+            true
+
+    });
+
+
+    return ranking
+        .sort(
+            (a,b)=>
+                b.gols-a.gols
+        )
+        .slice(
+            0,
+            20
+        );
+
+}
+
+
+function mostrarArtilharia(){
+
+    const ranking =
+        calcularArtilhariaSimulada();
+
+
+    const html =
+        ranking
+        .map(
+            (item,index)=>`
+
+                <div
+                    class="leader-row"
+                    style="
+                        ${
+                            item.meu
+
+                            ?
+
+                            `
+                                background:
+                                rgba(
+                                    25,
+                                    214,
+                                    111,
+                                    .06
+                                );
+
+                                border-radius:
+                                10px;
+
+                                padding-left:
+                                8px;
+
+                                padding-right:
+                                8px;
+                            `
+
+                            :
+
+                            ""
+                        }
+                    "
+                >
+
+                    <strong>
+
+                        ${index+1}
+
+                    </strong>
+
+
+                    <div>
+
+                        <strong>
+
+                            ${
+                                escaparHTML(
+                                    item.nome
+                                )
+                            }
+
+                        </strong>
+
+
+                        <div class="small muted">
+
+                            ${
+                                escaparHTML(
+                                    item.clube
+                                )
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <strong>
+
+                        ${item.gols}
+
+                    </strong>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    ⚽ Artilharia
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    Temporada
+                    ${jogador.temporada}
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="leader-list">
+
+                    ${html}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="notice">
+
+                    💡
+
+                    Quando colocarmos os
+                    elencos reais dos clubes,
+                    este ranking poderá usar
+                    jogadores reais.
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ASSISTÊNCIAS
+========================================================= */
+
+function calcularAssistenciasSimuladas(){
+
+    const ranking=[];
+
+
+    tabela.forEach(
+        time=>{
+
+            const jogos =
+                Math.max(
+                    1,
+                    time.jogos
+                );
+
+
+            const forca =
+                obterForcaClube(
+                    time.clube
+                );
+
+
+            const estimativa =
+                Math.max(
+                    0,
+                    Math.round(
+
+                        (
+                            forca -
+                            52
+                        )
+
+                        *
+
+                        jogos /
+                        30
+
+                        +
+
+                        aleatorio(
+                            -2,
+                            3
+                        )
+
+                    )
+                );
+
+
+            ranking.push({
+
+                nome:
+                    "Garçom de " +
+                    time.clube,
+
+                clube:
+                    time.clube,
+
+                assistencias:
+                    estimativa,
+
+                meu:false
+
+            });
+
+        }
+    );
+
+
+    ranking.push({
+
+        nome:
+            jogador.nome,
+
+        clube:
+            jogador.clube,
+
+        assistencias:
+            jogador.assistencias,
+
+        meu:true
+
+    });
+
+
+    return ranking
+        .sort(
+            (a,b)=>
+                b.assistencias -
+                a.assistencias
+        )
+        .slice(
+            0,
+            20
+        );
+
+}
+
+
+function mostrarAssistencias(){
+
+    const ranking =
+        calcularAssistenciasSimuladas();
+
+
+    const html =
+        ranking
+        .map(
+            (item,index)=>`
+
+                <div
+                    class="leader-row"
+                    style="
+                        ${
+                            item.meu
+
+                            ?
+
+                            `
+                                background:
+                                rgba(
+                                    25,
+                                    214,
+                                    111,
+                                    .06
+                                );
+
+                                border-radius:
+                                10px;
+
+                                padding-left:
+                                8px;
+
+                                padding-right:
+                                8px;
+                            `
+
+                            :
+
+                            ""
+                        }
+                    "
+                >
+
+                    <strong>
+                        ${index+1}
+                    </strong>
+
+
+                    <div>
+
+                        <strong>
+
+                            ${
+                                escaparHTML(
+                                    item.nome
+                                )
+                            }
+
+                        </strong>
+
+
+                        <div class="small muted">
+
+                            ${
+                                escaparHTML(
+                                    item.clube
+                                )
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <strong>
+
+                        ${
+                            item.assistencias
+                        }
+
+                    </strong>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    🎯 Assistências
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    Temporada
+                    ${jogador.temporada}
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="leader-list">
+
+                    ${html}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TRANSFERÊNCIAS
+========================================================= */
+
+function gerarOfertas(){
+
+    ofertasTransferencia=[];
+
+
+    const candidatos =
+        obterTodosClubes()
+        .filter(
+            clube =>
+                clube !==
+                jogador.clube
+        );
+
+
+    /*
+     * Quanto melhor o jogador,
+     * mais clubes fortes podem
+     * aparecer.
+     */
+
+    const candidatosFiltrados =
+        candidatos.filter(
+            clube => {
+
+                const forca =
+                    obterForcaClube(
+                        clube
+                    );
+
+
+                const atual =
+                    obterForcaClube(
+                        jogador.clube
+                    );
+
+
+                if(
+                    forca >
+                    jogador.overall +
+                    18
+                ){
+
+                    return (
+                        Math.random() <
+                        .25
+                    );
+
+                }
+
+
+                if(
+                    forca >
+                    atual +
+                    12
+                ){
+
+                    return (
+                        jogador.overall >=
+                        forca-12
+                        ||
+                        Math.random()<.35
+                    );
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    const quantidade =
+        Math.min(
+            CONFIG.maxOfertas,
+            inteiro(
+                1,
+                2
+            )
+        );
+
+
+    const escolhidos =
+        embaralhar(
+            candidatosFiltrados
+        )
+        .slice(
+            0,
+            quantidade
+        );
+
+
+    escolhidos.forEach(
+        clube => {
+
+            const forca =
+                obterForcaClube(
+                    clube
+                );
+
+
+            let valor =
+                500000
+
+                +
+
+                jogador.overall *
+                160000
+
+                +
+
+                inteiro(
+                    0,
+                    2000000
+                );
+
+
+            if(
+                forca >
+                obterForcaClube(
+                    jogador.clube
+                )
+            ){
+
+                valor +=
+                    1500000;
+
+            }
+
+
+            ofertasTransferencia.push({
+
+                clube,
+
+                valor,
+
+                forca
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TELA DE TRANSFERÊNCIAS
+========================================================= */
+
+function mostrarTransferencias(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    💰 Transferências
+
+                </h2>
+
+
+                <p class="subtitle">
+
+                    Clubes das sete ligas
+                    podem fazer propostas.
+
+                </p>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                ${
+                    ofertasTransferencia.length
+
+                    ?
+
+                    ofertasTransferencia
+                    .map(
+                        (oferta,index)=>`
+
+                            <div class="offer">
+
+                                <div class="offer-club">
+
+                                    ${
+                                        escaparHTML(
+                                            oferta.clube
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div
+                                    class="offer-details"
+                                >
+
+                                    ⭐ Força:
+                                    ${oferta.forca}
+
+                                    <br>
+
+                                    💰 Oferta:
+                                    ${moeda(
+                                        oferta.valor
+                                    )}
+
+                                    <br>
+
+                                    🏆 Liga:
+                                    ${
+                                        obterLigaDoClube(
+                                            oferta.clube
+                                        ).nome
+                                    }
+
+                                </div>
+
+
+                                <button
+                                    class="btn"
+                                    onclick="
+                                        aceitarTransferencia(
+                                            ${index}
+                                        )
+                                    "
+                                >
+
+                                    ✅ ACEITAR
+
+                                </button>
+
+
+                                <button
+                                    class="btn secondary"
+                                    onclick="
+                                        recusarTransferencia(
+                                            ${index}
+                                        )
+                                    "
+                                >
+
+                                    ❌ RECUSAR
+
+                                </button>
+
+                            </div>
+
+                        `
+                    )
+                    .join("")
+
+                    :
+
+                    `
+
+                        <div class="notice">
+
+                            📭
+
+                            Você não recebeu
+                            nenhuma proposta
+                            no momento.
+
+                        </div>
+
+                    `
+                }
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarHub()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACEITAR TRANSFERÊNCIA
+========================================================= */
+
+function aceitarTransferencia(
+    index
+){
+
+    const oferta =
+        ofertasTransferencia[
+            index
+        ];
+
+
+    if(
+        !oferta
+    ){
+
+        return;
+
+    }
+
+
+    const antigo =
+        jogador.clube;
+
+
+    const informacao =
+        obterLigaDoClube(
+            oferta.clube
+        );
+
+
+    /*
+     * O país de nascimento
+     * continua sendo o mesmo.
+     *
+     * A liga atual passa a ser
+     * a liga do novo clube.
+     */
+
+    jogador.clube =
+        oferta.clube;
+
+
+    jogador.liga =
+        informacao.nome;
+
+
+    jogador.paisClube =
+        informacao.pais;
+
+
+    jogador.valorMercado =
+        oferta.valor;
+
+
+    jogador.transferencias.push({
+
+        temporada:
+            jogador.temporada,
+
+        rodada:
+            jogador.rodada,
+
+        de:
+            antigo,
+
+        para:
+            oferta.clube,
+
+        valor:
+            oferta.valor
+
+    });
+
+
+    ofertasTransferencia=[];
+
+
+    /*
+     * Para deixar a transferência
+     * funcionando de forma simples,
+     * o novo campeonato começa
+     * sua própria contagem.
+     */
+
+    jogador.rodada=0;
+
+
+    criarTabela();
+
+    criarCalendario();
+
+
+    salvarAutomaticamente();
+
+
+    mostrarToast(
+
+        "✅ Transferência concluída para " +
+        oferta.clube
+
+    );
+
+
+    mostrarHub();
+
+}
+
+
+/* =========================================================
+   RECUSAR TRANSFERÊNCIA
+========================================================= */
+
+function recusarTransferencia(
+    index
+){
+
+    ofertasTransferencia.splice(
+        index,
+        1
+    );
+
+
+    mostrarTransferencias();
+
+}
+
+
+/* =========================================================
+   RESUMO DA TEMPORADA
+========================================================= */
+
+function resumirTemporada(){
+
+    const partidas =
+        jogador.historico.filter(
+            h =>
+                h.temporada ===
+                jogador.temporada
+        );
+
+
+    const jogos =
+        partidas.length;
+
+
+    const gols =
+        partidas.reduce(
+            (s,h) =>
+                s+h.gols,
+            0
+        );
+
+
+    const assistencias =
+        partidas.reduce(
+            (s,h) =>
+                s+h.assistencias,
+            0
+        );
+
+
+    const somaNotas =
+        partidas.reduce(
+            (s,h) =>
+                s+h.nota,
+            0
+        );
+
+
+    const nota =
+        jogos
+            ?arredondar(
+                somaNotas/
+                jogos,
+                2
+            )
+            :0;
+
+
+    return {
+
+        temporada:
+            jogador.temporada,
+
+        clube:
+            jogador.clube,
+
+        jogos,
+
+        gols,
+
+        assistencias,
+
+        nota
+
+    };
+
+}
+
+
+/* =========================================================
+   REGISTRAR TEMPORADA
+========================================================= */
+
+function registrarHistoricoTemporada(){
+
+    const jaExiste =
+        jogador.historicoTemporadas
+        .some(
+            x =>
+                x.temporada ===
+                jogador.temporada
+        );
+
+
+    if(
+        jaExiste
+    ){
+
+        return;
+
+    }
+
+
+    const resumo =
+        resumirTemporada();
+
+
+    jogador.historicoTemporadas.push(
+        resumo
+    );
+
+
+    if(
+        !jogador.melhorTemporada ||
+        (
+            resumo.gols +
+            resumo.assistencias
+        )
+        >
+        (
+            jogador.melhorTemporada.gols +
+            jogador.melhorTemporada.assistencias
+        )
+    ){
+
+        jogador.melhorTemporada={
+            ...resumo
+        };
+
+    }
+
+}
+
+
+/* =========================================================
+   POSIÇÃO NA TABELA
+========================================================= */
+
+function posicaoTabelaDoClube(){
+
+    ordenarTabela();
+
+
+    return (
+        tabela.findIndex(
+            item =>
+                item.clube ===
+                jogador.clube
+        )
+        +
+        1
+    );
+
+}
+
+
+/* =========================================================
+   FIM DA TEMPORADA
+========================================================= */
+
+function mostrarFimTemporada(){
+
+    registrarHistoricoTemporada();
+
+    ordenarTabela();
+
+
+    const posicao =
+        posicaoTabelaDoClube();
+
+
+    const campeao =
+        tabela.length
+            ?tabela[0].clube
+            :"-";
+
+
+    const resumo =
+        resumirTemporada();
+
+
+    const media =
+        resumo.jogos
+            ?resumo.nota
+            :0;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:920px;
+                margin:45px auto;
+            "
+        >
+
+            <div class="panel-body center">
+
+                <div class="badge">
+
+                    🏁 FIM DA TEMPORADA
+
+                </div>
+
+
+                <h1
+                    class="title"
+                    style="
+                        font-size:42px;
+                    "
+                >
+
+                    ${jogador.temporada}
+
+                </h1>
+
+
+                <p class="subtitle">
+
+                    ${
+                        escaparHTML(
+                            jogador.clube
+                        )
+                    }
+
+                </p>
+
+
+                <div class="stats-grid">
+
+                    ${bigStat(
+                        resumo.jogos,
+                        "JOGOS"
+                    )}
+
+                    ${bigStat(
+                        resumo.gols,
+                        "GOLS"
+                    )}
+
+                    ${bigStat(
+                        resumo.assistencias,
+                        "ASSISTÊNCIAS"
+                    )}
+
+                    ${bigStat(
+                        media,
+                        "NOTA MÉDIA"
+                    )}
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <div class="notice">
+
+                    🏆 Campeão:
+
+                    <strong>
+
+                        ${
+                            escaparHTML(
+                                campeao
+                            )
+                        }
+
+                    </strong>
+
+                    <br>
+
+
+                    📊 Seu clube terminou em:
+
+                    <strong>
+
+                        ${posicao}º
+
+                    </strong>
+
+                </div>
+
+
+                <div class="spacer"></div>
+
+
+                <button
+                    class="btn"
+                    onclick="
+                        continuarDepoisDaTemporada()
+                    "
+                >
+
+                    ➡️ CONTINUAR CARREIRA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CONTINUAR APÓS A TEMPORADA
+========================================================= */
+
+function continuarDepoisDaTemporada(){
+
+    if(
+        jogador.idade >=
+        CONFIG.idadeAposentadoria
+    ){
+
+        aposentarJogador();
+
+        return;
+
+    }
+
+    gerarOfertasFimTemporada();
+
+    if(
+        ofertasTransferencia.length > 0
+    ){
+
+        mostrarTransferenciasFim();
+
+    }else{
+
+        proximaTemporada();
+
+    }
+
+}
+
+
+/* =========================================================
+   OFERTAS DE FIM DE TEMPORADA
+========================================================= */
+
+function gerarOfertasFimTemporada(){
+
+    ofertasTransferencia=[];
+
+    const candidatos =
+        obterTodosClubes().filter(
+            clube =>
+                clube !== jogador.clube
+        );
+
+    const validos =
+        candidatos.filter(
+            clube => {
+
+                const forca =
+                    obterForcaClube(clube);
+
+                if(
+                    forca >
+                    jogador.overall + 18
+                ){
+
+                    return Math.random() < .18;
+
+                }
+
+                if(
+                    forca >
+                    jogador.overall + 10
+                ){
+
+                    return Math.random() < .55;
+
+                }
+
+                return true;
+
+            }
+        );
+
+    const quantidade =
+        inteiro(1,3);
+
+    const escolhidos =
+        embaralhar(validos)
+        .slice(0,quantidade);
+
+    escolhidos.forEach(
+        clube => {
+
+            const forca =
+                obterForcaClube(clube);
+
+            let valor =
+                700000 +
+                jogador.overall * 175000 +
+                inteiro(0,2500000);
+
+            if(
+                forca >
+                obterForcaClube(
+                    jogador.clube
+                )
+            ){
+
+                valor += 1800000;
+
+            }
+
+            if(
+                jogador.idade <= 22
+            ){
+
+                valor += 700000;
+
+            }
+
+            ofertasTransferencia.push({
+
+                clube,
+                valor,
+                forca
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   OFERTAS
+========================================================= */
+
+function mostrarTransferenciasFim(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:900px;
+                margin:45px auto;
+            "
+        >
+
+            <div class="panel-header">
+
+                <h2 class="title">
+                    📩 OFERTAS RECEBIDAS
+                </h2>
+
+                <p class="subtitle">
+
+                    Esses clubes querem contratar
+                    você para a próxima temporada.
+
+                </p>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${
+                    ofertasTransferencia
+                    .map(
+                        (oferta,index)=>`
+
+                            <div class="offer">
+
+                                <div class="offer-club">
+
+                                    ${
+                                        escaparHTML(
+                                            oferta.clube
+                                        )
+                                    }
+
+                                </div>
+
+                                <div class="offer-details">
+
+                                    ⭐ Força:
+                                    ${oferta.forca}
+
+                                    <br>
+
+                                    🏆 Liga:
+                                    ${
+                                        obterLigaDoClube(
+                                            oferta.clube
+                                        ).nome
+                                    }
+
+                                    <br>
+
+                                    🌎 País:
+                                    ${
+                                        obterLigaDoClube(
+                                            oferta.clube
+                                        ).pais
+                                    }
+
+                                    <br>
+
+                                    💰 Valor:
+                                    ${
+                                        moeda(
+                                            oferta.valor
+                                        )
+                                    }
+
+                                </div>
+
+                                <button
+                                    class="btn"
+                                    onclick="
+                                        aceitarTransferenciaFim(
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    ✅ ACEITAR
+                                </button>
+
+                                <button
+                                    class="btn secondary"
+                                    onclick="
+                                        recusarTransferenciaFim(
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    ❌ RECUSAR
+                                </button>
+
+                            </div>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACEITAR TRANSFERÊNCIA
+========================================================= */
+
+function aceitarTransferenciaFim(index){
+
+    const oferta =
+        ofertasTransferencia[index];
+
+    if(!oferta){
+        return;
+    }
+
+    const antigo =
+        jogador.clube;
+
+    const info =
+        obterLigaDoClube(
+            oferta.clube
+        );
+
+    jogador.clube =
+        oferta.clube;
+
+    jogador.liga =
+        info.nome;
+
+    jogador.paisClube =
+        info.pais;
+
+    jogador.valorMercado =
+        oferta.valor;
+
+    jogador.transferencias.push({
+
+        temporada:
+            jogador.temporada + 1,
+
+        rodada:0,
+
+        de:antigo,
+
+        para:oferta.clube,
+
+        valor:oferta.valor
+
+    });
+
+    ofertasTransferencia=[];
+
+    proximaTemporada();
+
+}
+
+
+/* =========================================================
+   RECUSAR
+========================================================= */
+
+function recusarTransferenciaFim(index){
+
+    ofertasTransferencia.splice(
+        index,
+        1
+    );
+
+    if(
+        ofertasTransferencia.length === 0
+    ){
+
+        proximaTemporada();
+
+    }else{
+
+        mostrarTransferenciasFim();
+
+    }
+
+}
+
+
+/* =========================================================
+   PRÓXIMA TEMPORADA
+========================================================= */
+
+function proximaTemporada(){
+
+    jogador.temporada++;
+
+    jogador.idade++;
+
+    if(
+        jogador.idade >=
+        CONFIG.idadeAposentadoria
+    ){
+
+        aposentarJogador();
+
+        return;
+
+    }
+
+    jogador.rodada=0;
+
+    jogador.jogos=0;
+
+    jogador.gols=0;
+
+    jogador.assistencias=0;
+
+    jogador.minutos=0;
+
+    jogador.somaNotas=0;
+
+    jogador.vitorias=0;
+
+    jogador.empates=0;
+
+    jogador.derrotas=0;
+
+    ofertasTransferencia=[];
+
+    jogador.overall =
+        calcularOverall();
+
+    jogador.maiorOverall =
+        Math.max(
+            jogador.maiorOverall,
+            jogador.overall
+        );
+
+    criarTabela();
+
+    criarCalendario();
+
+    salvarAutomaticamente();
+
+    mostrarHub();
+
+}
+
+
+/* =========================================================
+   TOTAIS DA CARREIRA
+========================================================= */
+
+function totaisCarreira(){
+
+    const historico =
+        jogador.historico || [];
+
+    const jogos =
+        historico.length;
+
+    const gols =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.gols || 0
+                ),
+            0
+        );
+
+    const assistencias =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.assistencias || 0
+                ),
+            0
+        );
+
+    const minutos =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.minutos || 0
+                ),
+            0
+        );
+
+    const somaNotas =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.nota || 0
+                ),
+            0
+        );
+
+    const media =
+        jogos
+            ? arredondar(
+                somaNotas / jogos,
+                2
+            )
+            : 0;
+
+    const vitorias =
+        historico.filter(
+            item =>
+                item.golsTime >
+                item.golsAdversario
+        ).length;
+
+    const empates =
+        historico.filter(
+            item =>
+                item.golsTime ===
+                item.golsAdversario
+        ).length;
+
+    const derrotas =
+        historico.filter(
+            item =>
+                item.golsTime <
+                item.golsAdversario
+        ).length;
+
+    return {
+
+        jogos,
+        gols,
+        assistencias,
+        minutos,
+        media,
+        vitorias,
+        empates,
+        derrotas
+
+    };
+
+}
+
+
+/* =========================================================
+   APELIDO
+========================================================= */
+
+function gerarApelidoCarreira(){
+
+    const totais =
+        totaisCarreira();
+
+    if(
+        jogador.posicao === "ZAG" &&
+        totais.jogos >= 250
+    ){
+
+        return "A Muralha";
+
+    }
+
+    if(
+        totais.gols >= 300
+    ){
+
+        return "O Matador";
+
+    }
+
+    if(
+        totais.assistencias >= 250
+    ){
+
+        return "O Maestro";
+
+    }
+
+    if(
+        totais.gols >= 200
+    ){
+
+        return "O Artilheiro";
+
+    }
+
+    if(
+        totais.assistencias >= 150
+    ){
+
+        return "O Garçom";
+
+    }
+
+    if(
+        totais.jogos >= 500
+    ){
+
+        return "A Lenda";
+
+    }
+
+    if(
+        jogador.maiorOverall >= 95 &&
+        totais.jogos >= 250
+    ){
+
+        return "O Fenômeno";
+
+    }
+
+    if(
+        jogador.maiorOverall >= 90
+    ){
+
+        return "O Craque";
+
+    }
+
+    if(
+        totais.jogos >= 300
+    ){
+
+        return "O Veterano";
+
+    }
+
+    return "O Craque";
+
+}
+
+
+/* =========================================================
+   APOSENTADORIA
+========================================================= */
+
+function aposentarJogador(){
+
+    jogador.aposentado=true;
+
+    salvarAutomaticamente();
+
+    mostrarAposentadoria();
+
+}
+
+
+/* =========================================================
+   TELA DE APOSENTADORIA
+========================================================= */
+
+function mostrarAposentadoria(){
+
+    const totais =
+        totaisCarreira();
+
+    const apelido =
+        gerarApelidoCarreira();
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:950px;
+                margin:45px auto;
+            "
+        >
+
+            <div class="panel-body center">
+
+                <div class="badge">
+                    🏁 FIM DA CARREIRA
+                </div>
+
+                <h1
+                    class="title"
+                    style="
+                        font-size:44px;
+                    "
+                >
+
+                    ${
+                        escaparHTML(
+                            jogador.nome
+                        )
+                    }
+
+                </h1>
+
+                <p
+                    class="subtitle"
+                    style="
+                        font-size:22px;
+                    "
+                >
+
+                    "${apelido}"
+
+                </p>
+
+                <div class="spacer"></div>
+
+                <div class="stats-grid">
+
+                    ${bigStat(
+                        totais.jogos,
+                        "JOGOS"
+                    )}
+
+                    ${bigStat(
+                        totais.gols,
+                        "GOLS"
+                    )}
+
+                    ${bigStat(
+                        totais.assistencias,
+                        "ASSISTÊNCIAS"
+                    )}
+
+                    ${bigStat(
+                        totais.media,
+                        "NOTA MÉDIA"
+                    )}
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="notice">
+
+                    🎂 Carreira encerrada aos
+
+                    <strong>
+                        ${jogador.idade} anos
+                    </strong>.
+
+                    <br>
+
+                    🏟️ Último clube:
+
+                    <strong>
+                        ${
+                            escaparHTML(
+                                jogador.clube
+                            )
+                        }
+                    </strong>
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn"
+                    onclick="
+                        mostrarHistoricoCompletoCarreira()
+                    "
+                >
+
+                    🧾 VER CARREIRA COMPLETA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HISTÓRICO COMPLETO
+========================================================= */
+
+function mostrarHistoricoCompletoCarreira(){
+
+    const temporadas =
+        jogador.historicoTemporadas ||
+        [];
+
+    const html =
+        temporadas.length
+
+        ?
+
+        temporadas
+        .map(
+            temporada=>`
+
+                <div class="round-card">
+
+                    <div class="round-title">
+
+                        <span>
+
+                            ${
+                                temporada.temporada
+                            }
+
+                            ·
+
+                            ${
+                                escaparHTML(
+                                    temporada.clube
+                                )
+                            }
+
+                        </span>
+
+                        <span class="chip">
+
+                            ${
+                                temporada.nota
+                            }
+
+                        </span>
+
+                    </div>
+
+                    <div class="stats-grid">
+
+                        ${bigStat(
+                            temporada.jogos,
+                            "JOGOS"
+                        )}
+
+                        ${bigStat(
+                            temporada.gols,
+                            "GOLS"
+                        )}
+
+                        ${bigStat(
+                            temporada.assistencias,
+                            "ASSISTÊNCIAS"
+                        )}
+
+                        ${bigStat(
+                            temporada.nota,
+                            "NOTA"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("")
+
+        :
+
+        `
+
+            <div class="notice">
+
+                Nenhum resumo de temporada
+                disponível.
+
+            </div>
+
+        `;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    🧾 CARREIRA COMPLETA
+
+                </h2>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${html}
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarAposentadoria()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HISTÓRICO DE TRANSFERÊNCIAS
+========================================================= */
+
+function mostrarTransferenciasHistorico(){
+
+    const historico =
+        jogador.transferencias ||
+        [];
+
+    const html =
+        historico.length
+
+        ?
+
+        historico
+        .map(
+            t=>`
+
+                <div class="offer">
+
+                    <div class="offer-club">
+
+                        ${
+                            escaparHTML(
+                                t.para
+                            )
+                        }
+
+                    </div>
+
+                    <div class="offer-details">
+
+                        Temporada:
+                        ${t.temporada}
+
+                        <br>
+
+                        ${
+                            escaparHTML(
+                                t.de
+                            )
+                        }
+
+                        →
+
+                        ${
+                            escaparHTML(
+                                t.para
+                            )
+                        }
+
+                        <br>
+
+                        💰
+                        ${
+                            moeda(
+                                t.valor
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("")
+
+        :
+
+        `
+
+            <div class="notice">
+
+                Nenhuma transferência registrada.
+
+            </div>
+
+        `;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    💰 TRANSFERÊNCIAS
+
+                </h2>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${html}
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarAposentadoria()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function salvarAutomaticamente(){
+
+    try{
+
+        const dados={
+
+            appVersion:
+                APP_VERSION,
+
+            jogador:
+                jogador,
+
+            jogadoresDisponiveis:
+                jogadoresDisponiveis.map(
+                    p =>
+                        p.nome
+                ),
+
+            rodadas:
+                rodadas,
+
+            calendario:
+                calendario,
+
+            tabela:
+                tabela,
+
+            ofertasTransferencia:
+                ofertasTransferencia
+
+        };
+
+
+        localStorage.setItem(
+
+            CONFIG.chaveSave,
+
+            JSON.stringify(
+                dados
+            )
+
+        );
+
+    }
+
+    catch(
+        erro
+    ){
+
+        console.error(
+            "Erro ao salvar:",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CARREGAR SAVE
+========================================================= */
+
+function carregarJogo(){
+
+    try{
+
+        const bruto =
+            localStorage.getItem(
+                CONFIG.chaveSave
+            );
+
+
+        if(
+            !bruto
+        ){
+
+            alert(
+                "Nenhum save encontrado."
+            );
+
+            return;
+
+        }
+
+
+        const dados =
+            JSON.parse(
+                bruto
+            );
+
+
+        jogador =
+            dados.jogador ||
+            estadoJogadorInicial();
+
+
+        rodadas =
+            dados.rodadas ||
+            [];
+
+
+        calendario =
+            dados.calendario ||
+            [];
+
+
+        tabela =
+            dados.tabela ||
+            [];
+
+
+        ofertasTransferencia =
+            dados.ofertasTransferencia ||
+            [];
+
+
+        const nomes =
+            new Set(
+                dados.jogadoresDisponiveis ||
+                []
+            );
+
+
+        jogadoresDisponiveis =
+            jogadores.filter(
+                p =>
+                    nomes.has(
+                        p.nome
+                    )
+            );
+
+
+        if(
+            !Array.isArray(
+                jogador.historico
+            )
+        ){
+
+            jogador.historico=[];
+
+        }
+
+
+        if(
+            !Array.isArray(
+                jogador.historicoTemporadas
+            )
+        ){
+
+            jogador.historicoTemporadas=[];
+
+        }
+
+
+        if(
+            !Array.isArray(
+                jogador.transferencias
+            )
+        ){
+
+            jogador.transferencias=[];
+
+        }
+
+
+        if(
+            jogador.aposentado
+        ){
+
+            mostrarAposentadoria();
+
+            return;
+
+        }
+
+
+        if(
+            rodadas.length !== 38
+        ){
+
+            criarTabela();
+
+            criarCalendario();
+
+        }
+
+
+        mostrarHub();
+
+    }
+
+    catch(
+        erro
+    ){
+
+        console.error(
+            erro
+        );
+
+        alert(
+            "O save está corrompido ou incompatível."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SALVAR MANUAL
+========================================================= */
+
+function salvarEConfirmar(){
+
+    salvarAutomaticamente();
+
+    mostrarToast(
+        "💾 Carreira salva."
+    );
+
+}
+
+
+/* =========================================================
+   APAGAR SAVE
+========================================================= */
+
+function apagarSave(){
+
+    const confirmar =
+        confirm(
+            "Tem certeza que deseja apagar o save?"
+        );
+
+
+    if(
+        !confirmar
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        CONFIG.chaveSave
+    );
+
+
+    jogador={};
+
+    jogadoresDisponiveis=[];
+
+    rodadas=[];
+
+    calendario=[];
+
+    tabela=[];
+
+    ofertasTransferencia=[];
+
+
+    mostrarInicio();
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+mostrarInicio();
+
+</script>
+
+</body>
+</html>
