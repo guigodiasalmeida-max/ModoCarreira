@@ -8121,3 +8121,1269 @@ function mostrarFimTemporada(){
     `;
 
 }
+
+
+/* =========================================================
+   CONTINUAR APÓS A TEMPORADA
+========================================================= */
+
+function continuarDepoisDaTemporada(){
+
+    if(
+        jogador.idade >=
+        CONFIG.idadeAposentadoria
+    ){
+
+        aposentarJogador();
+
+        return;
+
+    }
+
+    gerarOfertasFimTemporada();
+
+    if(
+        ofertasTransferencia.length > 0
+    ){
+
+        mostrarTransferenciasFim();
+
+    }else{
+
+        proximaTemporada();
+
+    }
+
+}
+
+
+/* =========================================================
+   OFERTAS DE FIM DE TEMPORADA
+========================================================= */
+
+function gerarOfertasFimTemporada(){
+
+    ofertasTransferencia=[];
+
+    const candidatos =
+        obterTodosClubes().filter(
+            clube =>
+                clube !== jogador.clube
+        );
+
+    const validos =
+        candidatos.filter(
+            clube => {
+
+                const forca =
+                    obterForcaClube(clube);
+
+                if(
+                    forca >
+                    jogador.overall + 18
+                ){
+
+                    return Math.random() < .18;
+
+                }
+
+                if(
+                    forca >
+                    jogador.overall + 10
+                ){
+
+                    return Math.random() < .55;
+
+                }
+
+                return true;
+
+            }
+        );
+
+    const quantidade =
+        inteiro(1,3);
+
+    const escolhidos =
+        embaralhar(validos)
+        .slice(0,quantidade);
+
+    escolhidos.forEach(
+        clube => {
+
+            const forca =
+                obterForcaClube(clube);
+
+            let valor =
+                700000 +
+                jogador.overall * 175000 +
+                inteiro(0,2500000);
+
+            if(
+                forca >
+                obterForcaClube(
+                    jogador.clube
+                )
+            ){
+
+                valor += 1800000;
+
+            }
+
+            if(
+                jogador.idade <= 22
+            ){
+
+                valor += 700000;
+
+            }
+
+            ofertasTransferencia.push({
+
+                clube,
+                valor,
+                forca
+
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   OFERTAS
+========================================================= */
+
+function mostrarTransferenciasFim(){
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:900px;
+                margin:45px auto;
+            "
+        >
+
+            <div class="panel-header">
+
+                <h2 class="title">
+                    📩 OFERTAS RECEBIDAS
+                </h2>
+
+                <p class="subtitle">
+
+                    Esses clubes querem contratar
+                    você para a próxima temporada.
+
+                </p>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${
+                    ofertasTransferencia
+                    .map(
+                        (oferta,index)=>`
+
+                            <div class="offer">
+
+                                <div class="offer-club">
+
+                                    ${
+                                        escaparHTML(
+                                            oferta.clube
+                                        )
+                                    }
+
+                                </div>
+
+                                <div class="offer-details">
+
+                                    ⭐ Força:
+                                    ${oferta.forca}
+
+                                    <br>
+
+                                    🏆 Liga:
+                                    ${
+                                        obterLigaDoClube(
+                                            oferta.clube
+                                        ).nome
+                                    }
+
+                                    <br>
+
+                                    🌎 País:
+                                    ${
+                                        obterLigaDoClube(
+                                            oferta.clube
+                                        ).pais
+                                    }
+
+                                    <br>
+
+                                    💰 Valor:
+                                    ${
+                                        moeda(
+                                            oferta.valor
+                                        )
+                                    }
+
+                                </div>
+
+                                <button
+                                    class="btn"
+                                    onclick="
+                                        aceitarTransferenciaFim(
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    ✅ ACEITAR
+                                </button>
+
+                                <button
+                                    class="btn secondary"
+                                    onclick="
+                                        recusarTransferenciaFim(
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    ❌ RECUSAR
+                                </button>
+
+                            </div>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACEITAR TRANSFERÊNCIA
+========================================================= */
+
+function aceitarTransferenciaFim(index){
+
+    const oferta =
+        ofertasTransferencia[index];
+
+    if(!oferta){
+        return;
+    }
+
+    const antigo =
+        jogador.clube;
+
+    const info =
+        obterLigaDoClube(
+            oferta.clube
+        );
+
+    jogador.clube =
+        oferta.clube;
+
+    jogador.liga =
+        info.nome;
+
+    jogador.paisClube =
+        info.pais;
+
+    jogador.valorMercado =
+        oferta.valor;
+
+    jogador.transferencias.push({
+
+        temporada:
+            jogador.temporada + 1,
+
+        rodada:0,
+
+        de:antigo,
+
+        para:oferta.clube,
+
+        valor:oferta.valor
+
+    });
+
+    ofertasTransferencia=[];
+
+    proximaTemporada();
+
+}
+
+
+/* =========================================================
+   RECUSAR
+========================================================= */
+
+function recusarTransferenciaFim(index){
+
+    ofertasTransferencia.splice(
+        index,
+        1
+    );
+
+    if(
+        ofertasTransferencia.length === 0
+    ){
+
+        proximaTemporada();
+
+    }else{
+
+        mostrarTransferenciasFim();
+
+    }
+
+}
+
+
+/* =========================================================
+   PRÓXIMA TEMPORADA
+========================================================= */
+
+function proximaTemporada(){
+
+    jogador.temporada++;
+
+    jogador.idade++;
+
+    if(
+        jogador.idade >=
+        CONFIG.idadeAposentadoria
+    ){
+
+        aposentarJogador();
+
+        return;
+
+    }
+
+    jogador.rodada=0;
+
+    jogador.jogos=0;
+
+    jogador.gols=0;
+
+    jogador.assistencias=0;
+
+    jogador.minutos=0;
+
+    jogador.somaNotas=0;
+
+    jogador.vitorias=0;
+
+    jogador.empates=0;
+
+    jogador.derrotas=0;
+
+    ofertasTransferencia=[];
+
+    jogador.overall =
+        calcularOverall();
+
+    jogador.maiorOverall =
+        Math.max(
+            jogador.maiorOverall,
+            jogador.overall
+        );
+
+    criarTabela();
+
+    criarCalendario();
+
+    salvarAutomaticamente();
+
+    mostrarHub();
+
+}
+
+
+/* =========================================================
+   TOTAIS DA CARREIRA
+========================================================= */
+
+function totaisCarreira(){
+
+    const historico =
+        jogador.historico || [];
+
+    const jogos =
+        historico.length;
+
+    const gols =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.gols || 0
+                ),
+            0
+        );
+
+    const assistencias =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.assistencias || 0
+                ),
+            0
+        );
+
+    const minutos =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.minutos || 0
+                ),
+            0
+        );
+
+    const somaNotas =
+        historico.reduce(
+            (total,item)=>
+                total +
+                Number(
+                    item.nota || 0
+                ),
+            0
+        );
+
+    const media =
+        jogos
+            ? arredondar(
+                somaNotas / jogos,
+                2
+            )
+            : 0;
+
+    const vitorias =
+        historico.filter(
+            item =>
+                item.golsTime >
+                item.golsAdversario
+        ).length;
+
+    const empates =
+        historico.filter(
+            item =>
+                item.golsTime ===
+                item.golsAdversario
+        ).length;
+
+    const derrotas =
+        historico.filter(
+            item =>
+                item.golsTime <
+                item.golsAdversario
+        ).length;
+
+    return {
+
+        jogos,
+        gols,
+        assistencias,
+        minutos,
+        media,
+        vitorias,
+        empates,
+        derrotas
+
+    };
+
+}
+
+
+/* =========================================================
+   APELIDO
+========================================================= */
+
+function gerarApelidoCarreira(){
+
+    const totais =
+        totaisCarreira();
+
+    if(
+        jogador.posicao === "ZAG" &&
+        totais.jogos >= 250
+    ){
+
+        return "A Muralha";
+
+    }
+
+    if(
+        totais.gols >= 300
+    ){
+
+        return "O Matador";
+
+    }
+
+    if(
+        totais.assistencias >= 250
+    ){
+
+        return "O Maestro";
+
+    }
+
+    if(
+        totais.gols >= 200
+    ){
+
+        return "O Artilheiro";
+
+    }
+
+    if(
+        totais.assistencias >= 150
+    ){
+
+        return "O Garçom";
+
+    }
+
+    if(
+        totais.jogos >= 500
+    ){
+
+        return "A Lenda";
+
+    }
+
+    if(
+        jogador.maiorOverall >= 95 &&
+        totais.jogos >= 250
+    ){
+
+        return "O Fenômeno";
+
+    }
+
+    if(
+        jogador.maiorOverall >= 90
+    ){
+
+        return "O Craque";
+
+    }
+
+    if(
+        totais.jogos >= 300
+    ){
+
+        return "O Veterano";
+
+    }
+
+    return "O Craque";
+
+}
+
+
+/* =========================================================
+   APOSENTADORIA
+========================================================= */
+
+function aposentarJogador(){
+
+    jogador.aposentado=true;
+
+    salvarAutomaticamente();
+
+    mostrarAposentadoria();
+
+}
+
+
+/* =========================================================
+   TELA DE APOSENTADORIA
+========================================================= */
+
+function mostrarAposentadoria(){
+
+    const totais =
+        totaisCarreira();
+
+    const apelido =
+        gerarApelidoCarreira();
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div
+            class="panel"
+            style="
+                max-width:950px;
+                margin:45px auto;
+            "
+        >
+
+            <div class="panel-body center">
+
+                <div class="badge">
+                    🏁 FIM DA CARREIRA
+                </div>
+
+                <h1
+                    class="title"
+                    style="
+                        font-size:44px;
+                    "
+                >
+
+                    ${
+                        escaparHTML(
+                            jogador.nome
+                        )
+                    }
+
+                </h1>
+
+                <p
+                    class="subtitle"
+                    style="
+                        font-size:22px;
+                    "
+                >
+
+                    "${apelido}"
+
+                </p>
+
+                <div class="spacer"></div>
+
+                <div class="stats-grid">
+
+                    ${bigStat(
+                        totais.jogos,
+                        "JOGOS"
+                    )}
+
+                    ${bigStat(
+                        totais.gols,
+                        "GOLS"
+                    )}
+
+                    ${bigStat(
+                        totais.assistencias,
+                        "ASSISTÊNCIAS"
+                    )}
+
+                    ${bigStat(
+                        totais.media,
+                        "NOTA MÉDIA"
+                    )}
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="notice">
+
+                    🎂 Carreira encerrada aos
+
+                    <strong>
+                        ${jogador.idade} anos
+                    </strong>.
+
+                    <br>
+
+                    🏟️ Último clube:
+
+                    <strong>
+                        ${
+                            escaparHTML(
+                                jogador.clube
+                            )
+                        }
+                    </strong>
+
+                </div>
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn"
+                    onclick="
+                        mostrarHistoricoCompletoCarreira()
+                    "
+                >
+
+                    🧾 VER CARREIRA COMPLETA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HISTÓRICO COMPLETO
+========================================================= */
+
+function mostrarHistoricoCompletoCarreira(){
+
+    const temporadas =
+        jogador.historicoTemporadas ||
+        [];
+
+    const html =
+        temporadas.length
+
+        ?
+
+        temporadas
+        .map(
+            temporada=>`
+
+                <div class="round-card">
+
+                    <div class="round-title">
+
+                        <span>
+
+                            ${
+                                temporada.temporada
+                            }
+
+                            ·
+
+                            ${
+                                escaparHTML(
+                                    temporada.clube
+                                )
+                            }
+
+                        </span>
+
+                        <span class="chip">
+
+                            ${
+                                temporada.nota
+                            }
+
+                        </span>
+
+                    </div>
+
+                    <div class="stats-grid">
+
+                        ${bigStat(
+                            temporada.jogos,
+                            "JOGOS"
+                        )}
+
+                        ${bigStat(
+                            temporada.gols,
+                            "GOLS"
+                        )}
+
+                        ${bigStat(
+                            temporada.assistencias,
+                            "ASSISTÊNCIAS"
+                        )}
+
+                        ${bigStat(
+                            temporada.nota,
+                            "NOTA"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("")
+
+        :
+
+        `
+
+            <div class="notice">
+
+                Nenhum resumo de temporada
+                disponível.
+
+            </div>
+
+        `;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    🧾 CARREIRA COMPLETA
+
+                </h2>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${html}
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarAposentadoria()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HISTÓRICO DE TRANSFERÊNCIAS
+========================================================= */
+
+function mostrarTransferenciasHistorico(){
+
+    const historico =
+        jogador.transferencias ||
+        [];
+
+    const html =
+        historico.length
+
+        ?
+
+        historico
+        .map(
+            t=>`
+
+                <div class="offer">
+
+                    <div class="offer-club">
+
+                        ${
+                            escaparHTML(
+                                t.para
+                            )
+                        }
+
+                    </div>
+
+                    <div class="offer-details">
+
+                        Temporada:
+                        ${t.temporada}
+
+                        <br>
+
+                        ${
+                            escaparHTML(
+                                t.de
+                            )
+                        }
+
+                        →
+
+                        ${
+                            escaparHTML(
+                                t.para
+                            )
+                        }
+
+                        <br>
+
+                        💰
+                        ${
+                            moeda(
+                                t.valor
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("")
+
+        :
+
+        `
+
+            <div class="notice">
+
+                Nenhuma transferência registrada.
+
+            </div>
+
+        `;
+
+
+    document.getElementById(
+        "app"
+    ).innerHTML=`
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2 class="title">
+
+                    💰 TRANSFERÊNCIAS
+
+                </h2>
+
+            </div>
+
+            <div class="panel-body">
+
+                ${html}
+
+                <div class="spacer"></div>
+
+                <button
+                    class="btn secondary"
+                    onclick="
+                        mostrarAposentadoria()
+                    "
+                >
+
+                    ← VOLTAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function salvarAutomaticamente(){
+
+    try{
+
+        const dados={
+
+            appVersion:
+                APP_VERSION,
+
+            jogador:
+                jogador,
+
+            jogadoresDisponiveis:
+                jogadoresDisponiveis.map(
+                    p =>
+                        p.nome
+                ),
+
+            rodadas:
+                rodadas,
+
+            calendario:
+                calendario,
+
+            tabela:
+                tabela,
+
+            ofertasTransferencia:
+                ofertasTransferencia
+
+        };
+
+
+        localStorage.setItem(
+
+            CONFIG.chaveSave,
+
+            JSON.stringify(
+                dados
+            )
+
+        );
+
+    }
+
+    catch(
+        erro
+    ){
+
+        console.error(
+            "Erro ao salvar:",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CARREGAR SAVE
+========================================================= */
+
+function carregarJogo(){
+
+    try{
+
+        const bruto =
+            localStorage.getItem(
+                CONFIG.chaveSave
+            );
+
+
+        if(
+            !bruto
+        ){
+
+            alert(
+                "Nenhum save encontrado."
+            );
+
+            return;
+
+        }
+
+
+        const dados =
+            JSON.parse(
+                bruto
+            );
+
+
+        jogador =
+            dados.jogador ||
+            estadoJogadorInicial();
+
+
+        rodadas =
+            dados.rodadas ||
+            [];
+
+
+        calendario =
+            dados.calendario ||
+            [];
+
+
+        tabela =
+            dados.tabela ||
+            [];
+
+
+        ofertasTransferencia =
+            dados.ofertasTransferencia ||
+            [];
+
+
+        const nomes =
+            new Set(
+                dados.jogadoresDisponiveis ||
+                []
+            );
+
+
+        jogadoresDisponiveis =
+            jogadores.filter(
+                p =>
+                    nomes.has(
+                        p.nome
+                    )
+            );
+
+
+        if(
+            !Array.isArray(
+                jogador.historico
+            )
+        ){
+
+            jogador.historico=[];
+
+        }
+
+
+        if(
+            !Array.isArray(
+                jogador.historicoTemporadas
+            )
+        ){
+
+            jogador.historicoTemporadas=[];
+
+        }
+
+
+        if(
+            !Array.isArray(
+                jogador.transferencias
+            )
+        ){
+
+            jogador.transferencias=[];
+
+        }
+
+
+        if(
+            jogador.aposentado
+        ){
+
+            mostrarAposentadoria();
+
+            return;
+
+        }
+
+
+        if(
+            rodadas.length !== 38
+        ){
+
+            criarTabela();
+
+            criarCalendario();
+
+        }
+
+
+        mostrarHub();
+
+    }
+
+    catch(
+        erro
+    ){
+
+        console.error(
+            erro
+        );
+
+        alert(
+            "O save está corrompido ou incompatível."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SALVAR MANUAL
+========================================================= */
+
+function salvarEConfirmar(){
+
+    salvarAutomaticamente();
+
+    mostrarToast(
+        "💾 Carreira salva."
+    );
+
+}
+
+
+/* =========================================================
+   APAGAR SAVE
+========================================================= */
+
+function apagarSave(){
+
+    const confirmar =
+        confirm(
+            "Tem certeza que deseja apagar o save?"
+        );
+
+
+    if(
+        !confirmar
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        CONFIG.chaveSave
+    );
+
+
+    jogador={};
+
+    jogadoresDisponiveis=[];
+
+    rodadas=[];
+
+    calendario=[];
+
+    tabela=[];
+
+    ofertasTransferencia=[];
+
+
+    mostrarInicio();
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+mostrarInicio();
+
+</script>
+
+</body>
+</html>
