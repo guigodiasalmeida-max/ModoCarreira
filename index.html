@@ -636,32 +636,270 @@ table.league td.center,table.league th.center{text-align:center;}
 
 // Divisão A (elite) e Divisão B (acesso) — 20 clubes cada, nomes placeholder.
 // Troque os nomes à vontade — o resto do código só depende da quantidade (20+20).
-const DIVISAO_A_BASE = [
-    { nome:"Clube A01 FC", forca:85 }, { nome:"Clube A02 EC", forca:83 },
-    { nome:"Clube A03 AC", forca:81 }, { nome:"Clube A04 SC", forca:80 },
-    { nome:"Clube A05 FC", forca:79 }, { nome:"Clube A06 EC", forca:78 },
-    { nome:"Clube A07 AA", forca:77 }, { nome:"Clube A08 CR", forca:77 },
-    { nome:"Clube A09 FC", forca:76 }, { nome:"Clube A10 EC", forca:75 },
-    { nome:"Clube A11 SC", forca:75 }, { nome:"Clube A12 AC", forca:74 },
-    { nome:"Clube A13 FC", forca:73 }, { nome:"Clube A14 EC", forca:73 },
-    { nome:"Clube A15 CR", forca:72 }, { nome:"Clube A16 AA", forca:72 },
-    { nome:"Clube A17 SC", forca:71 }, { nome:"Clube A18 FC", forca:70 },
-    { nome:"Clube A19 EC", forca:70 }, { nome:"Clube A20 AC", forca:69 }
-];
-const DIVISAO_B_BASE = [
-    { nome:"Clube B01 FC", forca:68 }, { nome:"Clube B02 EC", forca:67 },
-    { nome:"Clube B03 AC", forca:66 }, { nome:"Clube B04 SC", forca:66 },
-    { nome:"Clube B05 FC", forca:65 }, { nome:"Clube B06 EC", forca:64 },
-    { nome:"Clube B07 AA", forca:64 }, { nome:"Clube B08 CR", forca:63 },
-    { nome:"Clube B09 FC", forca:62 }, { nome:"Clube B10 EC", forca:62 },
-    { nome:"Clube B11 SC", forca:61 }, { nome:"Clube B12 AC", forca:60 },
-    { nome:"Clube B13 FC", forca:60 }, { nome:"Clube B14 EC", forca:59 },
-    { nome:"Clube B15 CR", forca:58 }, { nome:"Clube B16 AA", forca:58 },
-    { nome:"Clube B17 SC", forca:57 }, { nome:"Clube B18 FC", forca:56 },
-    { nome:"Clube B19 EC", forca:56 }, { nome:"Clube B20 AC", forca:55 }
-];
+const LIGAS_BASE = {
 
-const PAISES = ["Brasil","Argentina","Portugal","França","Inglaterra","Espanha","Alemanha","Itália","Holanda","Uruguai","Croácia","Bélgica"];
+    Brasil:{
+        nome:"Brasileirão",
+        A:[
+            ["Flamengo",90],["Palmeiras",89],["Atlético-MG",86],["Botafogo",84],["Fluminense",83],
+            ["São Paulo",83],["Corinthians",82],["Internacional",81],["Grêmio",80],["Cruzeiro",79],
+            ["Bahia",78],["Athletico-PR",77],["Santos",76],["Bragantino",75],["Fortaleza",74],
+            ["Vasco",73],["Ceará",72],["Sport",70],["Vitória",69],["Juventude",68]
+        ],
+        B:[
+            ["Coritiba",67],["Goiás",67],["América-MG",66],["Criciúma",65],["Avaí",64],
+            ["Chapecoense",63],["Ponte Preta",62],["Guarani",61],["Vila Nova",61],["Operário-PR",60],
+            ["Novorizontino",60],["Paysandu",59],["Remo",58],["Náutico",58],["Santa Cruz",57],
+            ["CRB",57],["Cuiabá",57],["Londrina",55],["Botafogo-SP",54],["Brusque",53]
+        ]
+    },
+    Inglaterra:{
+        nome:"Premier League",
+        A:[
+            ["Manchester City",94],["Liverpool",92],["Arsenal",91],["Chelsea",87],["Manchester United",86],
+            ["Newcastle",84],["Tottenham",83],["Aston Villa",82],["Brighton",79],["West Ham",77],
+            ["Crystal Palace",76],["Everton",75],["Fulham",74],["Brentford",74],["Wolves",73],
+            ["Bournemouth",72],["Nottingham Forest",71],["Leeds",70],["Leicester",69],["Southampton",68]
+        ],
+        B:[
+            ["Burnley",72],["Sunderland",71],["Middlesbrough",70],["West Bromwich Albion",69],["Sheffield United",68],
+            ["Norwich City",67],["Coventry City",66],["Watford",65],["Queens Park Rangers",64],["Stoke City",64],
+            ["Swansea City",63],["Bristol City",62],["Hull City",62],["Blackburn Rovers",61],["Preston",60],
+            ["Millwall",59],["Derby County",58],["Sheffield Wednesday",57],["Portsmouth",56],["Cardiff City",56]
+        ]
+    },
+    Espanha:{
+        nome:"La Liga",
+        A:[
+            ["Real Madrid",95],["Barcelona",93],["Atlético de Madrid",88],["Athletic Club",82],["Real Sociedad",81],
+            ["Villarreal",80],["Real Betis",79],["Sevilla",78],["Valencia",77],["Girona",76],
+            ["Celta de Vigo",73],["Osasuna",72],["Mallorca",71],["Rayo Vallecano",70],["Getafe",70],
+            ["Alavés",69],["Espanyol",68],["Las Palmas",67],["Valladolid",66],["Leganés",65]
+        ],
+        B:[
+            ["Almería",69],["Levante",68],["Sporting Gijón",67],["Real Oviedo",67],["Granada",66],
+            ["Zaragoza",65],["Eibar",64],["Elche",64],["Tenerife",63],["Cádiz",62],
+            ["Burgos",61],["Racing Santander",61],["Huesca",60],["Mirandés",59],["Málaga",59],
+            ["Deportivo La Coruña",58],["Racing Ferrol",57],["Eldense",56],["Cartagena",55],["Albacete",55]
+        ]
+    },
+    Italia:{
+        nome:"Serie A",
+        A:[
+            ["Inter de Milão",92],["Juventus",88],["Milan",87],["Napoli",85],["Atalanta",83],
+            ["Roma",82],["Lazio",81],["Fiorentina",78],["Bologna",77],["Torino",74],
+            ["Genoa",72],["Udinese",71],["Como",70],["Parma",69],["Cagliari",68],
+            ["Lecce",67],["Verona",66],["Sassuolo",65],["Empoli",64],["Monza",63]
+        ],
+        B:[
+            ["Sampdoria",70],["Palermo",69],["Spezia",68],["Pisa",67],["Bari",66],
+            ["Cremonese",65],["Modena",64],["Brescia",63],["Venezia",63],["Catanzaro",62],
+            ["Salernitana",61],["Reggiana",60],["Südtirol",59],["Cesena",58],["Cittadella",58],
+            ["Mantova",57],["Juve Stabia",56],["Carrarese",55],["Frosinone",55],["Cosenza",54]
+        ]
+    },
+    Alemanha:{
+        nome:"Bundesliga",
+        A:[
+            ["Bayern de Munique",94],["Bayer Leverkusen",90],["Borussia Dortmund",88],["RB Leipzig",84],["Eintracht Frankfurt",80],
+            ["Stuttgart",79],["Wolfsburg",76],["Freiburg",74],["Mainz",73],["Borussia Mönchengladbach",72],
+            ["Werder Bremen",72],["Union Berlin",71],["Augsburg",69],["Hoffenheim",68],["Heidenheim",66],
+            ["St. Pauli",65],["Hamburgo",64],["Schalke 04",63],["Hertha Berlin",62],["Holstein Kiel",60]
+        ],
+        B:[
+            ["Köln",68],["Fortuna Düsseldorf",67],["Paderborn",66],["Hannover 96",65],["Karlsruher",64],
+            ["Hertha Berlin II",63],["Nürnberg",62],["Kaiserslautern",61],["Darmstadt",60],["Hansa Rostock",59],
+            ["Hannover 96 II",58],["Elversberg",58],["Greuther Fürth",57],["Magdeburg",56],["Preußen Münster",55],
+            ["Braunschweig",54],["Ulm",53],["Dynamo Dresden",53],["Arminia Bielefeld",52],["Schalke 04 II",50]
+        ]
+    },
+    França:{
+        nome:"Ligue 1",
+        A:[
+            ["Paris Saint-Germain",94],["Marseille",82],["Monaco",82],["Lille",80],["Lyon",79],
+            ["Nice",77],["Rennes",75],["Lens",74],["Strasbourg",71],["Nantes",70],
+            ["Toulouse",69],["Brest",68],["Montpellier",66],["Reims",65],["Saint-Étienne",64],
+            ["Auxerre",63],["Le Havre",62],["Angers",61],["Metz",60],["Troyes",59]
+        ],
+        B:[
+            ["Paris FC",67],["Lorient",66],["Caen",65],["Guingamp",64],["Grenoble",63],
+            ["Bastia",62],["Laval",61],["Amiens",60],["Pau",59],["Annecy",58],
+            ["Rodez",57],["Dunkerque",56],["Ajaccio",55],["Clermont",54],["Valenciennes",53],
+            ["Nancy",52],["Le Mans",51],["Sochaux",51],["Red Star",50],["Martigues",49]
+        ]
+    },
+    Portugal:{
+        nome:"Primeira Liga",
+        A:[
+            ["Benfica",89],["Porto",88],["Sporting",88],["Braga",78],["Vitória de Guimarães",72],
+            ["Boavista",68],["Famalicão",67],["Gil Vicente",66],["Rio Ave",65],["Vitória de Setúbal",64],
+            ["Estoril",63],["Casa Pia",62],["Arouca",61],["Moreirense",60],["Nacional",59],
+            ["Marítimo",58],["Farense",57],["Estrela da Amadora",56],["Tondela",55],["AVS",54]
+        ],
+        B:[
+            ["Académico de Viseu",63],["Santa Clara",62],["Feirense",61],["Leixões",60],["Paços de Ferreira",59],
+            ["Penafiel",58],["Mafra",57],["Torreense",56],["Portimonense",55],["Vizela",54],
+            ["Marítimo B",53],["Oliveirense",52],["Felgueiras",51],["Alverca",51],["União de Leiria",50],
+            ["Académica",49],["Belenenses",48],["Varzim",47],["Chaves",47],["Casa Pia B",45]
+        ]
+    }
+};
+
+function construirClubesDaLiga(def){
+    return {
+        A:def.A.map(([nome,forca],i)=>({id:nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/gi,'_'),nome,forca,divisao:'A'})),
+        B:def.B.map(([nome,forca],i)=>({id:nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/gi,'_'),nome,forca,divisao:'B'}))
+    };
+}
+
+
+/* =========================================================
+   BANCO DE ELENCOS REAL — carregado sob demanda
+   Fonte: FC 26 Player Data (CC BY 4.0)
+========================================================= */
+const DATABASE_URL = "https://raw.githubusercontent.com/thompgt/fc26-player-analysis/refs/heads/master/data/processed/players_fc26_clean.csv";
+let bancoJogadores = [];
+let elencoPorClube = Object.create(null);
+let bancoStatus = "carregando";
+
+function normalizarTexto(s){
+    return String(s||"")
+        .normalize("NFD").replace(/[\\u0300-\\u036f]/g,"")
+        .toLowerCase().replace(/[^a-z0-9]/g,"");
+}
+
+const ALIAS_BANCO = {
+    "bayernbailemunique":"fc bayern munchen",
+    "bayernmunique":"fc bayern munchen",
+    "bayernmunich":"fc bayern munchen",
+    "barcelona":"fc barcelona",
+    "atleticodemadrid":"atletico madrid",
+    "interdemilao":"inter",
+    "milan":"ac milan",
+    "parissaintgermain":"paris saint-germain",
+    "bayerleverkusen":"bayer 04 leverkusen",
+    "tottenham":"tottenham hotspur",
+    "newcastle":"newcastle united",
+    "astonvilla":"aston villa",
+    "manchesterunited":"manchester united",
+    "manchestercity":"manchester city",
+    "westbromwichalbion":"west bromwich",
+    "sporting":"sporting cp",
+    "benfica":"sl benfica",
+    "porto":"fc porto",
+    "braga":"sc braga",
+    "monaco":"as monaco",
+    "marseille":"olympique de marseille",
+    "lyon":"olympique lyon",
+    "lille":"losc lille",
+    "nice":"ogc nice"
+};
+
+function chaveClubeBanco(nome){
+    const n = normalizarTexto(nome);
+    return normalizarTexto(ALIAS_BANCO[n] || nome);
+}
+
+function parseCSV(text){
+    const rows=[]; let row=[]; let cell=""; let quoted=false;
+    for(let i=0;i<text.length;i++){
+        const ch=text[i];
+        if(ch==='"'){
+            if(quoted && text[i+1]==='"'){ cell+='"'; i++; }
+            else quoted=!quoted;
+        }else if(ch===',' && !quoted){ row.push(cell); cell=""; }
+        else if((ch==='\\n' || ch==='\\r') && !quoted){
+            if(ch==='\\r' && text[i+1]==='\\n') i++;
+            row.push(cell); cell="";
+            if(row.length) { rows.push(row); row=[]; }
+        }else cell+=ch;
+    }
+    if(cell!=="" || row.length){ row.push(cell); rows.push(row); }
+    if(!rows.length) return [];
+    const headers=rows[0];
+    return rows.slice(1).filter(r=>r.length===headers.length).map(r=>{
+        const o={}; headers.forEach((h,i)=>o[h]=r[i]); return o;
+    });
+}
+
+function converterBanco(r){
+    return {
+        id:String(r.player_id||""),
+        nome:r.short_name || r.long_name || "Jogador",
+        nomeCompleto:r.long_name || r.short_name || "Jogador",
+        clube:r.club_name || "",
+        clubeKey:chaveClubeBanco(r.club_name||""),
+        posicao:String(r.player_positions||"").split(",")[0].trim(),
+        overall:Number(r.overall)||0,
+        potencial:Number(r.potential)||Number(r.overall)||0,
+        idade:Number(r.age)||0,
+        nacionalidade:r.nationality_name||"",
+        valor:Number(r.value_eur)||0,
+        salario:Number(r.wage_eur)||0
+    };
+}
+
+async function carregarBancoElencos(){
+    try{
+        const resp=await fetch(DATABASE_URL,{cache:"force-cache"});
+        if(!resp.ok) throw new Error("HTTP "+resp.status);
+        const csv=await resp.text();
+        bancoJogadores=parseCSV(csv).map(converterBanco).filter(p=>p.clube);
+        elencoPorClube=Object.create(null);
+        bancoJogadores.forEach(p=>{
+            if(!elencoPorClube[p.clubeKey]) elencoPorClube[p.clubeKey]=[];
+            elencoPorClube[p.clubeKey].push(p);
+        });
+        Object.values(elencoPorClube).forEach(arr=>arr.sort((a,b)=>b.overall-a.overall));
+        bancoStatus="ok";
+        try{ localStorage.setItem("careermode_elencos_cache",csv); }catch(e){}
+        console.log(`Banco de elencos carregado: ${bancoJogadores.length} jogadores.`);
+        if(jogador && jogador.clube) mostrarHub();
+    }catch(e){
+        console.warn("Falha ao carregar banco de elencos:",e);
+        try{
+            const csv=localStorage.getItem("careermode_elencos_cache");
+            if(csv){
+                bancoJogadores=parseCSV(csv).map(converterBanco).filter(p=>p.clube);
+                elencoPorClube=Object.create(null);
+                bancoJogadores.forEach(p=>{
+                    if(!elencoPorClube[p.clubeKey]) elencoPorClube[p.clubeKey]=[];
+                    elencoPorClube[p.clubeKey].push(p);
+                });
+                Object.values(elencoPorClube).forEach(arr=>arr.sort((a,b)=>b.overall-a.overall));
+                bancoStatus="cache";
+                if(jogador && jogador.clube) mostrarHub();
+                return;
+            }
+        }catch(e2){}
+        bancoStatus="erro";
+        if(jogador && jogador.clube) mostrarHub();
+    }
+}
+
+function getElencoClube(nome){ return elencoPorClube[chaveClubeBanco(nome)] || []; }
+
+function nomePosicaoBanco(pos){
+    const p=String(pos||"").toUpperCase();
+    if(p.includes("GK")) return "Goleiro";
+    if(p.includes("CB")) return "Zagueiro";
+    if(p.includes("LB")||p.includes("RB")||p.includes("WB")) return "Lateral";
+    if(p.includes("CDM")) return "Volante";
+    if(p.includes("CM")||p.includes("CAM")) return "Meia";
+    if(p.includes("LW")||p.includes("RW")||p.includes("LM")||p.includes("RM")) return "Ponta";
+    if(p.includes("ST")||p.includes("CF")) return "Atacante";
+    return pos||"Jogador";
+}
+
+function posicoesCompativeis(sigla){
+    return {
+        GOL:["GK"], ZAG:["CB"], LAT:["LB","RB","LWB","RWB"], VOL:["CDM"],
+        MEI:["CM","CAM"], PON:["LW","RW","LM","RM"], ATA:["ST","CF"]
+    }[sigla] || [];
+}
+
+const PAISES = ["Brasil","Inglaterra","Espanha","Itália","Alemanha","França","Portugal"];
+
 
 // pesos: usados pra calcular o "poder" do jogador em campo, por estilo de posição.
 const POSICOES = [
@@ -820,21 +1058,26 @@ function app(){ return document.getElementById("app"); }
 function estadoJogadorInicial(){
     return {
         id:null,
-        nome:"", idade:CONFIG.idadeInicial, pais:"", posicao:"",
+        nome:"", idade:CONFIG.idadeInicial, pais:"", ligaKey:"Brasil", posicao:"",
         atributos:{}, overall:0, maiorOverall:0,
         clube:"", divisao:"B", temporada:1, rodada:0,
         jogos:0, gols:0, assistencias:0, somaNotas:0,
         vitorias:0, empates:0, derrotas:0,
         defesas:0, defesasDificeis:0, golsSofridos:0, jogosSemSofrerGol:0, penaltisDefendidos:0,
+        jogosCarreira:0, golsCarreira:0, assistenciasCarreira:0, somaNotasCarreira:0, minutosCarreira:0,
+        defesasCarreira:0, defesasDificeisCarreira:0, golsSofridosCarreira:0, jogosSemSofrerGolCarreira:0, penaltisDefendidosCarreira:0,
+        titulosCarreira:0, titulosLiga:0,
         dinheiro:50000, valorMercado:200000,
         lesaoRestante:0, rerollDisponivel:true, pontosTreino:0,
         moral:55, status:"Rotação", forma:0, condicionamento:80,
         minutosTotais:0, titularidades:0, entradasBanco:0,
         selecaoConvocado:false, selecaoJogos:0, selecaoGols:0,
-        empresario:{ nome:EMPRESARIOS_NOMES[rndInt(0,EMPRESARIOS_NOMES.length-1)], nivel:1, usouNegociacaoTemporada:false },
-        rankingRivais:[],
+        empresario:{ nome:EMPRESARIOS_NOMES[rndInt(0,EMPRESARIOS_NOMES.length-1)], nivel:1, usouNegociacaoTemporada:false,
+                     ligacaoUsadaTemporada:false, clubeContato:null, contatoAteRodada:0 },
+        rankingRivais:[], rodadasSemProposta:0,
+        clubeProximaTemporada:null, divisaoProximaTemporada:null, ligaProximaTemporada:null,
         premios:[], historicoTemporadas:[], transferencias:[], eventos:[],
-        aposentado:false
+        aposentado:false, temporadaFinalizada:0
     };
 }
 
@@ -905,8 +1148,25 @@ function aplicarDeclinioIdade(){
    6) LIGA — divisões, calendário e tabela
 ========================================================= */
 
-function iniciarDivisoes(){
-    divisoes = { A: DIVISAO_A_BASE.map(c=>({...c})), B: DIVISAO_B_BASE.map(c=>({...c})) };
+function iniciarDivisoes(ligaKey=jogador?.ligaKey||"Brasil"){
+    const def = LIGAS_BASE[ligaKey] || LIGAS_BASE.Brasil;
+    divisoes = construirClubesDaLiga(def);
+    if(jogador) jogador.ligaKey = ligaKey in LIGAS_BASE ? ligaKey : "Brasil";
+}
+function todosClubesMundo(){
+    const out=[];
+    Object.entries(LIGAS_BASE).forEach(([ligaKey,def])=>{
+        ["A","B"].forEach(div=>{
+            def[div].forEach(([nome,forca])=>out.push({
+                id:nome.toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/gi,"_"),
+                nome,forca,divisao:div,ligaKey,liga:def.nome
+            }));
+        });
+    });
+    return out;
+}
+function infoClubeMundo(nome){
+    return todosClubesMundo().find(c=>c.nome===nome) || null;
 }
 
 // Método do círculo pra turno e returno com N times (N par).
@@ -934,7 +1194,9 @@ function tabelaVazia(nomes){
 }
 function forcaClube(nome){
     const c = clubes.find(c=>c.nome===nome);
-    return c ? c.forca : 65;
+    if(c) return c.forca;
+    const mundo = infoClubeMundo(nome);
+    return mundo ? mundo.forca : 65;
 }
 function atualizarTabela(nomeA,nomeB,golsA,golsB){
     const ta = tabela.find(t=>t.clube===nomeA);
@@ -949,6 +1211,30 @@ function atualizarTabela(nomeA,nomeB,golsA,golsB){
 }
 function tabelaOrdenada(){
     return tabela.slice().sort((a,b)=>{
+        if(b.pontos!==a.pontos) return b.pontos-a.pontos;
+        const sa=a.golsPro-a.golsContra, sb=b.golsPro-b.golsContra;
+        if(sb!==sa) return sb-sa;
+        return b.golsPro-a.golsPro;
+    });
+}
+function tabelaSimuladaDivisao(divisao){
+    if(divisao===jogador.divisao) return tabelaOrdenada();
+    const nomes = (divisoes[divisao]||[]).map(c=>c.nome);
+    const agenda = gerarCalendario(nomes);
+    const t = tabelaVazia(nomes);
+    agenda.forEach(rod=>{
+        rod.forEach(([a,b])=>{
+            const ga = poisson(Math.max(0.35,0.72+(forcaClube(a)-65)/34));
+            const gb = poisson(Math.max(0.35,0.72+(forcaClube(b)-65)/34));
+            const ta=t.find(x=>x.clube===a), tb=t.find(x=>x.clube===b);
+            if(!ta||!tb) return;
+            ta.jogos++; tb.jogos++; ta.golsPro+=ga; ta.golsContra+=gb; tb.golsPro+=gb; tb.golsContra+=ga;
+            if(ga>gb){ta.vitorias++; ta.pontos+=3; tb.derrotas++;}
+            else if(ga<gb){tb.vitorias++; tb.pontos+=3; ta.derrotas++;}
+            else{ta.empates++; tb.empates++; ta.pontos++; tb.pontos++;}
+        });
+    });
+    return t.sort((a,b)=>{
         if(b.pontos!==a.pontos) return b.pontos-a.pontos;
         const sa=a.golsPro-a.golsContra, sb=b.golsPro-b.golsContra;
         if(sb!==sa) return sb-sa;
@@ -1159,11 +1445,11 @@ function sortearJogador(){
         </div></div>
     `;
     const el = document.getElementById("roleta");
-    let i=0, passos=0, intervalo=45; const limite=42;
+    let i=0, passos=0, intervalo=24; const limite=15;
     function girar(){
         el.textContent = nomes[i % nomes.length];
         i++; passos++;
-        if(passos<limite){ intervalo+=4; setTimeout(girar,intervalo); return; }
+        if(passos<limite){ intervalo+=3; setTimeout(girar,intervalo); return; }
         el.textContent = vencedor.nome;
         el.classList.remove("spinning");
         jogadoresDisponiveis = jogadoresDisponiveis.filter(j=>j!==vencedor);
@@ -1221,7 +1507,8 @@ function pegarAtributo(chave,potencial){
 ========================================================= */
 
 function sortearClube(){
-    iniciarDivisoes();
+    iniciarDivisoes(jogador.pais);
+    jogador.ligaKey = jogador.pais;
     jogador.divisao = "B"; // toda carreira começa na divisão de acesso
     clubes = divisoes.B;
     const nomes = clubes.map(c=>c.nome);
@@ -1238,11 +1525,11 @@ function sortearClube(){
         </div></div>
     `;
     const el = document.getElementById("roletaClube");
-    let i=0, passos=0, intervalo=50; const limite=34;
+    let i=0, passos=0, intervalo=28; const limite=18;
     function girar(){
         el.textContent = nomes[i % nomes.length];
         i++; passos++;
-        if(passos<limite){ intervalo+=5; setTimeout(girar,intervalo); return; }
+        if(passos<limite){ intervalo+=3; setTimeout(girar,intervalo); return; }
         el.textContent = vencedor;
         el.classList.remove("spinning");
         setTimeout(()=>iniciarTemporada(vencedor),700);
@@ -1295,7 +1582,7 @@ function mostrarHub(){
                         <div class="badge-club">${jogador.clube.slice(0,2).toUpperCase()}</div>
                         <div>
                             <div style="font-weight:800;font-size:16px;">${escapeHTML(jogador.nome)}</div>
-                            <div class="small muted">${jogador.clube} · Divisão ${jogador.divisao} · Temporada ${jogador.temporada} · ${jogador.idade} anos (${nomeFaixaEtaria(jogador.idade)})</div>
+                            <div class="small muted">${jogador.clube} · ${escapeHTML(LIGAS_BASE[jogador.ligaKey]?.nome || "Liga")} · Divisão ${jogador.divisao} · Temporada ${jogador.temporada} · ${jogador.idade} anos (${nomeFaixaEtaria(jogador.idade)})</div>
                         </div>
                     </div>
                     <div class="row">
@@ -1367,12 +1654,26 @@ function viewVisaoGeral(totalRodadas, meuJogo, media){
                 }
             </div>
         </div></div>
+        ${jogador.clubeProximaTemporada ? `<div class="spacer"></div><div class="notice gold">✈️ Você já acertou com <b>${escapeHTML(jogador.clubeProximaTemporada)}</b> para a próxima temporada.</div>` : ""}
         ${ultimoResultado ? `<div class="spacer"></div><div class="card"><div class="card-body">${ultimoResultado}</div></div>` : ""}
     `;
 }
 
 function viewFichaTecnica(){
     const attrs = CONFIG.atributosChave.map(k=>renderAtributo(k,NOMES_ATRIBUTOS[k])).join("");
+    const elenco = getElencoClube(jogador.clube);
+    const bancoTexto = bancoStatus==="ok" ? `✅ ${bancoJogadores.length.toLocaleString("pt-BR")} jogadores carregados` :
+                       bancoStatus==="cache" ? "✅ Banco de elencos carregado do cache" :
+                       bancoStatus==="erro" ? "⚠️ Banco de elencos indisponível" : "⏳ Carregando banco de elencos...";
+    const itens = elenco.slice(0,40).map((p,i)=>`
+        <div class="train-row">
+            <div>
+                <b>${i+1}. ${escapeHTML(p.nome)}</b>
+                <div class="small muted">${escapeHTML(nomePosicaoBanco(p.posicao))} · ${p.idade} anos · ${escapeHTML(p.nacionalidade)}</div>
+            </div>
+            <span class="pill gold">${p.overall}</span>
+        </div>
+    `).join("");
     return `
         <div class="player-sheet">
             <div class="p-top">
@@ -1382,7 +1683,7 @@ function viewFichaTecnica(){
                         <span class="pill">🎂 ${jogador.idade} anos · ${nomeFaixaEtaria(jogador.idade)}</span>
                         <span class="pill">🌎 ${jogador.pais}</span>
                         <span class="pill gold">📍 ${posicaoInfo(jogador.posicao).nome}</span>
-                        <span class="pill">🏟️ ${jogador.clube} (Div. ${jogador.divisao})</span>
+                        <span class="pill">🏟️ ${escapeHTML(jogador.clube)} · ${escapeHTML(LIGAS_BASE[jogador.ligaKey]?.nome || "Liga")} (Div. ${jogador.divisao})</span>
                     </div>
                 </div>
                 <div class="ovr-box"><span class="ovr-label">OVR</span><span class="ovr-num">${jogador.overall}</span></div>
@@ -1390,6 +1691,23 @@ function viewFichaTecnica(){
             <div class="spacer"></div>
             <div class="attr-list">${attrs}</div>
         </div>
+        <div class="spacer"></div>
+        <div class="card"><div class="card-body">
+            <div class="row between">
+                <div>
+                    <span class="eyebrow">🏟️ ELENCO DO CLUBE</span>
+                    <h3 style="font-size:20px;margin-top:4px;">${escapeHTML(jogador.clube)}</h3>
+                </div>
+                <span class="pill gold">${elenco.length} jogadores</span>
+            </div>
+            <div class="spacer"></div>
+            <div class="notice">${bancoTexto}</div>
+            <div class="spacer"></div>
+            ${elenco.length ? `<div class="stack">${itens}</div>` : `<div class="notice">Ainda não encontrei este clube na base externa.</div>`}
+            ${elenco.length>40 ? `<div class="spacer"></div><div class="small muted center">Mostrando os 40 maiores OVR do elenco.</div>` : ""}
+            <div class="spacer"></div>
+            <div class="small muted">Fonte da base: FC 26 Player Data, licenciada sob CC BY 4.0. A base é carregada de forma externa para não deixar seu HTML enorme.</div>
+        </div></div>
     `;
 }
 
@@ -1471,38 +1789,15 @@ function viewHistorico(){
 function viewTreino(){
     return `
         <div class="card"><div class="card-body">
-            <div class="row between">
-                <h3 style="font-size:17px;">Treino</h3>
-                <span class="pill gold">${jogador.pontosTreino} ponto(s) disponível(is)</span>
-            </div>
-            <p class="small muted">Você ganha pontos de evolução ao final de cada temporada. Invista no atributo que quiser, respeitando o potencial máximo sorteado.</p>
+            <h3 style="font-size:17px;">📈 Evolução automática</h3>
+            <p class="small muted">Você não distribui pontos manualmente. Ao final de cada temporada, seus atributos evoluem automaticamente.</p>
             <div class="spacer"></div>
-            <div class="stack">
-                ${CONFIG.atributosChave.map(k=>{
-                    const a = jogador.atributos[k] || {atual:0,potencial:0};
-                    const noTeto = a.atual>=a.potencial;
-                    return `
-                    <div class="train-row">
-                        <div><b>${NOMES_ATRIBUTOS[k]}</b><div class="small muted">${a.atual} / ${a.potencial} ${noTeto?"(no teto)":""}</div></div>
-                        <div class="stepper">
-                            <button onclick="treinarAtributo('${k}')" ${jogador.pontosTreino<=0 || noTeto ? "disabled" : ""}>+1</button>
-                        </div>
-                    </div>`;
-                }).join("")}
-            </div>
+            <div class="notice gold">⭐ <b>Regra:</b> +5 em cada atributo por temporada, respeitando o potencial máximo sorteado.</div>
+            <div class="spacer"></div>
+            <div class="notice">🧬 Depois dos 30 anos, o declínio de idade pode reduzir principalmente os atributos físicos.</div>
         </div></div>
     `;
 }
-function treinarAtributo(chave){
-    const a = jogador.atributos[chave];
-    if(jogador.pontosTreino<=0 || !a || a.atual>=a.potencial) return;
-    a.atual = clamp(a.atual+1,0,a.potencial);
-    jogador.pontosTreino--;
-    jogador.overall = calcularOverall(jogador);
-    salvarAutomaticamente();
-    mostrarHub();
-}
-
 function viewFisico(){
     return `
         <div class="card"><div class="card-body">
@@ -1549,6 +1844,7 @@ function custoUpgradeEmpresario(){
 function viewEmpresario(){
     const custo = custoUpgradeEmpresario();
     const noMax = jogador.empresario.nivel>=3;
+    const clubesContato = todosClubes().filter(c=>c.nome!==jogador.clube).sort((a,b)=>b.forca-a.forca);
     return `
         <div class="card"><div class="card-body">
             <h3 style="font-size:17px;">💼 Seu empresário</h3>
@@ -1561,12 +1857,25 @@ function viewEmpresario(){
                 <span class="pill gold">Nível ${jogador.empresario.nivel}/3</span>
             </div>
             <div class="spacer"></div>
-            <p class="small muted">Um empresário melhor consegue propostas de transferência mais frequentes e com valores mais altos, além de negociar bônus salariais.</p>
+            <p class="small muted">Um empresário melhor aumenta a frequência e os valores das propostas. Você também pode pedir uma ligação para um clube específico.</p>
             <div class="spacer"></div>
             <div class="row">
                 <button class="btn" onclick="upgradeEmpresario()" ${noMax?"disabled":""}>${noMax?"Já é o melhor do mercado":`📈 Evoluir empresário (${moeda(custo)})`}</button>
                 <button class="btn ghost" onclick="pedirNegociacaoSalarial()" ${jogador.empresario.usouNegociacaoTemporada?"disabled":""}>🤝 Pedir negociação salarial${jogador.empresario.usouNegociacaoTemporada?" (usado)":""}</button>
             </div>
+        </div></div>
+        <div class="spacer"></div>
+        <div class="card"><div class="card-body">
+            <h3 style="font-size:17px;">📞 Ligar para um clube</h3>
+            <p class="small muted">Uma abordagem custa ${moeda(8000 + jogador.empresario.nivel*7000)}. Ela aumenta bastante a chance de o clube se interessar por você durante as próximas 8 rodadas.</p>
+            ${jogador.empresario.clubeContato && jogador.rodada<=jogador.empresario.contatoAteRodada ? `<div class="notice gold">📞 Contato ativo com <b>${escapeHTML(jogador.empresario.clubeContato)}</b> por mais ${jogador.empresario.contatoAteRodada-jogador.rodada} rodada(s).</div><div class="spacer"></div>` : ""}
+            <div class="field">
+                <label>CLUBE PARA CONTATAR</label>
+                <select class="select" id="clubeContatoSelect">
+                    ${clubesContato.map(c=>`<option value="${escapeHTML(c.nome)}">${escapeHTML(c.nome)} · Força ${c.forca}${divisoes.A.some(x=>x.nome===c.nome)?" · Div. A":" · Div. B"}</option>`).join("")}
+                </select>
+            </div>
+            <button class="btn" onclick="ligarParaClube()" ${jogador.empresario.ligacaoUsadaTemporada?"disabled":""}>${jogador.empresario.ligacaoUsadaTemporada?"📞 Ligação já usada nesta temporada":"📞 Ligar para o clube"}</button>
         </div></div>
     `;
 }
@@ -1678,6 +1987,7 @@ function viewFinancas(){
             <p class="small muted">Patrocínio automático a cada fim de temporada, proporcional ao overall e desempenho. Propostas de transferência consideram overall, forma, moral e o nível do clube.</p>
         </div></div>
         ${ofertaAtual ? `<div class="spacer"></div>${viewOferta()}` : ""}
+        ${jogador.clubeProximaTemporada ? `<div class="spacer"></div><div class="notice gold">✈️ Próximo clube: <b>${escapeHTML(jogador.clubeProximaTemporada)}</b> (Divisão ${jogador.divisaoProximaTemporada}).</div>` : ""}
         <div class="spacer"></div>
         <div class="card"><div class="card-body">
             <h3 style="font-size:17px;">Transferências</h3>
@@ -1693,7 +2003,7 @@ function viewFinancas(){
 function viewOferta(){
     return `
         <div class="offer-card">
-            <div><b>Proposta de ${escapeHTML(ofertaAtual.clube)}</b><div class="small muted">Valor: ${moeda(ofertaAtual.valor)}</div></div>
+            <div><b>Proposta de ${escapeHTML(ofertaAtual.clube)}</b><div class="small muted">Divisão ${ofertaAtual.divisao||"?"} · Valor: ${moeda(ofertaAtual.valor)}</div></div>
             <div class="row">
                 <button class="btn small" onclick="aceitarOferta()">Aceitar</button>
                 <button class="btn small ghost" onclick="recusarOferta()">Recusar</button>
@@ -1702,20 +2012,23 @@ function viewOferta(){
     `;
 }
 function aceitarOferta(){
+    if(!ofertaAtual) return;
     const de = jogador.clube;
+    jogador.clubeProximaTemporada = ofertaAtual.clube;
+    jogador.divisaoProximaTemporada = ofertaAtual.divisao || "B";
+    jogador.ligaProximaTemporada = ofertaAtual.ligaKey || jogador.ligaKey;
     jogador.transferencias.push({ temporada:jogador.temporada, de, para:ofertaAtual.clube, valor:ofertaAtual.valor });
-    jogador.dinheiro += ofertaAtual.valor;
-    jogador.clube = ofertaAtual.clube;
-    jogador.eventos.push({icone:"💰",titulo:"Transferência confirmada",sub:`${de} → ${ofertaAtual.clube} por ${moeda(ofertaAtual.valor)}`});
+    jogador.dinheiro += Math.round(ofertaAtual.valor * 0.10);
+    jogador.eventos.push({icone:"💰",titulo:"Transferência acertada",sub:`${de} → ${ofertaAtual.clube} (${ofertaAtual.liga || "novo campeonato"}) por ${moeda(ofertaAtual.valor)}. Você se apresenta no novo clube na próxima temporada.`});
     ofertaAtual = null;
     salvarAutomaticamente();
-    toast("Transferência concluída!");
+    toast("✅ Transferência acertada para a próxima temporada!");
     mostrarHub();
 }
 function recusarOferta(){ ofertaAtual = null; mostrarHub(); }
 
 function viewCompartilhar(){
-    const texto = `⚽ ${jogador.nome} — Career Mode\n${jogador.clube} (Div. ${jogador.divisao}) · OVR ${jogador.overall} · ${jogador.pais}\nTemporada ${jogador.temporada} · ${jogador.jogos} jogos · ${jogador.gols} gols · ${jogador.assistencias} assistências\nMaior overall: ${jogador.maiorOverall} · Prêmios: ${jogador.premios.length}`;
+    const texto = `⚽ ${jogador.nome} — Career Mode\n${jogador.clube} · ${escapeHTML(LIGAS_BASE[jogador.ligaKey]?.nome || "Liga")} (Div. ${jogador.divisao}) · OVR ${jogador.overall} · ${jogador.pais}\nTemporada ${jogador.temporada} · ${jogador.jogos} jogos · ${jogador.gols} gols · ${jogador.assistencias} assistências\nMaior overall: ${jogador.maiorOverall} · Prêmios: ${jogador.premios.length} · Títulos: ${jogador.titulosCarreira}${jogador.clubeProximaTemporada?`\nPróximo clube: ${jogador.clubeProximaTemporada}`:""}`;
     return `
         <div class="card-dark"><div class="card-body">
             <span class="eyebrow" style="color:var(--gold-light)">RESUMO DE CARREIRA</span>
@@ -1726,7 +2039,7 @@ function viewCompartilhar(){
     `;
 }
 function copiarResumo(){
-    const texto = `⚽ ${jogador.nome} — Career Mode\n${jogador.clube} (Div. ${jogador.divisao}) · OVR ${jogador.overall} · ${jogador.pais}\nTemporada ${jogador.temporada} · ${jogador.jogos} jogos · ${jogador.gols} gols · ${jogador.assistencias} assistências\nMaior overall: ${jogador.maiorOverall} · Prêmios: ${jogador.premios.length}`;
+    const texto = `⚽ ${jogador.nome} — Career Mode\n${jogador.clube} · ${escapeHTML(LIGAS_BASE[jogador.ligaKey]?.nome || "Liga")} (Div. ${jogador.divisao}) · OVR ${jogador.overall} · ${jogador.pais}\nTemporada ${jogador.temporada} · ${jogador.jogos} jogos · ${jogador.gols} gols · ${jogador.assistencias} assistências\nMaior overall: ${jogador.maiorOverall} · Prêmios: ${jogador.premios.length} · Títulos: ${jogador.titulosCarreira}${jogador.clubeProximaTemporada?`\nPróximo clube: ${jogador.clubeProximaTemporada}`:""}`;
     if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(texto).then(()=>toast("Resumo copiado!")).catch(()=>alert(texto));
     } else { alert(texto); }
@@ -1737,17 +2050,22 @@ function copiarResumo(){
 ========================================================= */
 
 function calcularStatusEMinutos(){
-    const rivalOverall = forcaClube(jogador.clube) + rndInt(-5,8);
-    const moralBonus = (jogador.moral-50)/5;
-    const diff = jogador.overall - rivalOverall + moralBonus;
+    const pos=posicaoInfo(jogador.posicao);
+    const elenco=getElencoClube(jogador.clube);
+    const possiveis=posicoesCompativeis(pos.sigla);
+    const rivais=elenco.filter(p=>possiveis.some(x=>String(p.posicao).toUpperCase().split(",").map(v=>v.trim()).includes(x))).slice(0,8);
+    const melhorRival=rivais.length ? Math.max(...rivais.map(p=>p.overall)) : forcaClube(jogador.clube)+rndInt(-5,8);
+    const moralBonus=(jogador.moral-50)/5;
+    const poucaConcorrencia=rivais.length<=2 ? 4 : rivais.length<=4 ? 2 : 0;
+    const diff=jogador.overall-melhorRival+moralBonus+poucaConcorrencia;
     let status,min,max;
-    if(diff>=8){ status="Titular"; min=70; max=90; }
-    else if(diff>=2){ status="Titular ocasional"; min=55; max=75; }
-    else if(diff>=-5){ status="Rotação"; min=30; max=60; }
-    else if(diff>=-12){ status="Reserva"; min=10; max=30; }
-    else { status="Fora dos planos"; min=0; max=0; }
-    jogador.status = status;
-    return min===max ? 0 : rndInt(min,max);
+    if(diff>=7){status="Titular";min=72;max=90;}
+    else if(diff>=2){status="Titular ocasional";min=55;max=76;}
+    else if(diff>=-5){status="Rotação";min=30;max=60;}
+    else if(diff>=-12){status="Reserva";min=8;max=30;}
+    else {status="Fora dos planos";min=0;max=8;}
+    jogador.status=status;
+    return min===max ? min : rndInt(min,max);
 }
 function chanceLesao(){ return clamp(0.05 - atributoAtual("resistencia")/2200, 0.012, 0.07); }
 
@@ -1856,10 +2174,14 @@ function jogarRodada(){
             notaGK = clamp(notaGK,3,10);
 
             jogador.jogos++; jogador.somaNotas += notaGK;
+            jogador.jogosCarreira++; jogador.somaNotasCarreira += notaGK;
             jogador.defesas += defesasPartida; jogador.defesasDificeis += defesasDificeisPartida;
+            jogador.defesasCarreira += defesasPartida; jogador.defesasDificeisCarreira += defesasDificeisPartida;
             jogador.golsSofridos += golsSofridosPartida; jogador.penaltisDefendidos += penaltiDefendidoPartida;
-            if(golsSofridosPartida===0) jogador.jogosSemSofrerGol++;
+            jogador.golsSofridosCarreira += golsSofridosPartida; jogador.penaltisDefendidosCarreira += penaltiDefendidoPartida;
+            if(golsSofridosPartida===0){ jogador.jogosSemSofrerGol++; jogador.jogosSemSofrerGolCarreira++; }
             jogador.minutosTotais += minutos;
+            jogador.minutosCarreira += minutos;
             if(minutos>=60) jogador.titularidades++; else jogador.entradasBanco++;
             if(meusGols>golsSofridosPartida) jogador.vitorias++;
             else if(meusGols===golsSofridosPartida) jogador.empates++;
@@ -1891,7 +2213,9 @@ function jogarRodada(){
             nota = clamp(nota,3,10);
 
             jogador.jogos++; jogador.gols+=golsJogador; jogador.assistencias+=assistJogador; jogador.somaNotas+=nota;
-            jogador.minutosTotais += minutos;
+            jogador.jogosCarreira++; jogador.golsCarreira+=golsJogador; jogador.assistenciasCarreira+=assistJogador; jogador.somaNotasCarreira+=nota;
+            jogador.minutosTotais += minutos; jogador.minutosCarreira += minutos;
+            jogador.minutosCarreira += minutos;
             if(minutos>=60) jogador.titularidades++; else jogador.entradasBanco++;
             if(meusGols>golsAdv) jogador.vitorias++;
             else if(meusGols===golsAdv) jogador.empates++;
@@ -1912,11 +2236,8 @@ function jogarRodada(){
 
     jogador.rodada++;
     if(!meuJogo && jogador.lesaoRestante>0) jogador.lesaoRestante--;
-
-    if(!ofertaAtual && jogador.overall>=68 && Math.random()<chanceProposta()){
-        ofertaAtual = gerarPropostaTransferencia();
-        jogador.eventos.push({icone:"📩",titulo:"Proposta recebida",sub:`${ofertaAtual.clube} — ${moeda(ofertaAtual.valor)}`});
-    }
+    jogador.rodadasSemProposta = (jogador.rodadasSemProposta||0) + 1;
+    tentarGerarProposta();
 
     if(!jogador.selecaoConvocado && jogador.overall>=80 && Math.random()<0.08){
         jogador.selecaoConvocado = true;
@@ -1943,27 +2264,93 @@ function simularTemporadaRapido(){
 ========================================================= */
 
 function tierClube(overall){
-    if(overall>=88) return {min:78,max:99};
-    if(overall>=78) return {min:70,max:88};
-    if(overall>=68) return {min:60,max:80};
-    return {min:0,max:70};
+    if(overall>=90) return {min:72,max:99};
+    if(overall>=82) return {min:68,max:92};
+    if(overall>=75) return {min:62,max:86};
+    if(overall>=68) return {min:55,max:80};
+    return {min:45,max:72};
 }
+function todosClubes(){ return todosClubesMundo(); }
 function chanceProposta(){
-    let base = jogador.divisao==="A" ? 0.035 : 0.02;
-    base += Math.max(0,(jogador.forma||0))/400;
-    base += Math.max(0,(jogador.moral-70))/1000;
-    base += (jogador.empresario.nivel-1)*0.008;
-    return clamp(base,0.005,0.09);
+    let base = jogador.divisao==="A" ? 0.075 : 0.06;
+    base += Math.max(0,(jogador.forma||0))/180;
+    base += Math.max(0,(jogador.moral-60))/900;
+    base += (jogador.empresario.nivel-1)*0.012;
+    base += Math.min(jogador.rodadasSemProposta||0,12)*0.008;
+    if(jogador.empresario.clubeContato && jogador.rodada <= jogador.empresario.contatoAteRodada) base *= 1.8;
+    return clamp(base,0.04,0.34);
 }
-function gerarPropostaTransferencia(){
+function tierClube(overall){
+    if(overall>=90) return {min:75,max:99};
+    if(overall>=82) return {min:68,max:96};
+    if(overall>=75) return {min:60,max:88};
+    if(overall>=68) return {min:52,max:80};
+    return {min:45,max:72};
+}
+function gerarPropostaTransferencia(preferidoNome=null){
     const tier = tierClube(jogador.overall);
-    let candidatos = divisoes[jogador.divisao].filter(c=>c.nome!==jogador.clube && c.forca>=tier.min && c.forca<=tier.max);
-    if(!candidatos.length) candidatos = divisoes[jogador.divisao].filter(c=>c.nome!==jogador.clube);
-    const alvo = candidatos[rndInt(0,candidatos.length-1)];
-    const multiplicadorDesempenho = 1 + Math.max(0,(jogador.forma||0))/50 + Math.max(0,(jogador.moral-60))/200;
-    const multiplicadorEmpresario = 1 + (jogador.empresario.nivel-1)*0.15;
-    const valor = Math.round(jogador.valorMercado * rnd(0.85,1.5) * multiplicadorDesempenho * multiplicadorEmpresario);
-    return { clube: alvo.nome, valor };
+    const candidatos = todosClubes().filter(c=>{
+        if(c.nome===jogador.clube) return false;
+        if(c.forca<tier.min || c.forca>tier.max) return false;
+        if(c.nome===preferidoNome) return true;
+        return true;
+    });
+    if(!candidatos.length) return null;
+    let alvo = null;
+    if(preferidoNome){
+        const preferido = candidatos.find(c=>c.nome===preferidoNome);
+        if(preferido) alvo = preferido;
+    }
+    if(!alvo){
+        const proximos = candidatos.filter(c=>Math.abs(c.forca-jogador.overall)<=18);
+        const pool = proximos.length ? proximos : candidatos;
+        alvo = pool[rndInt(0,pool.length-1)];
+    }
+    const multiplicadorDesempenho = 1 + Math.max(0,(jogador.forma||0))/35 + Math.max(0,(jogador.moral-60))/180;
+    const multiplicadorEmpresario = 1 + (jogador.empresario.nivel-1)*0.18;
+    const valor = Math.round(jogador.valorMercado * rnd(0.9,1.55) * multiplicadorDesempenho * multiplicadorEmpresario);
+    return { clube: alvo.nome, divisao: alvo.divisao, ligaKey: alvo.ligaKey, liga: alvo.liga, valor };
+}
+function tentarGerarProposta(){
+    if(ofertaAtual || jogador.overall<55) return false;
+    const contatoAtivo = jogador.empresario.clubeContato && jogador.rodada <= jogador.empresario.contatoAteRodada;
+    const forcar = (jogador.rodadasSemProposta||0) >= 12 && jogador.overall>=62;
+    if(!contatoAtivo && !forcar && Math.random()>=chanceProposta()) return false;
+    ofertaAtual = gerarPropostaTransferencia(contatoAtivo ? jogador.empresario.clubeContato : null);
+    if(!ofertaAtual) return false;
+    jogador.rodadasSemProposta = 0;
+    jogador.eventos.push({icone:"📩",titulo:"Proposta recebida",sub:`${ofertaAtual.clube} quer contratar você.`});
+    toast(`📩 ${ofertaAtual.clube} mandou proposta!`);
+    return true;
+}
+function ligarParaClube(){
+    if(jogador.empresario.ligacaoUsadaTemporada){ toast("Seu empresário já fez uma ligação nesta temporada."); return; }
+    const select = document.getElementById("clubeContatoSelect");
+    const nomeClube = select ? select.value : "";
+    const clube = todosClubes().find(c=>c.nome===nomeClube);
+    if(!clube){ toast("Escolha um clube."); return; }
+    if(clube.nome===jogador.clube){ toast("Seu empresário não precisa ligar para o seu próprio clube."); return; }
+    const custo = 8000 + jogador.empresario.nivel*7000;
+    if(jogador.dinheiro<custo){ toast("Dinheiro insuficiente para essa abordagem."); return; }
+    jogador.dinheiro -= custo;
+    jogador.empresario.ligacaoUsadaTemporada = true;
+    jogador.empresario.clubeContato = clube.nome;
+    jogador.empresario.contatoAteRodada = jogador.rodada + 8;
+    const compat = jogador.overall - clube.forca;
+    const chanceResposta = clamp(0.28 + jogador.empresario.nivel*0.14 + compat*0.012,0.18,0.86);
+    jogador.eventos.push({icone:"📞",titulo:"Empresário entrou em contato",sub:`Ligou para ${clube.nome}. A chance de interesse aumentou pelas próximas 8 rodadas.`});
+    if(!ofertaAtual && Math.random()<chanceResposta){
+        ofertaAtual = gerarPropostaTransferencia(clube.nome);
+        if(ofertaAtual){
+            jogador.rodadasSemProposta = 0;
+            jogador.eventos.push({icone:"🤝",titulo:"Clube demonstrou interesse",sub:`${clube.nome} respondeu ao contato do empresário.`});
+            toast(`🤝 ${clube.nome} demonstrou interesse!`);
+        }
+    } else {
+        toast(`📞 ${clube.nome} foi contatado!`);
+    }
+    salvarAutomaticamente();
+    mostrarHub();
 }
 
 /* =========================================================
@@ -2014,7 +2401,23 @@ function podiumHTML(lista,unidade){
    15) FIM DE TEMPORADA
 ========================================================= */
 
+function evoluirAutomaticamente(){
+    const antes = jogador.overall;
+    let subiu=0;
+    CONFIG.atributosChave.forEach(k=>{
+        const a=jogador.atributos[k];
+        if(!a) return;
+        const novo=clamp(a.atual+5,20,a.potencial);
+        if(novo>a.atual) subiu += novo-a.atual;
+        a.atual=novo;
+    });
+    jogador.overall=calcularOverall(jogador);
+    return {antes,depois:jogador.overall,total:subiu};
+}
+
 function finalizarTemporada(){
+    if(jogador.temporadaFinalizada===jogador.temporada) return;
+    jogador.temporadaFinalizada=jogador.temporada;
     const media = jogador.jogos ? jogador.somaNotas/jogador.jogos : 0;
     const ordemFinal = tabelaOrdenada();
     const posicaoFinal = ordemFinal.findIndex(t=>t.clube===jogador.clube)+1;
@@ -2022,25 +2425,33 @@ function finalizarTemporada(){
     const patrocinio = Math.round(jogador.overall*8000 + media*4000);
     jogador.dinheiro += patrocinio;
 
-    const faixa = faixaEtaria(jogador.idade);
-    const pontosGanhos = 3 + (faixa==="evolucaoForte" ? 1 : 0);
-    jogador.pontosTreino += pontosGanhos;
+    const evolucao = evoluirAutomaticamente();
+    const declinioAplicado = aplicarDeclinioIdade();
 
     const { candidatosChuteira, candidatosBola } = calcularPremiosTemporada(media, posicaoFinal);
     const premiosTemporada = [];
     if(candidatosChuteira[0].euMesmo){ premiosTemporada.push("Chuteira de Ouro"); jogador.premios.push({temporada:jogador.temporada,titulo:"Chuteira de Ouro"}); }
     if(candidatosBola[0].euMesmo){ premiosTemporada.push("Bola de Ouro"); jogador.premios.push({temporada:jogador.temporada,titulo:"Bola de Ouro"}); }
 
-    const declinioAplicado = aplicarDeclinioIdade();
+    // título da liga
+    let textoTitulo = "";
+    if(posicaoFinal===1){
+        jogador.titulosCarreira++;
+        jogador.titulosLiga++;
+        textoTitulo = `🏆 ${jogador.clube} foi campeão da Divisão ${jogador.divisao}!`;
+        jogador.eventos.push({icone:"🏆",titulo:"Título de liga",sub:`${jogador.clube} terminou a temporada em 1º lugar.`});
+    }
 
-    // acesso / rebaixamento
+    // acesso / rebaixamento: os 3 primeiros da B sobem, os 3 últimos da A descem
     let textoAcesso = "";
+    const divisaoFinalTemporada = jogador.divisao;
     if(jogador.divisao==="B"){
         const top3 = ordemFinal.slice(0,3).map(t=>t.clube);
         const promovidos = divisoes.B.filter(c=>top3.includes(c.nome));
+        const bottom3A = tabelaSimuladaDivisao("A").slice(-3).map(t=>t.clube);
+        const rebaixados = divisoes.A.filter(c=>bottom3A.includes(c.nome));
         divisoes.B = divisoes.B.filter(c=>!top3.includes(c.nome));
-        const rebaixados = embaralhar(divisoes.A).slice(0,3);
-        divisoes.A = divisoes.A.filter(c=>!rebaixados.includes(c));
+        divisoes.A = divisoes.A.filter(c=>!bottom3A.includes(c.nome));
         divisoes.A.push(...promovidos);
         divisoes.B.push(...rebaixados);
         if(top3.includes(jogador.clube)){
@@ -2054,8 +2465,9 @@ function finalizarTemporada(){
         const n = ordemFinal.length;
         const bottom3 = ordemFinal.slice(n-3).map(t=>t.clube);
         const rebaixados = divisoes.A.filter(c=>bottom3.includes(c.nome));
+        const tabelaB = tabelaSimuladaDivisao("B");
+        const promovidos = divisoes.B.filter(c=>tabelaB.slice(0,3).some(t=>t.clube===c.nome));
         divisoes.A = divisoes.A.filter(c=>!bottom3.includes(c.nome));
-        const promovidos = embaralhar(divisoes.B).slice(0,3);
         divisoes.B = divisoes.B.filter(c=>!promovidos.includes(c));
         divisoes.B.push(...rebaixados);
         divisoes.A.push(...promovidos);
@@ -2071,7 +2483,8 @@ function finalizarTemporada(){
     jogador.historicoTemporadas.push({
         temporada:jogador.temporada, overallFinal:jogador.overall, jogos:jogador.jogos,
         gols:jogador.gols, assistencias:jogador.assistencias, media:Number(media.toFixed(2)),
-        premios:premiosTemporada, posicaoFinal, divisao:jogador.divisao
+        premios:premiosTemporada, posicaoFinal, divisao:divisaoFinalTemporada,
+        tituloLiga: posicaoFinal===1
     });
     jogador.eventos.push({icone:"📅",titulo:`Fim da temporada ${jogador.temporada}`,sub:`${jogador.gols} gols, nota média ${media.toFixed(2)}`});
 
@@ -2080,6 +2493,7 @@ function finalizarTemporada(){
             <span class="eyebrow" style="color:var(--gold-light)">📋 RESUMO DA TEMPORADA ${jogador.temporada}</span>
             <h2 style="font-size:28px;margin-top:10px;">${jogador.clube} terminou em ${posicaoFinal}º lugar</h2>
             <p class="muted" style="color:#CFE0D2;">${textoAcesso}</p>
+            ${textoTitulo?`<div class="notice gold">${textoTitulo}</div>`:""}
             <div class="spacer"></div>
             <div class="stat-grid">
                 <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.gols}</div><div class="stat-lbl" style="color:#BFD1C2;">GOLS</div></div>
@@ -2099,7 +2513,7 @@ function finalizarTemporada(){
             ${premiosTemporada.length ? `<div class="notice gold">🎉 Você faturou: ${premiosTemporada.join(" · ")}</div>` : `<div class="notice">Você não venceu nenhum prêmio individual nesta temporada.</div>`}
             ${declinioAplicado ? `<div class="spacer"></div><div class="notice brick">⚠️ A idade começou a cobrar seu preço fisicamente.</div>` : ""}
             <div class="spacer"></div>
-            <div class="notice" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);">🎯 Você ganhou <b>${pontosGanhos} ponto(s) de evolução</b> pra investir nos atributos (respeitando o potencial).</div>
+            <div class="notice" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);">📈 Evolução automática: <b>+5 em cada atributo</b> (limitado pelo potencial). O overall foi de <b>${evolucao.antes}</b> para <b>${evolucao.depois}</b>.</div>
             <div class="spacer"></div>
             <button class="btn" onclick="proximaTemporada()">Iniciar temporada ${jogador.temporada+1} →</button>
         </div></div>
@@ -2116,12 +2530,28 @@ function proximaTemporada(){
         return;
     }
     jogador.temporada++;
+    const mudouLiga = !!jogador.ligaProximaTemporada && jogador.ligaProximaTemporada!==jogador.ligaKey;
+    if(jogador.clubeProximaTemporada){
+        const antigo = jogador.clube;
+        jogador.clube = jogador.clubeProximaTemporada;
+        jogador.divisao = jogador.divisaoProximaTemporada || "B";
+        jogador.ligaKey = jogador.ligaProximaTemporada || jogador.ligaKey;
+        jogador.eventos.push({icone:"✈️",titulo:"Novo clube",sub:`${antigo} → ${jogador.clube}. Você começa a nova temporada no ${LIGAS_BASE[jogador.ligaKey]?.nome||"novo campeonato"}.`});
+        jogador.clubeProximaTemporada = null;
+        jogador.divisaoProximaTemporada = null;
+        jogador.ligaProximaTemporada = null;
+    }
     jogador.rodada = 0;
     jogador.jogos=0; jogador.gols=0; jogador.assistencias=0; jogador.somaNotas=0;
     jogador.vitorias=0; jogador.empates=0; jogador.derrotas=0;
     jogador.minutosTotais=0; jogador.titularidades=0; jogador.entradasBanco=0;
     jogador.defesas=0; jogador.defesasDificeis=0; jogador.golsSofridos=0; jogador.jogosSemSofrerGol=0; jogador.penaltisDefendidos=0;
+    jogador.rodadasSemProposta = 0;
+    jogador.empresario.ligacaoUsadaTemporada = false;
+    jogador.empresario.clubeContato = null;
+    jogador.empresario.contatoAteRodada = 0;
     jogador.maiorOverall = Math.max(jogador.maiorOverall,jogador.overall);
+    if(mudouLiga) iniciarDivisoes(jogador.ligaKey);
     novaTemporadaDivisao();
     ultimoResultado = null;
     salvarAutomaticamente();
@@ -2139,18 +2569,37 @@ function aposentarJogador(){
     mostrarAposentadoria();
 }
 function mostrarAposentadoria(){
-    const media = jogador.jogos ? (jogador.somaNotas/jogador.jogos).toFixed(2) : "—";
-    app().innerHTML = `
+    const jogos = jogador.jogosCarreira || 0;
+    const gols = jogador.golsCarreira || 0;
+    const assist = jogador.assistenciasCarreira || 0;
+    const media = jogos ? ((jogador.somaNotasCarreira||0)/jogos).toFixed(2) : "—";
+    const temporadas = jogador.historicoTemporadas.length;
+    return `
         <div class="card-dark"><div class="card-body center">
             <span class="eyebrow" style="color:var(--gold-light)">🏁 CARREIRA ENCERRADA</span>
             <h2 style="font-size:32px;margin-top:10px;">${escapeHTML(jogador.nome)}</h2>
-            <p class="muted" style="color:#CFE0D2;">${jogador.temporada} temporada(s) · Maior overall: ${jogador.maiorOverall} · Aposentado aos ${jogador.idade} anos</p>
+            <p class="muted" style="color:#CFE0D2;">${temporadas} temporada(s) · Maior overall: ${jogador.maiorOverall} · Aposentado aos ${jogador.idade} anos</p>
             <div class="spacer"></div>
             <div class="stat-grid">
-                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.gols}</div><div class="stat-lbl" style="color:#BFD1C2;">GOLS NA CARREIRA</div></div>
-                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.assistencias}</div><div class="stat-lbl" style="color:#BFD1C2;">ASSISTÊNCIAS</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogos}</div><div class="stat-lbl" style="color:#BFD1C2;">JOGOS NA CARREIRA</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${gols}</div><div class="stat-lbl" style="color:#BFD1C2;">GOLS NA CARREIRA</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${assist}</div><div class="stat-lbl" style="color:#BFD1C2;">ASSISTÊNCIAS</div></div>
                 <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${media}</div><div class="stat-lbl" style="color:#BFD1C2;">NOTA MÉDIA</div></div>
-                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.premios.length}</div><div class="stat-lbl" style="color:#BFD1C2;">PRÊMIOS</div></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="stat-grid">
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.titulosCarreira||0}</div><div class="stat-lbl" style="color:#BFD1C2;">TÍTULOS</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.titulosLiga||0}</div><div class="stat-lbl" style="color:#BFD1C2;">TÍTULOS DE LIGA</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.premios.length}</div><div class="stat-lbl" style="color:#BFD1C2;">PRÊMIOS INDIVIDUAIS</div></div>
+                <div class="stat-box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);"><div class="stat-num" style="color:var(--gold-light)">${jogador.minutosCarreira||0}</div><div class="stat-lbl" style="color:#BFD1C2;">MINUTOS</div></div>
+            </div>
+            <div class="spacer"></div>
+            <div class="notice gold"><b>🏆 Títulos:</b> ${jogador.titulosCarreira||0} · <b>🥇 Liga:</b> ${jogador.titulosLiga||0} · <b>🏅 Prêmios:</b> ${jogador.premios.length}</div>
+            <div class="spacer"></div>
+            <h3 style="font-size:17px;color:var(--gold-light);">Histórico por temporada</h3>
+            <div class="spacer"></div>
+            <div class="stack" style="text-align:left;">
+                ${jogador.historicoTemporadas.length ? jogador.historicoTemporadas.map(t=>`<div class="train-row"><div><b>T${t.temporada}</b> · ${escapeHTML(t.divisao)}</div><div class="small">${t.jogos} J · ${t.gols} G · ${t.assistencias} A · Nota ${t.media}${t.tituloLiga?' · 🏆':''}</div></div>`).join("") : `<div class="notice">Sem temporadas registradas.</div>`}
             </div>
             <div class="spacer"></div>
             <button class="btn" onclick="apagarSaveEIniciar()">🚀 Começar nova carreira</button>
@@ -2171,7 +2620,7 @@ function salvarAutomaticamente(){
     if(!jogador || !jogador.id) return;
     try{
         const lista = listarCarreirasSalvas();
-        lista[jogador.id] = { jogador, divisoes, calendario, tabela, abaHub, atualizadoEm: Date.now() };
+        lista[jogador.id] = { jogador, divisoes, calendario, tabela, abaHub, ofertaAtual, atualizadoEm: Date.now() };
         localStorage.setItem(CONFIG.chaveListaSaves, JSON.stringify(lista));
     }catch(e){ console.error("Erro ao salvar:",e); }
 }
@@ -2184,7 +2633,23 @@ function normalizarJogadorCarregado(){
     if(!Array.isArray(jogador.transferencias)) jogador.transferencias=[];
     if(!Array.isArray(jogador.historicoTemporadas)) jogador.historicoTemporadas=[];
     if(!Array.isArray(jogador.rankingRivais)) jogador.rankingRivais=[];
-    if(!jogador.empresario) jogador.empresario = { nome:EMPRESARIOS_NOMES[rndInt(0,EMPRESARIOS_NOMES.length-1)], nivel:1, usouNegociacaoTemporada:false };
+    if(!jogador.empresario) jogador.empresario = { nome:EMPRESARIOS_NOMES[rndInt(0,EMPRESARIOS_NOMES.length-1)], nivel:1, usouNegociacaoTemporada:false, ligacaoUsadaTemporada:false, clubeContato:null, contatoAteRodada:0 };
+    if(jogador.empresario.ligacaoUsadaTemporada===undefined) jogador.empresario.ligacaoUsadaTemporada=false;
+    if(jogador.empresario.clubeContato===undefined) jogador.empresario.clubeContato=null;
+    if(jogador.empresario.contatoAteRodada===undefined) jogador.empresario.contatoAteRodada=0;
+    if(jogador.rodadasSemProposta===undefined) jogador.rodadasSemProposta=0;
+    if(jogador.clubeProximaTemporada===undefined) jogador.clubeProximaTemporada=null;
+    if(jogador.divisaoProximaTemporada===undefined) jogador.divisaoProximaTemporada=null;
+    if(jogador.ligaKey===undefined || !LIGAS_BASE[jogador.ligaKey]) jogador.ligaKey=jogador.pais && LIGAS_BASE[jogador.pais] ? jogador.pais : "Brasil";
+    if(jogador.ligaProximaTemporada===undefined) jogador.ligaProximaTemporada=null;
+    jogador.jogosCarreira ??= jogador.historicoTemporadas.reduce((a,t)=>a+(t.jogos||0),0) + (jogador.jogos||0);
+    jogador.golsCarreira ??= jogador.historicoTemporadas.reduce((a,t)=>a+(t.gols||0),0) + (jogador.gols||0);
+    jogador.assistenciasCarreira ??= jogador.historicoTemporadas.reduce((a,t)=>a+(t.assistencias||0),0) + (jogador.assistencias||0);
+    jogador.somaNotasCarreira ??= jogador.historicoTemporadas.reduce((a,t)=>a+((t.jogos||0)*(t.media||0)),0) + (jogador.somaNotas||0);
+    jogador.minutosCarreira ??= 0;
+    jogador.defesasCarreira ??= 0; jogador.defesasDificeisCarreira ??= 0; jogador.golsSofridosCarreira ??= 0; jogador.jogosSemSofrerGolCarreira ??= 0; jogador.penaltisDefendidosCarreira ??= 0;
+    jogador.titulosCarreira ??= 0; jogador.titulosLiga ??= 0;
+    jogador.temporadaFinalizada ??= 0;
     if(jogador.condicionamento===undefined) jogador.condicionamento = 80;
     if(jogador.defesas===undefined){
         jogador.defesas=0; jogador.defesasDificeis=0; jogador.golsSofridos=0;
@@ -2203,6 +2668,7 @@ function carregarCarreira(id){
         calendario = dados.calendario || [];
         tabela = dados.tabela || [];
         abaHub = dados.abaHub || "visao";
+        ofertaAtual = dados.ofertaAtual || null;
         clubes = divisoes[jogador.divisao] || [];
         normalizarJogadorCarregado();
         if(jogador.aposentado) return mostrarAposentadoria();
@@ -2235,6 +2701,7 @@ function migrarSaveAntigoSeNecessario(){
             calendario: dados.calendario || [],
             tabela: dados.tabela || [],
             abaHub: dados.abaHub || "visao",
+            ofertaAtual: dados.ofertaAtual || null,
             atualizadoEm: Date.now()
         };
         localStorage.setItem(CONFIG.chaveListaSaves, JSON.stringify(lista));
@@ -2247,6 +2714,7 @@ function migrarSaveAntigoSeNecessario(){
 ========================================================= */
 
 mostrarInicio();
+carregarBancoElencos();
 
 </script>
 </body>
