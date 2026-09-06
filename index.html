@@ -377,6 +377,14 @@ button:disabled{
    ATRIBUTOS
 ========================================================= */
 
+.attrs-layout{
+    display:grid;
+    grid-template-columns:
+        minmax(0,1.4fr)
+        minmax(280px,1fr);
+    gap:16px;
+}
+
 .attribute-list{
     display:grid;
     gap:10px;
@@ -987,6 +995,10 @@ th{
 
     .stats-grid{
         grid-template-columns:repeat(2,1fr);
+    }
+
+    .attrs-layout{
+        grid-template-columns:1fr;
     }
 
 }
